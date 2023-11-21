@@ -1,0 +1,34 @@
+:root {
+  --background-color-grey: #e8e8e2;
+  --background-color-white: #fafafa;
+  --primary-brand-color: #6d8434;
+  --primary-brand-color-accent: #586f1f;
+  --black-color: #010101;
+  --grey-text-color030: rgba(1, 1, 1, 0.3);
+  --grey-text-color050: rgba(1, 1, 1, 0.5);
+  --grey-text-color070: rgba(1, 1, 1, 0.7);
+  --grey-text-color080: rgba(1, 1, 1, 0.8);
+  --text-color-grey: #e8e8e2;
+}
+body {
+  font-family: 'Neue Montreal', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.33; /* 133.33% */
+  color: var(--black-color);
+  background-color: var(--background-color-grey);
+}
+input {
+  color: var(--black-color);
+  font-family: inherit;
+  font-size: 18px;
+  line-height: 1.33; /* 133.33% */
+  border: 1px solid rgba(1, 1, 1, 0.3);
+}
+button {
+  font-family: 'Neue Montreal', sans-serif;
+  font-size: 16px;
+  background-color: var(--background-color-grey);
+  color: var(--black-color);
+}
