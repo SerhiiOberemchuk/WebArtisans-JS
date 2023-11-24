@@ -5,6 +5,10 @@ footer {
     color: var(--text-color-grey);
 }
 
+.all-rights-reserved {
+    margin-bottom: 8px;
+}
+
 .brand-and-socials {
  margin-bottom: 40px;
 }
@@ -105,8 +109,12 @@ background-color: rgba(232, 232, 226, 0.2);
    border-radius: 30px;
 }
 
+.footer-email-input:hover, .footer-email-input:focus {
+   outline: none;
+}
+
 .footer-email-input::placeholder {
-    padding-left: 18px;
+
     font-size: 14px;
         font-weight: 400;
         line-height: 128.571%;
@@ -144,9 +152,13 @@ background-color: rgba(232, 232, 226, 0.2);
 
 @media screen and (min-width: 768px){
 
+    .all-rights-reserved {
+        margin-bottom: none;
+    }
+
 .footer-flex-container0 {
     display: flex;
-   
+    justify-content: space-between;
 }
 
 .footer-flex-container1 {
@@ -171,6 +183,7 @@ background-color: rgba(232, 232, 226, 0.2);
 
 
 .brand-link {
+    width: 197px;
     font-size: 24px;
         font-weight: 900;
         line-height: 100%;
