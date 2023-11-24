@@ -6,7 +6,7 @@
   height: 100%;
 }
 
-.modalWindow {
+.modal_window {
   display: flex;
   flex-direction: column;
   width: 335px;
@@ -23,7 +23,7 @@
   padding: 40px 20px;
 }
 
-.closeBtn {
+.close_button {
   background: none;
   border: none;
   position: absolute;
@@ -41,19 +41,19 @@
     border 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.itemImage {
+.item_image {
   width: 295px;
   height: 212px;
   border-radius: 10px;
 }
 
-.itemName {
+.item_name {
   margin-top: 20px;
   font-size: 18px;
   font-weight: 500;
 }
 
-.productParams {
+.product_params {
   margin-top: 10px;
   display: flex;
   flex-direction: row;
@@ -61,7 +61,7 @@
   font-size: 12px;
 }
 
-.itemParams {
+.item_params {
   font-size: 12px;
   color: rgba(1, 1, 1, 0.3);
   display: flex;
@@ -69,25 +69,27 @@
   flex-wrap: wrap;
 }
 
-.paramsType {
+.params_type {
   font-size: 12px;
   font-weight: 400;
   color: var(--black-color);
 }
 
-.itemDescription {
-  margin-top: 20px;
+.item_description {
   font-size: 14px;
 }
+.description {
+  margin-top: 20px;
+}
 
-.itemPrice {
+.item_price {
   position: absolute;
   font-size: 18px;
   font-weight: 500;
   top: 475px;
 }
 
-.addBtn {
+.add_button {
   position: absolute;
   height: 42px;
   width: 116px;
@@ -97,23 +99,46 @@
 }
 
 @media screen and (min-width: 768px) {
-  .modalWindow {
-    padding: 40px 40px;
+  .modal_window {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
+    position: absolute;
+    padding: 40px 40px;
     width: 600px;
     height: 380px;
   }
+  .item_description {
+    position: absolute;
+    margin-right: 40px;
+    top: 40px;
+    left: 304px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
 
-  .itemImage {
+  .item_image {
     width: 240px;
     height: 212px;
     border-radius: 10px;
   }
 
-  .itemName {
-    margin: 0 0 0 24px;
+  .item_name {
+    margin: 0;
     font-size: 18px;
+  }
+  .item_price {
+    position: absolute;
+    font-size: 20px;
+    top: 320px;
+  }
+
+  .add_button {
+    top: 300px;
+    right: 40px;
+  }
+  .description {
+    margin-top: 24px;
+    font-size: 16px;
   }
 }
