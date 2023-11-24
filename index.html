@@ -11,7 +11,7 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/2.0.0/modern-normalize.min.css" />
   
   <script type="module" crossorigin src="/WebArtisans-JS/commonHelpers2.js"></script>
-  <link rel="stylesheet" href="/WebArtisans-JS/assets/styles-72706c25.css">
+  <link rel="stylesheet" href="/WebArtisans-JS/assets/styles-e431a0f9.css">
 </head>
 
 <body>
@@ -24,16 +24,73 @@
         <p class="hero_text">With Food Boutique, you're not just subscribing to food, you're signing up for a fresher,
             fitter, and happier
             you.</p>
-        <picture class="hero-picture">
-            <source class="hero_img" srcset="/WebArtisans-JS/assets/desktop-hero-1x-min-4f82dc3d.png 1x, /WebArtisans-JS/assets/desktop-hero-2x-min-22819c10.png 2x" media="(min-width: 1440px)" />
-            <source class="hero_img" srcset="/WebArtisans-JS/assets/tablet-hero-1x-min-7ba3b8b5.png 1x, /WebArtisans-JS/assets/tablet-hero-2x-min-71a8ac12.png 2x" media="(min-width: 768px)" />
-            <source class="hero_img" srcset="/WebArtisans-JS/assets/mobile-hero-1x-min-b8e88fd2.png 1x, /WebArtisans-JS/assets/mobile-hero-2x-min-2eb56b84.png 2x" media="(max-width: 767px)" />
-            <img class="hero_img" src=" ./images/desktop-hero-1x-min.png"
-                alt="a man holds a box with vegetables in his hands" width="1240" />
-        </picture>
+        <div class="hero-picture-box">
+            <picture class="hero-picture">
+                <source class="hero_img" srcset="/WebArtisans-JS/assets/desktop-hero-1x-min-4f82dc3d.png 1x, /WebArtisans-JS/assets/desktop-hero-2x-min-22819c10.png 2x" media="(min-width: 1440px)" />
+                <source class="hero_img" srcset="/WebArtisans-JS/assets/tablet-hero-1x-min-7ba3b8b5.png 1x, /WebArtisans-JS/assets/tablet-hero-2x-min-71a8ac12.png 2x" media="(min-width: 768px)" />
+                <source class="hero_img" srcset="/WebArtisans-JS/assets/mobile-hero-1x-min-b8e88fd2.png 1x, /WebArtisans-JS/assets/mobile-hero-2x-min-2eb56b84.png 2x" media="(max-width: 767px)" />
+                <img class="hero_img" src=" ./images/desktop-hero-1x-min.png"
+                    alt="a man holds a box with vegetables in his hands" width="1240" />
+            </picture>
+            <!-- <div class="hero-organic-label">
+               
+                <svg width="24" height="24" class="hero-organic-icon">
+                    <use href="../images/icons.svg#icon-leaf"></use>
+                </svg>
+                <p class="hero-label-text">organic food organic food</p>
+
+            </div> -->
+        </div>
     </div>
 </section>
-  
+  <section class="filter_section">
+    <div class="container">
+        <h2 class="filter_title">Filter:</h2>
+        <form class="filter_form">
+            <div class="filter_field">
+                <label for="filter-text"></label>
+                <div class="search-filter">
+                    <input class="search-input input_name" type="text" name="text" id="filter-text"
+                        placeholder="Search for anything" required />
+
+                    <button class="filter_button" type="submit" aria-label="submit">
+                        <svg width="20" height="20" class="icon-filter">
+                            <use href="../images/icons.svg#icon-loupe"></use>
+                        </svg></button>
+                    <!-- <div class="filter_icon_position">
+                    </div> -->
+                </div>
+            </div>
+            <div class="filter_field">
+                <!-- <label for="categories"></label> -->
+                <select class="search-input select_categories select-filter" name="categories" id="categories"
+                    aria-label="categories">
+                    <option value="" disabled selected hidden>Categories</option>
+                    <option value="category1">Category 1</option>
+                    <option value="category2">Category 2</option>
+                </select>
+                <div class="filter_icon_position">
+                    <svg width="20" height="20" class="icon-filter">
+                        <use href="../images/icons.svg#icon-chevron-down"></use>
+                    </svg>
+                </div>
+            </div>
+            <div class="filter_field">
+                <!-- <label for="sort"></label> -->
+                <select class="search-input select_search select-filter" name="sort" id="sort" aria-label="sort">
+                    <option value="" disabled selected hidden>A to Z</option>
+                    <option value="asc">Ascending</option>
+                    <option value="desc">Descending</option>
+                </select>
+                <div class="filter_icon_position">
+                    <svg width="20" height="20" class="icon-filter">
+                        <use href="../images/icons.svg#icon-chevron-down"></use>
+                    </svg>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
   
   <footer>
   <div class="container">
