@@ -9,6 +9,7 @@
   --grey-text-color070: rgba(1, 1, 1, 0.7);
   --grey-text-color080: rgba(1, 1, 1, 0.8);
   --text-color-grey: #e8e8e2;
+  --chevron-color-grey: #a3a3a3;
 }
 body {
   font-family: 'Neue Montreal', sans-serif;
