@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="shortcut icon" type="image/png" href="favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Welcome to the Food Boutique!" />
+    <title>Food Boutique</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/2.0.0/modern-normalize.min.css"
+    />
+    
+    <script type="module" crossorigin src="/WebArtisans-JS/commonHelpers2.js"></script>
+    <link rel="stylesheet" href="/WebArtisans-JS/assets/styles-25eadc4b.css">
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <link rel="shortcut icon" type="image/png" href="favicon.png" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Welcome to the Food Boutique!">
-  <title>Food Boutique</title>
-  <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/2.0.0/modern-normalize.min.css" />
-  
-  <script type="module" crossorigin src="/WebArtisans-JS/commonHelpers2.js"></script>
-  <link rel="stylesheet" href="/WebArtisans-JS/assets/styles-cba8f71e.css">
-</head>
 
 <body>
   <header class="header">
@@ -678,7 +680,52 @@
   </div>
 </footer>
 
-  
+  <div class="backdrop">
+  <div class="container modal_window">
+    <button class="close_button" type="button" aria-label="Close">
+      <svg class="close-btn-icon" width="24" height="24">
+        <use href="/WebArtisans-JS/assets/icons-a04ca271.svg#icon-close"></use>
+      </svg>
+    </button>
+    <img
+      src="https://ftp.goit.study/img/so-yummy/ingredients/640c2dd963a319ea671e365f.png"
+      alt=""
+      class="item_image"
+    />
+    <div class="item_description">
+      <h2 class="item_name">Pumpkin</h2>
+      <ul class="product_params">
+        <li class="item_params">
+          <p>Category: <span class="params_type">Fresh product</span></p>
+        </li>
+        <li class="item_params">
+          <p>Size:<span class="params_type">1 Medium-sized</span></p>
+        </li>
+        <li class="item_params">
+          <p>Popularity:<span class="params_type">0</span></p>
+        </li>
+      </ul>
+      <p class="description">
+        A round, orange vegetable with a thick shell and seeds inside. It is
+        often used in cooking and baking for its sweet and earthy flavor.
+      </p>
+    </div>
+    <p class="item_price">2.99$</p>
+    <button class="added_button" type="submit" aria-label="Item added to cart">
+      Added to
+      <svg width="18" height="18" class="icon-cart">
+        <use href="/WebArtisans-JS/assets/icons-a04ca271.svg#icon-basket"></use>
+      </svg>
+    </button>
+    <button class="add_button" type="submit" aria-label="Add item to cart">
+      Add to
+      <svg width="18" height="18" class="icon-cart">
+        <use href="/WebArtisans-JS/assets/icons-a04ca271.svg#icon-basket"></use>
+      </svg>
+    </button>
+  </div>
+</div>
+
 
 
   
@@ -696,3 +743,4 @@
 </body>
 
 </html>
+
