@@ -11,6 +11,7 @@ N O T   F O U N D
 .not-found-wrapper {
   margin: 60px auto 100px; /*100px 0 180px*/
   text-align: center;
+  display: none;
 }
 /*  + padding-top: 40px from .products
     + margin-top: 80px from .secondary-wrapper  */
@@ -436,8 +437,8 @@ N O T   F O U N D
     line-height: 1.2;
   }
 
-  .popular-item-btn {
-  }
+  /* .popular-item-btn {
+  } */
 
   .discount-list {
     gap: 32px;

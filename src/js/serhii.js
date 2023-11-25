@@ -69,7 +69,7 @@ function renderMainCards(datas) {
 
   listOfMainProducts.innerHTML = murcap;
 }
-// renderMainCards(parsedSettings);
+renderMainCards(parsedSettings);
 
 const popularList = document.querySelector('.popular-list');
 function renderPopularProducts(datas) {
