@@ -1,0 +1,48 @@
+<section class="filter_section">
+    <div class="container">
+        <h2 class="filter_title">Filter:</h2>
+        <form class="filter_form">
+            <div class="filter_field">
+                <label for="filter-text"></label>
+                <div class="search-filter">
+                    <input class="search-input input_name" type="text" name="text" id="filter-text"
+                        placeholder="Search for anything" required />
+
+                    <button class="filter_button" type="submit" aria-label="submit">
+                        <svg width="20" height="20" class="icon-filter">
+                            <use href="./images/icons.svg#icon-loupe"></use>
+                        </svg></button>
+                    <!-- <div class="filter_icon_position">
+                    </div> -->
+                </div>
+            </div>
+            <div class="filter_field">
+                <!-- <label for="categories"></label> -->
+                <select class="search-input select_categories select-filter" name="categories" id="categories"
+                    aria-label="categories">
+                    <option value="" disabled selected hidden>Categories</option>
+                    <option value="category1">Category 1</option>
+                    <option value="category2">Category 2</option>
+                </select>
+                <div class="filter_icon_position">
+                    <svg width="20" height="20" class="icon-filter">
+                        <use href="./images/icons.svg#icon-chevron-down"></use>
+                    </svg>
+                </div>
+            </div>
+            <div class="filter_field">
+                <!-- <label for="sort"></label> -->
+                <select class="search-input select_search select-filter" name="sort" id="sort" aria-label="sort">
+                    <option value="" disabled selected hidden>A to Z</option>
+                    <option value="asc">Ascending</option>
+                    <option value="desc">Descending</option>
+                </select>
+                <div class="filter_icon_position">
+                    <svg width="20" height="20" class="icon-filter">
+                        <use href="./images/icons.svg#icon-chevron-down"></use>
+                    </svg>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
