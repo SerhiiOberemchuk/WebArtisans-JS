@@ -22,6 +22,30 @@
 .hero_container {
   text-align: center;
 }
+
+.hero-picture-box {
+  position: relative;
+}
+.hero-organic-label {
+  position: absolute;
+  right: 8px;
+  top: -7px;
+  background-color: #fdc152;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-label-text {
+  position: absolute;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.25; /* 125% */
+  text-align: center;
+}
+
 @media screen and (min-width: 768px) {
   .hero_title {
     font-size: 80px;
@@ -39,9 +63,17 @@
     margin-top: 40px;
     border-radius: 50px;
   }
+  .hero-organic-label {
+    right: 10px;
+    top: -30px;
+  }
 }
 @media screen and (min-width: 1440px) {
   .hero_title {
     max-width: 1042px;
+  }
+  .hero-organic-label {
+    right: 20px;
+    top: -50px;
   }
 }
