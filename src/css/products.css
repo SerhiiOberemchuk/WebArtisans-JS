@@ -2,11 +2,11 @@
   padding: 40px 0 80px;
   margin: 0 auto;
 }
-.basic-wrapper {
-  width: 100%;
-}
+
 /*
-        N O T   F O U N D
+
+N O T   F O U N D
+
   */
 .not-found-wrapper {
   margin: 60px auto 100px; /*100px 0 180px*/
@@ -36,10 +36,13 @@
 /* 
 
 
-            B A S I C
+      B A S I C
 
 
- */
+*/
+.basic-wrapper {
+  width: 100%;
+}
 .basic-list {
   width: 100%;
   display: flex;
@@ -130,6 +133,70 @@
 .basic-btn-icon {
   fill: var(--background-color-grey);
 }
+/* 
+
+
+            P A G E S
+
+
+ */
+.pages-wrapper {
+  padding: 40px 0 0;
+  display: flex;
+  justify-content: space-between;
+}
+.pages-btn-left,
+.pages-btn-right {
+  width: 40px;
+  height: 40px;
+  border-radius: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--background-color-white);
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.pages-btn-icon {
+  fill: var(--chevron-color-grey);
+  transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.pages-btn-left:hover,
+.pages-btn-left:focus,
+.pages-btn-right:hover,
+.pages-btn-right:focus {
+  background-color: var(--primary-brand-color);
+}
+.pages-btn-left:hover .pages-btn-icon,
+.pages-btn-left:focus .pages-btn-icon,
+.pages-btn-right:hover .pages-btn-icon,
+.pages-btn-right:focus .pages-btn-icon {
+  fill: var(--background-color-white);
+}
+
+.pages-list {
+  display: flex;
+  gap: 4px;
+}
+.pages-item {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 60px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.43; /* 142.857% */
+  color: var(--chevron-color-grey);
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pages-item:hover,
+.pages-item:focus {
+  color: var(--background-color-grey);
+  background-color: var(--primary-brand-color);
+}
+
 /* 
 
 
@@ -340,6 +407,13 @@
     gap: 9px;
   }
 
+  .pages-wrapper {
+    padding: 50px 116px 0;
+  }
+  .pages-list {
+    gap: 8px;
+  }
+
   .secondary-wrapper {
     margin-top: 100px;
   }
@@ -397,6 +471,7 @@
     gap: 70px;
   }
   .basic-wrapper {
+    position: relative;
     width: 925px;
   }
 
@@ -417,6 +492,14 @@
   .basic-info-wrapper {
     margin-bottom: 20px;
   }
+
+  .pages-wrapper {
+    width: 100%;
+    position: absolute;
+    bottom: -80px;
+    padding: 0 226px;
+  }
+
   .secondary-wrapper {
     margin-top: 0px;
   }
