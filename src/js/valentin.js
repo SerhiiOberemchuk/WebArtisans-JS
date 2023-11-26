@@ -6,27 +6,6 @@ const productList = document.querySelector('.basic-list');
 const popularList = document.querySelector('.popular-list');
 const discountList = document.querySelector('.discount-list');
 
-let pageOfRender = 1;
-let limitPage = 9;
-let totalPages = 60;
-
-// async function mainResponse() {
-//   try {
-//     const response = await axios.get(
-//       `https://food-boutique.b.goit.study/api/products?page=${pageOfRender}&limit=${limitPage}`
-//     );
-
-//     // Записати дані в локальне сховище
-//     localStorage.setItem(
-//       'mainResponseData',
-//       JSON.stringify(response.data.results)
-//     );
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
-// mainResponse();
-
 async function responseById(id) {
   try {
     const response = await axios.get(
@@ -39,7 +18,6 @@ async function responseById(id) {
     //   JSON.stringify(response.data.results)
     // );
     return response.data;
-    console.log(response.data);
   } catch (error) {
     console.error(error);
     throw error;
