@@ -53,6 +53,10 @@
   width: 295px;
   height: 212px;
   border-radius: 10px;
+  background-color: var(--background-color-grey);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .item_name {
@@ -88,6 +92,8 @@
 }
 .description {
   margin-top: 20px;
+  max-height: 75px;
+  overflow-x: auto;
 }
 
 .item_price {
@@ -253,5 +259,6 @@
   .description {
     margin-top: 24px;
     font-size: 16px;
+    max-height: 130px;
   }
 }
