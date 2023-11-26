@@ -199,10 +199,8 @@ function renderDiscountProducts(datas) {
   const murcap = datas
     .map(
       item => `<li class="discount-item" id="${item._id}">
-            <div class="discount-label">
-              <svg width="14" height="14">
-                <use href="./images/icons.svg#icon-leaf"></use>
-              </svg>
+            <div class="discount-label"> 
+            <img src="./images/discount.jpg" alt="discount label" class="discount-img">             
             </div>
             <div class="discount-image-wrapper">
               <img src="${item.img}" alt="${item.name}" />
