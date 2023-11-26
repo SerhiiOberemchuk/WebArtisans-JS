@@ -79,7 +79,7 @@ async function mainResponse() {
 }
 mainResponse();
 console.log(totalPages);
-// --------------------------------------------------DISCOUNT
+// --------------------------------------------------DISCOUNT RESPONSE
 async function responseDiscount() {
   try {
     const response = await axios.get(
