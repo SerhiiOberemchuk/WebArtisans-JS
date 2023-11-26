@@ -38,6 +38,28 @@
   align-items: center;
   justify-content: center;
 }
+.icon-box-organic {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.hero-organic-icon {
+  position: absolute;
+  top: 50%;
+  /* right: 50%; */
+  /* transform: translateX(-50%); */
+  /* transform: translateY(-50%); */
+}
+.hero-organic-icon-text {
+  position: absolute;
+  top: 5px;
+  right: 50%;
+  /* transform: translateY(-50%); */
+  transform: translateX(50%);
+}
+.organic-img {
+  border-radius: 50%;
+}
 .hero-label-text {
   position: absolute;
   font-size: 16px;
