@@ -38,7 +38,7 @@ async function handleItemClick(event) {
   const productId = clickedProduct.id;
   try {
     const selectedProduct = await responseById(productId);
-    console.log(selectedProduct);
+    // console.log(selectedProduct);
 
     if (selectedProduct) {
       renderModalData(selectedProduct);
@@ -77,7 +77,7 @@ function renderModalData(product) {
       </ul>
       <p class="description">${product.desc}</p>
     </div>
-    <p class="item_price">${product.price}</p>
+    <p class="item_price">$${product.price}</p>
     <button class="added_button" type="submit" aria-label="Item added to cart">
       Added to
       <svg width="18" height="18" class="icon-cart">
@@ -113,4 +113,32 @@ function closeModal() {
   modal.style.display = 'none';
   modal.removeEventListener('click', closeOnOutsideClick);
   document.removeEventListener('keydown', closeOnEsc);
+}
+
+productList.addEventListener('click', handleButtonClick);
+
+async function handleButtonClick(event) {
+  const clickedProduct =
+    event.target.closest('.basic-item') ||
+    event.target.closest('.popular-item') ||
+    event.target.closest('.discount-item');
+  if (!clickedProduct) return;
+
+  const productId = clickedProduct.id;
+  console.log(productId);
+  const addButton = clickedProduct.querySelector('.basic-btn');
+  addButton.addEventListener('click', function () {
+    addToCart(productId);
+  });
+  console.log(addButton);
+}
+
+function addToCart(product) {
+  const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+
+  cartItems.push(product);
+
+  let localCart = localStorage.setItem('cart', JSON.stringify(cartItems));
+  console.log(localCart);
+  console.log('product added to cart', product);
 }
