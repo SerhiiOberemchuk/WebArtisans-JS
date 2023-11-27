@@ -6,6 +6,8 @@ const productList = document.querySelector('.basic-list');
 const popularList = document.querySelector('.popular-list');
 const discountList = document.querySelector('.discount-list');
 
+let isProductAdded = false;
+
 async function responseById(id) {
   try {
     const response = await axios.get(
@@ -59,7 +61,7 @@ async function onclickAddOne(event) {
         console.log(cartItems);
 
         const addButton = clickedProduct.querySelector(
-          '.basic-btn, .popular-item-btn,'
+          '.basic-btn, .popular-item-btn'
         );
         addButton.disabled = true;
         addButton.removeEventListener('click', onclickAddOne);
@@ -121,15 +123,24 @@ async function handleItemClick(event) {
         modal.addEventListener('click', closeOnOutsideClick);
         document.addEventListener('keydown', closeOnEsc);
 
-        const modalAddButton = document.querySelector(
-          `#${productId}.add_button`
+        const modalAddButton = document.querySelector('.add_button');
+        modalAddButton.addEventListener('click', () =>
+          addToBasket(selectedProduct)
         );
-        modalAddButton.addEventListener('click', onclickAddOne);
-        console.log(modalAddButton, productId);
-
-        const closeModalButton = document.querySelector('.close_button');
-        closeModalButton.addEventListener('click', closeModal);
       }
+
+      function addToBasket(product) {
+        const basketItems = JSON.parse(localStorage.getItem('BASKET')) || [];
+
+        basketItems.push(product);
+
+        localStorage.setItem('BASKET', JSON.stringify(basketItems));
+
+        console.log('Товар додано до кошика!');
+      }
+
+      const closeModalButton = document.querySelector('.close_button');
+      closeModalButton.addEventListener('click', closeModal);
     } catch (error) {
       console.log(error);
     }
