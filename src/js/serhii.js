@@ -46,7 +46,7 @@ function onClickLeft(event) {
   pageOfRender--;
   // console.log(pageOfRender);
   // mainResponse();
-  getBasicProducts();
+  // getBasicProducts();
 }
 function onClickRight(event) {
   if (pageOfRender >= totalPages) {
@@ -55,7 +55,7 @@ function onClickRight(event) {
   pageOfRender++;
   // console.log(pageOfRender);
   // mainResponse();
-  getBasicProducts();
+  // getBasicProducts();
 }
 function onClickNumber(event) {
   pageOfRender = Number(event.target.textContent);
@@ -64,7 +64,7 @@ function onClickNumber(event) {
   }
   // console.log(pageOfRender);
   // mainResponse();
-  getBasicProducts();
+  // getBasicProducts();
 }
 //----------------------------------------------- MAIN RESPONSE
 

@@ -29,49 +29,49 @@ const refs = {
 // ===============================================================================================================
 
 //     ЧЕРЕЗ ЦЕЙ КУСОК КОДУ НИЖЧЕ - СПРАЦЬОВУЄ ДВІЧІ       \\\\\\\\\\\\\\\\\\
-const form = document.querySelector('.filter_form');
+// const form = document.querySelector('.filter_form');
 
-// form.addEventListener('input', throttle(inputHandler, 500));
-form.addEventListener('input', inputHandler);
-form.addEventListener('submit', submitHandler);
-form.addEventListener('change', selectHandler);
+// // form.addEventListener('input', throttle(inputHandler, 500));
+// form.addEventListener('input', inputHandler);
+// form.addEventListener('submit', submitHandler);
+// form.addEventListener('change', selectHandler);
 
-function inputHandler(e) {
-  // e.preventDefault();
-  if (e.target.name === 'text') {
-    const modifOptions = JSON.parse(
-      localStorage.getItem(storageKeys.axiosOptions)
-    );
-    modifOptions.keyword = e.target.value;
-    localStorage.setItem(
-      storageKeys.axiosOptions,
-      JSON.stringify(modifOptions)
-    );
-    // console.log('input without fetch');
-  }
-}
+// function inputHandler(e) {
+//   // e.preventDefault();
+//   if (e.target.name === 'text') {
+//     const modifOptions = JSON.parse(
+//       localStorage.getItem(storageKeys.axiosOptions)
+//     );
+//     modifOptions.keyword = e.target.value;
+//     localStorage.setItem(
+//       storageKeys.axiosOptions,
+//       JSON.stringify(modifOptions)
+//     );
+//     // console.log('input without fetch');
+//   }
+// }
 
-function submitHandler(e) {
-  // e.preventDefault();
-  // getBasicProducts();
-  // console.log('submit');
-}
+// function submitHandler(e) {
+//   // e.preventDefault();
+//   // getBasicProducts();
+//   // console.log('submit');
+// }
 
-function selectHandler(e) {
-  e.preventDefault();
-  if (e.target.name === 'categories') {
-    const modifOptions = JSON.parse(
-      localStorage.getItem(storageKeys.axiosOptions)
-    );
-    modifOptions.category = e.target.value;
-    localStorage.setItem(
-      storageKeys.axiosOptions,
-      JSON.stringify(modifOptions)
-    );
-    // console.log('change');
-    // getBasicProducts();
-  }
-}
+// function selectHandler(e) {
+//   e.preventDefault();
+//   if (e.target.name === 'categories') {
+//     const modifOptions = JSON.parse(
+//       localStorage.getItem(storageKeys.axiosOptions)
+//     );
+//     modifOptions.category = e.target.value;
+//     localStorage.setItem(
+//       storageKeys.axiosOptions,
+//       JSON.stringify(modifOptions)
+//     );
+//     // console.log('change');
+//     // getBasicProducts();
+//   }
+// }
 
 // ===============================================================================================================
 
