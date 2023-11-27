@@ -63,14 +63,16 @@ const cartTitleNumberHead = document.querySelector('.quantity-in-cart-header');
 const totalAmount = document.querySelector('.cart-sum-span');
 
 let parsedCart = JSON.parse(localStorage.getItem(`${nameBAScet}`));
-console.log(parsedCart);
+// console.log(parsedCart);
 
 function renderMainCards(datas) {
   const totalScore = parsedCart.reduce((total, item) => {
     return total + item.price;
   }, 0);
   const formattedTotal = totalScore.toFixed(2);
-  totalAmount.textContent = `$${formattedTotal}`;
+  const totalPrice = `$${formattedTotal}`;
+  totalAmount.textContent = totalPrice.toString();
+  // console.log(totalAmount.textContent);
   const murcap = datas
     .map(
       item =>
