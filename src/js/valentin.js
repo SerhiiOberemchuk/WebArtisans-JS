@@ -27,6 +27,65 @@ async function responseById(id) {
 productList.addEventListener('click', handleItemClick);
 popularList.addEventListener('click', handleItemClick);
 discountList.addEventListener('click', handleItemClick);
+productList.addEventListener('click', onclickAddOne);
+popularList.addEventListener('click', onclickAddOne);
+discountList.addEventListener('click', onclickAddOne);
+
+async function onclickAddOne(event) {
+  if (!event.target.closest('.basic-btn')) {
+    return;
+  }
+  const clickedProduct =
+    event.target.closest('.basic-item') ||
+    event.target.closest('.popular-item') ||
+    event.target.closest('.discount-item');
+  if (!clickedProduct) return;
+  const productId = clickedProduct.id;
+  console.log(productId);
+
+  try {
+    const product = await getProductById(productId);
+
+    if (product) {
+      const cartItems = JSON.parse(localStorage.getItem('BASKET')) || [];
+
+      cartItems.push(product);
+
+      localStorage.setItem('BASKET', JSON.stringify(cartItems));
+      console.log('product added to basket', product);
+      console.log(cartItems);
+    } else {
+      console.error('Unable to find product with ID', productId);
+    }
+  } catch (error) {
+    console.error('Error fetching product by ID', error);
+  }
+}
+async function getProductById(productId) {
+  try {
+    const productData = await responseById(productId);
+
+    if (productData) {
+      const product = {
+        _id: productData._id,
+        name: productData.name,
+        category: productData.category,
+        size: productData.size,
+        img: productData.img,
+        price: productData.price,
+        is10PercentOff: productData.is10PercentOff,
+      };
+
+      return product;
+    } else {
+      console.error('Unable to find product with ID', productId);
+      return null;
+    }
+  } catch (error) {
+    console.error('Error fetching product by ID', error);
+    throw error;
+  }
+}
 
 async function handleItemClick(event) {
   const clickedProduct =
@@ -35,23 +94,26 @@ async function handleItemClick(event) {
     event.target.closest('.discount-item');
   if (!clickedProduct) return;
 
-  const productId = clickedProduct.id;
-  try {
-    const selectedProduct = await responseById(productId);
-    // console.log(selectedProduct);
+  const isButtonClicked = event.target.closest('button');
+  if (!isButtonClicked) {
+    const productId = clickedProduct.id;
+    try {
+      const selectedProduct = await responseById(productId);
+      // console.log(selectedProduct);
 
-    if (selectedProduct) {
-      renderModalData(selectedProduct);
+      if (selectedProduct) {
+        renderModalData(selectedProduct);
 
-      modal.style.display = 'block';
-      modal.addEventListener('click', closeOnOutsideClick);
-      document.addEventListener('keydown', closeOnEsc);
+        modal.style.display = 'block';
+        modal.addEventListener('click', closeOnOutsideClick);
+        document.addEventListener('keydown', closeOnEsc);
 
-      const closeModalButton = document.querySelector('.close_button');
-      closeModalButton.addEventListener('click', closeModal);
+        const closeModalButton = document.querySelector('.close_button');
+        closeModalButton.addEventListener('click', closeModal);
+      }
+    } catch (error) {
+      console.log(error);
     }
-  } catch (error) {
-    console.log(error);
   }
 }
 function renderModalData(product) {
@@ -113,32 +175,4 @@ function closeModal() {
   modal.style.display = 'none';
   modal.removeEventListener('click', closeOnOutsideClick);
   document.removeEventListener('keydown', closeOnEsc);
-}
-
-productList.addEventListener('click', handleButtonClick);
-
-async function handleButtonClick(event) {
-  const clickedProduct =
-    event.target.closest('.basic-item') ||
-    event.target.closest('.popular-item') ||
-    event.target.closest('.discount-item');
-  if (!clickedProduct) return;
-
-  const productId = clickedProduct.id;
-  console.log(productId);
-  const addButton = clickedProduct.querySelector('.basic-btn');
-  addButton.addEventListener('click', function () {
-    addToCart(productId);
-  });
-  console.log(addButton);
-}
-
-function addToCart(product) {
-  const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
-
-  cartItems.push(product);
-
-  let localCart = localStorage.setItem('cart', JSON.stringify(cartItems));
-  console.log(localCart);
-  console.log('product added to cart', product);
 }
