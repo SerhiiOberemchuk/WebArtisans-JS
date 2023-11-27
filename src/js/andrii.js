@@ -55,21 +55,27 @@ function writeLocalStorage() {
 }
 writeLocalStorage();
 
-// const savedSettings = ;
-
 const cartList = document.querySelector('.scrol-list');
-
+const nameBAScet = 'BASKET';
 //-------------------------------------------------------RENDER CART LIST------------------------------------------------------
 const cartTitleNumber = document.querySelector('.quantity-in-cart');
 const cartTitleNumberHead = document.querySelector('.quantity-in-cart-header');
-// console.dir(cartTitleNumber.textContent);
+const totalAmount = document.querySelector('.cart-sum-span');
+
+let parsedCart = JSON.parse(localStorage.getItem(`${nameBAScet}`));
+console.log(parsedCart);
 
 function renderMainCards(datas) {
+  const totalScore = parsedCart.reduce((total, item) => {
+    return total + item.price;
+  }, 0);
+  const formattedTotal = totalScore.toFixed(2);
+  totalAmount.textContent = `$${formattedTotal}`;
   const murcap = datas
     .map(
       item =>
         `<li class="scroll-item">
-              <button class="scroll-top-button" aria-label="1" id="${item._id}">
+              <button class="scroll-top-button" type="button" aria-label="1" id="${item._id}">
                 <svg class="scroll-top-icon" width="18" height="18">
                   <use href="./images/icons.svg#icon-close"></use>
                 </svg>
@@ -97,10 +103,7 @@ function renderMainCards(datas) {
   cartTitleNumberHead.textContent = datas.length;
 }
 
-// let parsedCart = ;
-// console.log(parsedCart);
-
-renderMainCards(JSON.parse(localStorage.getItem('BASKET')));
+renderMainCards(JSON.parse(localStorage.getItem(`${nameBAScet}`)));
 
 //----------------------------------------------------- FUNCTION CLEAR ALL----------------------------------------------------
 
@@ -122,35 +125,20 @@ function onclickClearOll(event) {
 
 //---------------------------------------------------FUNCTION CLEAR ONE------------------------------------------------
 
-let parsedCart = JSON.parse(localStorage.getItem('BASKET'));
-
-// let buttonDellOneItem = document.querySelectorAll('.scroll-top-button');
-
-// buttonDellOneItem.forEach(button => {
-//   button.addEventListener('click', onclickClearOne);
-// });
-function initListeners() {
-  let buttonDellOneItem = document.querySelectorAll('.scroll-top-button');
-  buttonDellOneItem.forEach(button => {
-    button.addEventListener('click', onclickClearOne);
-  });
-}
+cartList.addEventListener('click', onclickClearOne);
 
 function onclickClearOne(event) {
-  const idButton = event.currentTarget.id;
-  console.log(idButton);
-  dellItemLocalStorag(idButton);
-}
+  if (!event.target.classList.contains('scroll-top-button')) {
+    return;
+  }
 
-function dellItemLocalStorag(id) {
-  const indexToRemove = parsedCart.findIndex(item => item._id === id);
-
+  const idButton = event.target.id;
+  const indexToRemove = parsedCart.findIndex(item => item._id === idButton);
   if (indexToRemove !== -1) {
     parsedCart.splice(indexToRemove, 1);
     console.log(parsedCart);
     renderMainCards(parsedCart);
-    localStorage.setItem('BASKET', JSON.stringify(parsedCart));
-    initListeners();
+    localStorage.setItem(`${nameBAScet}`, JSON.stringify(parsedCart));
   }
   if (!parsedCart.length) {
     emptYellowCart.style.display = 'block';
@@ -158,4 +146,3 @@ function dellItemLocalStorag(id) {
     orderContainer.style.display = 'none';
   }
 }
-initListeners();
