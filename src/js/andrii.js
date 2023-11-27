@@ -71,7 +71,7 @@ function renderMainCards(datas) {
   }, 0);
   const formattedTotal = totalScore.toFixed(2);
   const totalPrice = `$${formattedTotal}`;
-  totalAmount.textContent = totalPrice.toString();
+  // totalAmount.textContent = totalPrice.toString();
   // console.log(totalAmount.textContent);
   const murcap = datas
     .map(
