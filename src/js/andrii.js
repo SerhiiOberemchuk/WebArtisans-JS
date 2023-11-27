@@ -70,7 +70,7 @@ function renderMainCards(datas) {
     return total + item.price;
   }, 0);
   const formattedTotal = totalScore.toFixed(2);
-  totalAmount.textContent = `5`;
+  totalAmount.textContent = `$${formattedTotal}`;
   // console.log(totalAmount.textContent);
   const murcap = datas
     .map(
