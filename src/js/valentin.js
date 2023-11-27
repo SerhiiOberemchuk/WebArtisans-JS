@@ -32,7 +32,7 @@ popularList.addEventListener('click', onclickAddOne);
 discountList.addEventListener('click', onclickAddOne);
 
 async function onclickAddOne(event) {
-  if (!event.target.closest('.basic-btn')) {
+  if (!event.target.closest('.basic-btn, .popular-item-btn')) {
     return;
   }
   const clickedProduct =
@@ -49,11 +49,23 @@ async function onclickAddOne(event) {
     if (product) {
       const cartItems = JSON.parse(localStorage.getItem('BASKET')) || [];
 
-      cartItems.push(product);
+      const isProductInCart = cartItems.some(item => item._id === product._id);
 
-      localStorage.setItem('BASKET', JSON.stringify(cartItems));
-      console.log('product added to basket', product);
-      console.log(cartItems);
+      if (!isProductInCart) {
+        cartItems.push(product);
+
+        localStorage.setItem('BASKET', JSON.stringify(cartItems));
+        console.log('product added to basket', product);
+        console.log(cartItems);
+
+        const addButton = clickedProduct.querySelector(
+          '.basic-btn, .popular-item-btn,'
+        );
+        addButton.disabled = true;
+        addButton.removeEventListener('click', onclickAddOne);
+      } else {
+        console.log('Product is already in the basket');
+      }
     } else {
       console.error('Unable to find product with ID', productId);
     }
@@ -61,6 +73,7 @@ async function onclickAddOne(event) {
     console.error('Error fetching product by ID', error);
   }
 }
+
 async function getProductById(productId) {
   try {
     const productData = await responseById(productId);
@@ -108,6 +121,12 @@ async function handleItemClick(event) {
         modal.addEventListener('click', closeOnOutsideClick);
         document.addEventListener('keydown', closeOnEsc);
 
+        const modalAddButton = document.querySelector(
+          `#${productId}.add_button`
+        );
+        modalAddButton.addEventListener('click', onclickAddOne);
+        console.log(modalAddButton, productId);
+
         const closeModalButton = document.querySelector('.close_button');
         closeModalButton.addEventListener('click', closeModal);
       }
@@ -116,6 +135,7 @@ async function handleItemClick(event) {
     }
   }
 }
+
 function renderModalData(product) {
   const markup = `<button class="close_button" type="button" aria-label="Close">
       <svg class="close-btn-icon" width="24" height="24">
