@@ -257,15 +257,35 @@ function renderNumberSlider(numberpages) {
         1,
         numToDel,
         '...',
-        pageOfRender - 1,
+
         pageOfRender,
-        pageOfRender + 1,
+
         '...'
       );
       const murcap = pagNum
         .map(item => `<li class="pages-item">${item}</li>`)
         .join('');
       numberOfPage.innerHTML = murcap;
+    }
+  }
+
+  //disabling buttons when on 1st and last page
+  if (pageOfRender === 1) {
+    pagesBtnLeft.setAttribute('disabled', 'true');
+  } else if (pageOfRender === numberpages) {
+    pagesBtnRight.setAttribute('disabled', 'true');
+  } else {
+    pagesBtnLeft.removeAttribute('disabled');
+    pagesBtnRight.removeAttribute('disabled');
+  }
+
+  console.log(numberOfPage.children);
+
+  for (let i = 0; i <= numberOfPage.clientHeight; i++) {
+    if (numberOfPage.children[i].textContent == pageOfRender) {
+      numberOfPage.children[i].classList.add('current-pages-item');
+    } else {
+      numberOfPage.children[i].classList.remove('current-pages-item');
     }
   }
   // console.log(pagNum);
