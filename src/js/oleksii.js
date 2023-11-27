@@ -28,7 +28,6 @@ const refs = {
 
 // ===============================================================================================================
 
-//     ЧЕРЕЗ ЦЕЙ КУСОК КОДУ НИЖЧЕ - СПРАЦЬОВУЄ ДВІЧІ       \\\\\\\\\\\\\\\\\\
 const form = document.querySelector('.filter_form');
 
 // form.addEventListener('input', throttle(inputHandler, 500));
