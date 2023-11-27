@@ -1,43 +1,148 @@
-// const cartItems = document.querySelectorAll('.scroll-item');
-// const deleteAllButton = document.querySelector('.cart-button');
-// const checkoutForm = document.querySelector('.cart-form');
-// const emailInput = document.getElementById('user-email');
+const cart = [
+  {
+    _id: '640c2dd963a319ea671e3814',
+    name: 'Almonds',
+    img: 'https://ftp.goit.study/img/so-yummy/ingredients/640c2dd963a319ea671e3814.png',
+    category: 'Pantry_Items',
+    price: 8.99,
+    size: '16 oz bag',
+    is10PercentOff: false,
+    popularity: 552,
+  },
+  {
+    _id: '640c2dd963a319ea671e35e',
+    name: 'Ancho Chillies',
+    img: 'https://ftp.goit.study/img/so-yummy/ingredients/640c2dd963a319ea671e385e.png',
+    category: 'Pantry_Items',
+    price: 4.99,
+    size: '100g',
+    is10PercentOff: false,
+    popularity: 632,
+  },
+  {
+    _id: '640c2dd963a31a671e385e',
+    name: 'Ancho Chillies',
+    img: 'https://ftp.goit.study/img/so-yummy/ingredients/640c2dd963a319ea671e385e.png',
+    category: 'Pantry_Items',
+    price: 4.99,
+    size: '100g',
+    is10PercentOff: false,
+    popularity: 632,
+  },
+  {
+    _id: '640c2963a319ea671e385',
+    name: 'Ancho Chillies',
+    img: 'https://ftp.goit.study/img/so-yummy/ingredients/640c2dd963a319ea671e385e.png',
+    category: 'Pantry_Items',
+    price: 4.99,
+    size: '100g',
+    is10PercentOff: false,
+    popularity: 632,
+  },
+  {
+    _id: '640c2dd963a319ea675e',
+    name: 'Ancho Chillies',
+    img: 'https://ftp.goit.study/img/so-yummy/ingredients/640c2dd963a319ea671e385e.png',
+    category: 'Pantry_Items',
+    price: 4.99,
+    size: '100g',
+    is10PercentOff: false,
+    popularity: 632,
+  },
+];
+function writeLocalStorage() {
+  localStorage.setItem('BASKET', JSON.stringify(cart));
+}
+writeLocalStorage();
 
-// // Функція для видалення одного продукту з кошика
-// function removeFromCart(itemId) {
-//   const itemToRemove = document.querySelector(`[aria-label="${itemId}"]`);
+const cartList = document.querySelector('.scrol-list');
+const nameBAScet = 'BASKET';
+//-------------------------------------------------------RENDER CART LIST------------------------------------------------------
+const cartTitleNumber = document.querySelector('.quantity-in-cart');
+const cartTitleNumberHead = document.querySelector('.quantity-in-cart-header');
+const totalAmount = document.querySelector('.cart-sum-span');
 
-//   itemToRemove.remove();
+let parsedCart = JSON.parse(localStorage.getItem(`${nameBAScet}`));
+console.log(parsedCart);
 
-//   const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+function renderMainCards(datas) {
+  const totalScore = parsedCart.reduce((total, item) => {
+    return total + item.price;
+  }, 0);
+  const formattedTotal = totalScore.toFixed(2);
+  totalAmount.textContent = `$${formattedTotal}`;
+  const murcap = datas
+    .map(
+      item =>
+        `<li class="scroll-item">
+              <button class="scroll-top-button" type="button" aria-label="1" id="${item._id}">
+                <svg class="scroll-top-icon" width="18" height="18">
+                  <use href="./images/icons.svg#icon-close"></use>
+                </svg>
+              </button>
+              <div class="image-container">
+                <img class="scroll-image" src="${item.img}" alt="${item.name}" width="64" height="64" />
+              </div>
+              <div class="text-container">
+                <h3 class="scroll-item-name">${item.name}</h3>
+                <div class="item-charact">
+                  <p class="scroll-item-category">
+                    Category:<span class="span-scroll-category">${item.category}</span>
+                  </p>
+                  <p class="scroll-item-size">
+                    Size:<span class="span-scroll-size">${item.size}</span>
+                  </p>
+                </div>
+                <p class="scroll-item-price">$${item.price}</p>
+              </div>
+            </li>`
+    )
+    .join('');
+  cartList.innerHTML = murcap;
+  cartTitleNumber.textContent = datas.length;
+  cartTitleNumberHead.textContent = datas.length;
+}
 
-//   const updatedCart = cartItems.filter(item => item.id !== itemId);
+renderMainCards(JSON.parse(localStorage.getItem(`${nameBAScet}`)));
 
-//   localStorage.setItem('cartItems', JSON.stringify(updatedCart));
-// }
+//----------------------------------------------------- FUNCTION CLEAR ALL----------------------------------------------------
 
-// // Обробник подій для видалення продукту з кошика при кліку на кнопці
-// cartItems.forEach(item => {
-//   const deleteButton = item.querySelector('.scroll-top-button');
-//   deleteButton.addEventListener('click', function (event) {
-//     const itemId = event.currentTarget.getAttribute('aria-label');
-//     removeFromCart(itemId);
-//   });
-// });
+const emptYellowCart = document.querySelector('.empty-yellow-cart');
+const scrollbarContainer = document.querySelector('.scrollbar-container');
+const orderContainer = document.querySelector('.order-container');
 
-// // Функція для видалення всього кошика
-// function deleteAllItems() {
-//   // Виконати логіку очищення кошика у DOM та localStorage
-// }
+const btnClearCartAll = document.querySelector('.cart-button');
+btnClearCartAll.addEventListener('click', onclickClearOll);
+function onclickClearOll(event) {
+  localStorage.clear();
+  cartList.innerHTML = '';
+  emptYellowCart.style.display = 'block';
+  scrollbarContainer.style.display = 'none';
+  orderContainer.style.display = 'none';
+  cartTitleNumber.textContent = 0;
+  cartTitleNumberHead.textContent = 0;
+}
 
-// // Обробник події для кнопки видалення всього кошика
-// deleteAllButton.addEventListener('click', function () {
-//   deleteAllItems();
-// });
+//---------------------------------------------------FUNCTION CLEAR ONE------------------------------------------------
 
-// // Обробник події для оформлення замовлення (валідація та відправка форми)
-// checkoutForm.addEventListener('submit', function (event) {
-//   event.preventDefault();
-//   const userEmail = emailInput.value;
-//   // Виконати логіку валідації email і відправки замовлення
-// });
+cartList.addEventListener('click', onclickClearOne);
+
+function onclickClearOne(event) {
+  if (!event.target.classList.contains('scroll-top-button')) {
+    return;
+  }
+
+  const idButton = event.target.id;
+  const indexToRemove = parsedCart.findIndex(item => item._id === idButton);
+  if (indexToRemove !== -1) {
+    parsedCart.splice(indexToRemove, 1);
+    console.log(parsedCart);
+    renderMainCards(parsedCart);
+    localStorage.setItem(`${nameBAScet}`, JSON.stringify(parsedCart));
+  }
+  if (!parsedCart.length) {
+    emptYellowCart.style.display = 'block';
+    scrollbarContainer.style.display = 'none';
+    orderContainer.style.display = 'none';
+  }
+}
