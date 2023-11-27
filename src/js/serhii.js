@@ -281,7 +281,7 @@ function renderNumberSlider(numberpages) {
 
   console.log(numberOfPage.children);
 
-  for (let i = 0; i <= numberOfPage.clientHeight; i++) {
+  for (let i = 0; i < numberOfPage.children.length; i++) {
     if (numberOfPage.children[i].textContent == pageOfRender) {
       numberOfPage.children[i].classList.add('current-pages-item');
     } else {
