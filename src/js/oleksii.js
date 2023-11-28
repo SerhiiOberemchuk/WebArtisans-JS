@@ -20,6 +20,7 @@ const storageKeys = {
   axiosOptions: 'axiosOptions',
 };
 const refs = {
+  form: document.querySelector('.filter_form'),
   basicList: document.querySelector('.basic-list'),
   popularList: document.querySelector('.popular-list'),
   discountList: document.querySelector('.discount-list'),
@@ -36,13 +37,62 @@ getDiscountProducts();
 
 // ===============================================================================================================
 
+// form.addEventListener('input', throttle(inputHandler, 500));
+refs.form.addEventListener('input', inputHandler);
+refs.form.addEventListener('submit', submitHandler);
+refs.form.addEventListener('change', selectsHandler);
+
+function inputHandler(e) {
+  e.preventDefault();
+  if (e.target.name !== 'text') return;
+  const modifOptions = JSON.parse(
+    localStorage.getItem(storageKeys.axiosOptions)
+  );
+  modifOptions.keyword = e.target.value;
+  localStorage.setItem(storageKeys.axiosOptions, JSON.stringify(modifOptions));
+}
+
+function submitHandler(e) {
+  e.preventDefault();
+  getBasicProducts();
+}
+
+function selectsHandler(e) {
+  e.preventDefault();
+  const modifOptions = JSON.parse(
+    localStorage.getItem(storageKeys.axiosOptions)
+  );
+  if (e.target.name === 'categories') {
+    modifOptions.category = e.target.value;
+  }
+  if (e.target.name === 'sort') {
+    resetFilter(modifOptions);
+    const equalSignPosition = e.target.value.indexOf('=');
+    const key = e.target.value.slice(0, equalSignPosition);
+    modifOptions[key] = e.target.value.slice(
+      equalSignPosition + 1,
+      e.target.value.length
+    );
+  }
+  localStorage.setItem(storageKeys.axiosOptions, JSON.stringify(modifOptions));
+  getBasicProducts();
+}
+
+function resetFilter(obj) {
+  obj.byABC = null;
+  obj.byPrice = null;
+  obj.byPopularity = null;
+}
+
+// ===============================================================================================================
+
 function setDefaultAxiosOptions() {
   localStorage.setItem(
     'axiosOptions',
     JSON.stringify({
       keyword: null,
       category: null,
-      byABC: null,
+      byABC: true,
       byPrice: null,
       byPopularity: null,
       page: 1,
