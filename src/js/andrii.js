@@ -55,7 +55,6 @@ function renderMainCards(datas) {
             </li>`
     )
     .join('');
-
   cartList.innerHTML = murcap;
   cartTitleNumber.textContent = datas.length;
   cartTitleNumberHead.textContent = datas.length;
