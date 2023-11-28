@@ -150,6 +150,9 @@ function renderMainCards(datas) {
                 <svg class="basic-btn-icon" width="18" height="18">
                   <use href="./images/icons.svg#icon-basket"></use>
                 </svg>
+                <svg class="checked-btn-icon" width="18" height="18">
+                  <use href="./images/icons.svg#icon-check"></use>
+                </svg>
               </button>
             </div>
           </li>`
@@ -177,6 +180,9 @@ function renderPopularProducts(datas) {
                   <svg class="popular-item-btn-icon" width="12" height="12">
                     <use href="./images/icons.svg#icon-basket"></use>
                   </svg>
+                  <svg class="checked-btn-icon" width="12" height="12">
+                  <use href="./images/icons.svg#icon-check"></use>
+                </svg>
                 </button>
               </div>
               <p class="popular-info">
@@ -211,6 +217,9 @@ function renderDiscountProducts(datas) {
               <button class="basic-btn" type="button" aria-label="icon-basket" id="${item._id}">
                 <svg class="basic-btn-icon" width="18" height="18">
                   <use href="./images/icons.svg#icon-basket"></use>
+                </svg>
+                <svg class="checked-btn-icon" width="18" height="18">
+                  <use href="./images/icons.svg#icon-check"></use>
                 </svg>
               </button>
             </div>

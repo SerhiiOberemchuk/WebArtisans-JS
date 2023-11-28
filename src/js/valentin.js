@@ -6,8 +6,6 @@ const productList = document.querySelector('.basic-list');
 const popularList = document.querySelector('.popular-list');
 const discountList = document.querySelector('.discount-list');
 
-let isProductAdded = false;
-
 async function responseById(id) {
   try {
     const response = await axios.get(
@@ -59,10 +57,17 @@ async function onclickAddOne(event) {
         localStorage.setItem('BASKET', JSON.stringify(cartItems));
         console.log('product added to basket', product);
         console.log(cartItems);
+        const cartImg = clickedProduct.querySelector(
+          '.basic-btn-icon, .popular-item-btn-icon'
+        );
 
+        const checkImg = clickedProduct.querySelector('.checked-btn-icon');
         const addButton = clickedProduct.querySelector(
           '.basic-btn, .popular-item-btn'
         );
+        cartImg.style.display = 'none';
+        checkImg.style.display = 'block';
+        addButton.style.backgroundColor = 'var(--primary-brand-color)';
         addButton.disabled = true;
         addButton.removeEventListener('click', onclickAddOne);
       } else {
@@ -122,21 +127,61 @@ async function handleItemClick(event) {
         modal.style.display = 'block';
         modal.addEventListener('click', closeOnOutsideClick);
         document.addEventListener('keydown', closeOnEsc);
-
+        const addedButton = document.querySelector('.added_button');
         const modalAddButton = document.querySelector('.add_button');
+
+        if (selectedProduct) {
+          const cartItems = JSON.parse(localStorage.getItem('BASKET')) || [];
+
+          const isProductInCart = cartItems.some(
+            item => item._id === selectedProduct._id
+          );
+          if (!isProductInCart) {
+            modalAddButton.style.display = 'block';
+            addedButton.style.display = 'none';
+          } else {
+            modalAddButton.style.display = 'none';
+            addedButton.style.display = 'block';
+          }
+        }
+
         modalAddButton.addEventListener('click', () =>
           addToBasket(selectedProduct)
         );
       }
 
-      function addToBasket(product) {
-        const basketItems = JSON.parse(localStorage.getItem('BASKET')) || [];
+      async function addToBasket(product) {
+        try {
+          const modalProduct = await getProductById(productId);
 
-        basketItems.push(product);
+          if (modalProduct) {
+            const cartItems = JSON.parse(localStorage.getItem('BASKET')) || [];
 
-        localStorage.setItem('BASKET', JSON.stringify(basketItems));
+            const isProductInCart = cartItems.some(
+              item => item._id === modalProduct._id
+            );
 
-        console.log('Товар додано до кошика!');
+            if (!isProductInCart) {
+              cartItems.push(product);
+
+              localStorage.setItem('BASKET', JSON.stringify(cartItems));
+              console.log('product added to basket', product);
+              console.log(cartItems);
+              const addedButton = document.querySelector('.added_button');
+              const addButton = document.querySelector('.add_button');
+              if (addButton) {
+                addButton.style.display = 'none';
+                addedButton.style.display = 'block';
+              }
+            } else {
+              console.log('Product is already in the basket');
+            }
+          } else {
+            console.error('Unable to find product with ID', productId);
+          }
+        } catch (error) {
+          console.error('Error fetching product by ID', error);
+        }
       }
 
       const closeModalButton = document.querySelector('.close_button');
