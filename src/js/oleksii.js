@@ -29,7 +29,15 @@ const refs = {
 
 // ===============================================================================================================
 
-setDefaultAxiosOptions();
+setAxiosOptions({
+  keyword: null,
+  category: null,
+  byABC: true,
+  byPrice: null,
+  byPopularity: null,
+  page: 1,
+  limit: getLimit(),
+});
 getCategories();
 getBasicProducts();
 getPopularProducts();
@@ -45,11 +53,9 @@ refs.form.addEventListener('change', selectsHandler);
 function inputHandler(e) {
   e.preventDefault();
   if (e.target.name !== 'text') return;
-  const modifOptions = JSON.parse(
-    localStorage.getItem(storageKeys.axiosOptions)
-  );
+  const modifOptions = getAxiosOptions();
   modifOptions.keyword = e.target.value;
-  localStorage.setItem(storageKeys.axiosOptions, JSON.stringify(modifOptions));
+  setAxiosOptions(modifOptions);
 }
 
 function submitHandler(e) {
@@ -59,11 +65,10 @@ function submitHandler(e) {
 
 function selectsHandler(e) {
   e.preventDefault();
-  const modifOptions = JSON.parse(
-    localStorage.getItem(storageKeys.axiosOptions)
-  );
+  if (e.target.name === 'text') return;
+  const modifOptions = getAxiosOptions();
   if (e.target.name === 'categories') {
-    modifOptions.category = e.target.value;
+    modifOptions.category = e.target.value === 'null' ? null : e.target.value;
   }
   if (e.target.name === 'sort') {
     resetFilter(modifOptions);
@@ -74,7 +79,7 @@ function selectsHandler(e) {
       e.target.value.length
     );
   }
-  localStorage.setItem(storageKeys.axiosOptions, JSON.stringify(modifOptions));
+  setAxiosOptions(modifOptions);
   getBasicProducts();
 }
 
@@ -85,21 +90,6 @@ function resetFilter(obj) {
 }
 
 // ===============================================================================================================
-
-function setDefaultAxiosOptions() {
-  localStorage.setItem(
-    'axiosOptions',
-    JSON.stringify({
-      keyword: null,
-      category: null,
-      byABC: true,
-      byPrice: null,
-      byPopularity: null,
-      page: 1,
-      limit: getLimit(),
-    })
-  );
-}
 
 function getLimit() {
   const wIw = window.innerWidth;
@@ -112,16 +102,12 @@ function getLimit() {
 
 async function getCategories() {
   try {
-    const response = await axios.get(endPoints.categories);
-    setCategories(response.data);
+    const resp = await axios.get(endPoints.categories);
+    localStorage.setItem(storageKeys.categories, JSON.stringify(resp.data));
     renderCategories();
   } catch (error) {
     console.log(error);
   }
-}
-
-function setCategories(data) {
-  localStorage.setItem(storageKeys.categories, JSON.stringify(data));
 }
 
 function renderCategories() {
@@ -141,12 +127,13 @@ async function getBasicProducts() {
     const resp = await axios.get(endPoints.basic, {
       params: getAxiosOptions(),
     });
-    currentPageNumber = resp.data.page;
-    totalPages = resp.data.totalPages;
     localStorage.setItem(storageKeys.basic, JSON.stringify(resp.data.results));
-    localStorage.setItem(storageKeys.totalPages, JSON.stringify(totalPages));
+    localStorage.setItem(
+      storageKeys.totalPages,
+      JSON.stringify(resp.data.totalPages)
+    );
     renderBasicProducts();
-    renderNumberSlider(totalPages);
+    renderNumberSlider(resp.data.totalPages, resp.data.page);
   } catch (error) {
     console.log(error);
   }
@@ -272,7 +259,16 @@ function renderDiscountProducts() {
 function getAxiosOptions() {
   return JSON.parse(localStorage.getItem(storageKeys.axiosOptions));
 }
+function setAxiosOptions(obj) {
+  localStorage.setItem(storageKeys.axiosOptions, JSON.stringify(obj));
+}
 
 //---------------------------------------------------------------------------------------------------------------------
 
-export { getBasicProducts, getLimit };
+export {
+  getBasicProducts,
+  getLimit,
+  getAxiosOptions,
+  setAxiosOptions,
+  storageKeys,
+};
