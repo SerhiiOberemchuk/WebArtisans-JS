@@ -36,7 +36,7 @@
   color: var(--grey-text-color070);
   font-size: 14px;
   line-height: 1.28; /* 128.571% */
-  margin:  auto;
+  margin: auto;
 }
 
 .cart-title {
@@ -317,7 +317,7 @@
     height: 18px;
   }
 
-  .empty-yellow-cart{
+  .empty-yellow-cart {
     margin-top: 130px;
   }
 
@@ -349,7 +349,6 @@
     min-height: 600px;
   }
 
-  
   .scroll-top-icon {
     width: 20px;
     height: 20px;
@@ -427,7 +426,7 @@
     justify-content: center;
   }
 
-  .empty-yellow-cart{
+  .empty-yellow-cart {
     margin-top: 155px;
   }
 
