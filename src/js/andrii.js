@@ -78,7 +78,7 @@ function renderMainCards(datas) {
         `<li class="scroll-item">
               <button class="scroll-top-button" type="button" aria-label="1" id="${item._id}">
                 <svg class="scroll-top-icon" width="18" height="18">
-                  <use href="./images/icons.svg#icon-close"></use>
+                  <use href="../images/icons.svg#icon-close"></use>
                 </svg>
               </button>
               <div class="image-container">
