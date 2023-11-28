@@ -78,10 +78,6 @@
   /* margin-bottom: 43px; */
   width: 0 auto;
 }
-/* .cart-button:hover{
-            border: 1px solid black;
-            border-radius: 10px;
-        } */
 
 .image-container img {
   object-fit: contain;
@@ -169,9 +165,6 @@
 .item-charact {
   display: flex;
   gap: 8px;
-}
-
-.scroll-item-price {
 }
 
 .scroll-item-name,
@@ -423,8 +416,7 @@
   .span-scroll-size {
     font-size: 14px;
   }
-  .scroll-item-price {
-  }
+
   .scroll-item {
     padding-bottom: 80px;
   }
@@ -462,8 +454,6 @@
     font-size: 32px;
     font-weight: 500;
     line-height: 32px;
-    /* 100% */
-    /* margin-top: 100px; */
   }
   .total-price {
     max-width: 590px;
