@@ -204,6 +204,11 @@ N O T   F O U N D
   background-color: var(--primary-brand-color);
 }
 
+.current-pages-item {
+color: var(--background-color-grey);
+  background-color: var(--primary-brand-color);
+}
+
 /* 
 
 
