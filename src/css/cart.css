@@ -165,13 +165,15 @@
   display: flex;
   flex-direction: column;
 }
+
 .item-charact {
   display: flex;
   gap: 8px;
 }
+
 .scroll-item-price {
-  padding-top: 36px;
 }
+
 .scroll-item-name,
 .scroll-item-price {
   font-size: 18px;
@@ -185,10 +187,9 @@
   color: rgba(1, 1, 1, 0.3);
   font-size: 12px;
   font-weight: 400;
-  line-height: 14px;
-
-  /* 116.667% */
+  line-height: 1.16; /* 116.667% */
 }
+
 .span-scroll-category,
 .span-scroll-size {
   color: var(--black-color);
@@ -196,6 +197,47 @@
   font-weight: 400;
   line-height: 14px; /* 116.667% */
 }
+
+.price-amount {
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+  padding-top: 36px;
+}
+
+.scroll-item-price {
+  margin-right: 68px;
+}
+
+.amount-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 14px;
+  border-radius: 100px;
+  border: 1px solid rgba(1, 1, 1, 0.1);
+  width: 74px;
+  height: 26px;
+}
+
+.plus-icon {
+  width: 14px;
+  height: 14px;
+  fill: var(--black-color);
+}
+
+.amount-number {
+  font-size: 16px;
+  line-height: 1.12; /* 112.5% */
+}
+
+.minus-icon {
+  width: 14px;
+  height: 14px;
+  fill: var(--black-color);
+}
+
 .your-order {
   padding-top: 80px;
   padding-bottom: 40px;
@@ -382,7 +424,6 @@
     font-size: 14px;
   }
   .scroll-item-price {
-    padding-top: 44px;
   }
   .scroll-item {
     padding-bottom: 80px;
@@ -390,6 +431,33 @@
   .scroll-item::after {
     transform: translateY(-40px);
   }
+
+  .scroll-item-price {
+    margin-right: 380px;
+  }
+
+  .amount-item {
+    padding: 5px 16px;
+    gap: 8px;
+    width: 96px;
+    height: 34px;
+  }
+
+  .plus-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .amount-number {
+    font-size: 20px;
+    line-height: 1.2;
+  }
+
+  .minus-icon {
+    width: 18px;
+    height: 18px;
+  }
+
   .your-order {
     font-size: 32px;
     font-weight: 500;
@@ -424,6 +492,10 @@
     align-items: center;
   }
 
+  .scroll-item-price {
+    margin-right: 240px;
+  }
+
   .cart-container {
     display: flex;
     flex-wrap: wrap;
@@ -443,28 +515,35 @@
   .order-container {
     width: calc(50% - 50px);
   }
+
   .total-price {
     margin-bottom: 30px;
   }
+
   .cart-forx-box {
     gap: 16px;
   }
+
   .total-cart-price {
     font-size: 20px;
     text-transform: none;
   }
+
   .cart-sum-span {
     font-size: 32px;
     line-height: 32px;
   }
+
   .cart-mail-input {
     font-size: 18px;
     line-height: 24px;
   }
+
   .sabs-input {
     font-size: 18px;
     line-height: 24px;
   }
+
   .scrollbar {
     max-height: 500px;
   }

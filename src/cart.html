@@ -74,6 +74,7 @@
         </div>
 
 
+
       <div class="scrollbar-container">
         <button class="cart-button" type="button">
           Delete All
@@ -103,25 +104,43 @@
                   <p class="scroll-item-size">
                     Size:<span class="span-scroll-size">Each</span>
                   </p>
+
                 </div>
-                <div class="price-amount">
-                  <p class="scroll-item-price">$1.99</p>
-                  <div class="amount-item">
-                    <button type="button" class="button-item-plus">+</button>
-                    <span class="amount-number">1</span>
-                    <button type="button" class="button-item-minus">-</button>
+                <div class="text-container">
+                  <h3 class="scroll-item-name">Avocado</h3>
+                  <div class="item-charact">
+                    <p class="scroll-item-category">
+                      Category:<span class="span-scroll-category"
+                        >Fresh Produce</span
+                      >
+                    </p>
+                    <p class="scroll-item-size">
+                      Size:<span class="span-scroll-size">Each</span>
+                    </p>
+                  </div>
+                  <div class="price-amount">
+                    <p class="scroll-item-price">$1.99</p>
+                    <div class="amount-item">
+                      <button type="button" class="button-item-plus">
+                        <svg class="plus-icon">
+                          <use href="./images/icons.svg#icon-plus"></use>
+                        </svg>
+                      </button>
+                      <span class="amount-number">1</span>
+                      <button type="button" class="button-item-minus">
+                        <svg class="minus-icon">
+                          <use href="./images/icons.svg#icon-minus"></use>
+                        </svg>
+                      </button>
+                    </div>
                   </div>
                 </div>
+
               </div>
             </li> -->
 
             </ul>
           </div>
-
-
-
-          
-
         </div>
         <div class="order-container">
           <h2 class="title_h2 your-order">Your order</h2>
@@ -141,12 +160,14 @@
                 placeholder=" Enter your E-mail"
                 class="sabs-input"
                 required=""
+
                 pattern="[A-Za-z0-9_.-]+@[A-Za-z0-9-]+\.[A-Za-z]{2,8}"
               />
             </form>
             <button class="cart-subbmit-btn" type="submit" id="checkoutBtn">
               Checkout
             </button>
+
           </div>
         </div>
       </div>
