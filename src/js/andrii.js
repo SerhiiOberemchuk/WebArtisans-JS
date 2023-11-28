@@ -1,3 +1,5 @@
+import imgUrl from '../images/icons.svg';
+
 const cartList = document.querySelector('.scrol-list');
 const nameBAScet = 'BASKET';
 
@@ -25,14 +27,14 @@ function renderMainCards(datas) {
   }, 0);
   const formattedTotal = totalScore.toFixed(2);
   totalAmount.textContent = `$${formattedTotal}`;
-  // console.log(totalAmount.textContent);
+
   const murcap = datas
     .map(
       item =>
         `<li class="scroll-item">
               <button class="scroll-top-button" type="button" aria-label="1" id="${item._id}">
                 <svg class="scroll-top-icon" width="18" height="18">
-                  <use href="/images/icons.svg#icon-close"></use>
+                  <use href="${imgUrl}#icon-close"></use>
                 </svg>
               </button>
               <div class="image-container">
@@ -53,6 +55,7 @@ function renderMainCards(datas) {
             </li>`
     )
     .join('');
+
   cartList.innerHTML = murcap;
   cartTitleNumber.textContent = datas.length;
   cartTitleNumberHead.textContent = datas.length;
