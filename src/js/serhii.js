@@ -1,4 +1,9 @@
-import { getBasicProducts } from './oleksii.js';
+import {
+  getBasicProducts,
+  getAxiosOptions,
+  setAxiosOptions,
+  storageKeys,
+} from './oleksii.js';
 // const ollProducts = [
 //   {
 //     _id: '640c2dd963a319ea671e3814',
@@ -39,31 +44,29 @@ pagesBtnLeft.addEventListener('click', onClickLeft);
 pagesBtnRight.addEventListener('click', onClickRight);
 numberOfPage.addEventListener('click', onClickNumber);
 
-function onClickLeft(event) {
-  if (pageOfRender === 1) {
-    return;
-  }
-  pageOfRender--;
-  // console.log(pageOfRender);
-  // mainResponse();
+function onClickLeft(e) {
+  const modifOptions = getAxiosOptions();
+  if (modifOptions.page === 1) return;
+  modifOptions.page--;
+  console.log(modifOptions.page);
+  setAxiosOptions(modifOptions);
   getBasicProducts();
 }
-function onClickRight(event) {
-  if (pageOfRender >= totalPages) {
-    return;
-  }
-  pageOfRender++;
-  // console.log(pageOfRender);
-  // mainResponse();
+
+function onClickRight(e) {
+  const modifOptions = getAxiosOptions();
+  if (modifOptions.page >= localStorage.getItem(storageKeys.totalPages)) return;
+  modifOptions.page++;
+  setAxiosOptions(modifOptions);
   getBasicProducts();
 }
-function onClickNumber(event) {
-  pageOfRender = Number(event.target.textContent);
-  if (!pageOfRender) {
-    return;
-  }
-  // console.log(pageOfRender);
-  // mainResponse();
+
+function onClickNumber(e) {
+  const number = Number(e.target.textContent);
+  if (!number) return;
+  const modifOptions = getAxiosOptions();
+  modifOptions.page = number;
+  setAxiosOptions(modifOptions);
   getBasicProducts();
 }
 //----------------------------------------------- MAIN RESPONSE
@@ -196,7 +199,6 @@ function onClickNumber(event) {
 //     )
 //     .join('');
 
-
 //   popularList.innerHTML = murcap;
 // }
 // renderPopularProducts(parsedSettings);
@@ -232,59 +234,55 @@ function onClickNumber(event) {
 
 //-----------------------------------------------------------PAGINATION----------------------------------------//
 // const numberOfPage = document.querySelector('.pages-list');
-function renderNumberSlider(numberpages) {
-  let pagNum = [];
-  for (let index = 1; index <= numberpages; index++) {
-    pagNum.push(index);
+function renderNumberSlider(totalPages, pageOfRender) {
+  console.log(totalPages, pageOfRender);
+  let pagesNumbersArray = [];
+  for (let index = 1; index <= totalPages; index++) {
+    pagesNumbersArray.push(index);
   }
-  if (numberpages <= 5) {
-    const murcap = pagNum
+
+  if (totalPages <= 5) {
+    const markup = pagesNumbersArray
       .map(item => `<li class="pages-item">${item}</li>`)
       .join('');
-    console.log(murcap);
-
-    numberOfPage.innerHTML = murcap;
-  } else if (numberpages > 5) {
-    if (pageOfRender <= 2 || pageOfRender > numberpages - 2) {
-      const numToDel = numberpages - 4;
-      pagNum.splice(2, numToDel, '<li class="pages-item-points">...</li>');
-      const murcap = pagNum
+    numberOfPage.innerHTML = markup;
+  } else if (totalPages > 5) {
+    if (pageOfRender <= 2 || pageOfRender > totalPages - 2) {
+      const numToDel = totalPages - 4;
+      pagesNumbersArray.splice(
+        2,
+        numToDel,
+        '<li class="pages-item-points">...</li>'
+      );
+      // console.log('MY LOG: ', pagesNumbersArray);
+      const markup = pagesNumbersArray
         .map(item => `<li class="pages-item">${item}</li>`)
         .join('');
-      // console.log(murcap);
-      numberOfPage.innerHTML = murcap;
+      numberOfPage.innerHTML = markup;
     } else if (pageOfRender > 2) {
-      const numToDel = numberpages - 2;
+      const numToDel = totalPages - 2;
       // const murcapIncide = `${pageOfRender - 1},${pageOfRender},${
       //   pageOfRender + 1
       // },`;
-      pagNum.splice(
-        1,
-        numToDel,
-        '...',
-
-        pageOfRender,
-
-        '...'
-      );
-      const murcap = pagNum
+      pagesNumbersArray.splice(1, numToDel, '...', pageOfRender, '...');
+      const markup = pagesNumbersArray
         .map(item => `<li class="pages-item">${item}</li>`)
         .join('');
-      numberOfPage.innerHTML = murcap;
+      numberOfPage.innerHTML = markup;
     }
   }
 
   //disabling buttons when on 1st and last page
   if (pageOfRender === 1) {
     pagesBtnLeft.setAttribute('disabled', 'true');
-  } else if (pageOfRender === numberpages) {
+  } else if (pageOfRender === totalPages) {
     pagesBtnRight.setAttribute('disabled', 'true');
   } else {
     pagesBtnLeft.removeAttribute('disabled');
     pagesBtnRight.removeAttribute('disabled');
   }
 
-  console.log(numberOfPage.children);
+  // console.log(numberOfPage.children);
 
   for (let i = 0; i < numberOfPage.children.length; i++) {
     if (numberOfPage.children[i].textContent == pageOfRender) {

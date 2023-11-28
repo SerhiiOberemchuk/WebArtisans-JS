@@ -20,6 +20,7 @@ const storageKeys = {
   axiosOptions: 'axiosOptions',
 };
 const refs = {
+  form: document.querySelector('.filter_form'),
   basicList: document.querySelector('.basic-list'),
   popularList: document.querySelector('.popular-list'),
   discountList: document.querySelector('.discount-list'),
@@ -28,7 +29,15 @@ const refs = {
 
 // ===============================================================================================================
 
-setDefaultAxiosOptions();
+setAxiosOptions({
+  keyword: null,
+  category: null,
+  byABC: true,
+  byPrice: null,
+  byPopularity: null,
+  page: 1,
+  limit: getLimit(),
+});
 getCategories();
 getBasicProducts();
 getPopularProducts();
@@ -36,20 +45,51 @@ getDiscountProducts();
 
 // ===============================================================================================================
 
-function setDefaultAxiosOptions() {
-  localStorage.setItem(
-    'axiosOptions',
-    JSON.stringify({
-      keyword: null,
-      category: null,
-      byABC: null,
-      byPrice: null,
-      byPopularity: null,
-      page: 1,
-      limit: getLimit(),
-    })
-  );
+// form.addEventListener('input', throttle(inputHandler, 500));
+refs.form.addEventListener('input', inputHandler);
+refs.form.addEventListener('submit', submitHandler);
+refs.form.addEventListener('change', selectsHandler);
+
+function inputHandler(e) {
+  e.preventDefault();
+  if (e.target.name !== 'text') return;
+  const modifOptions = getAxiosOptions();
+  modifOptions.keyword = e.target.value;
+  setAxiosOptions(modifOptions);
 }
+
+function submitHandler(e) {
+  e.preventDefault();
+  getBasicProducts();
+}
+
+function selectsHandler(e) {
+  e.preventDefault();
+  if (e.target.name === 'text') return;
+  const modifOptions = getAxiosOptions();
+  if (e.target.name === 'categories') {
+    modifOptions.category = e.target.value === 'null' ? null : e.target.value;
+  }
+  if (e.target.name === 'sort') {
+    resetFilter(modifOptions);
+    const equalSignPosition = e.target.value.indexOf('=');
+    const key = e.target.value.slice(0, equalSignPosition);
+    modifOptions[key] = e.target.value.slice(
+      equalSignPosition + 1,
+      e.target.value.length
+    );
+  }
+  setAxiosOptions(modifOptions);
+  getBasicProducts();
+}
+
+function resetFilter(obj) {
+  obj.byABC = null;
+  obj.byPrice = null;
+  obj.byPopularity = null;
+}
+
+// ===============================================================================================================
 
 function getLimit() {
   const wIw = window.innerWidth;
@@ -62,16 +102,12 @@ function getLimit() {
 
 async function getCategories() {
   try {
-    const response = await axios.get(endPoints.categories);
-    setCategories(response.data);
+    const resp = await axios.get(endPoints.categories);
+    localStorage.setItem(storageKeys.categories, JSON.stringify(resp.data));
     renderCategories();
   } catch (error) {
     console.log(error);
   }
-}
-
-function setCategories(data) {
-  localStorage.setItem(storageKeys.categories, JSON.stringify(data));
 }
 
 function renderCategories() {
@@ -91,12 +127,13 @@ async function getBasicProducts() {
     const resp = await axios.get(endPoints.basic, {
       params: getAxiosOptions(),
     });
-    currentPageNumber = resp.data.page;
-    totalPages = resp.data.totalPages;
     localStorage.setItem(storageKeys.basic, JSON.stringify(resp.data.results));
-    localStorage.setItem(storageKeys.totalPages, JSON.stringify(totalPages));
+    localStorage.setItem(
+      storageKeys.totalPages,
+      JSON.stringify(resp.data.totalPages)
+    );
     renderBasicProducts();
-    renderNumberSlider(totalPages);
+    renderNumberSlider(resp.data.totalPages, resp.data.page);
   } catch (error) {
     console.log(error);
   }
@@ -222,7 +259,16 @@ function renderDiscountProducts() {
 function getAxiosOptions() {
   return JSON.parse(localStorage.getItem(storageKeys.axiosOptions));
 }
+function setAxiosOptions(obj) {
+  localStorage.setItem(storageKeys.axiosOptions, JSON.stringify(obj));
+}
 
 //---------------------------------------------------------------------------------------------------------------------
 
-export { getBasicProducts, getLimit };
+export {
+  getBasicProducts,
+  getLimit,
+  getAxiosOptions,
+  setAxiosOptions,
+  storageKeys,
+};
