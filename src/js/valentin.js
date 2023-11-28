@@ -27,6 +27,85 @@ async function responseById(id) {
 productList.addEventListener('click', handleItemClick);
 popularList.addEventListener('click', handleItemClick);
 discountList.addEventListener('click', handleItemClick);
+productList.addEventListener('click', onclickAddOne);
+popularList.addEventListener('click', onclickAddOne);
+discountList.addEventListener('click', onclickAddOne);
+
+async function onclickAddOne(event) {
+  if (!event.target.closest('.basic-btn, .popular-item-btn')) {
+    return;
+  }
+  const clickedProduct =
+    event.target.closest('.basic-item') ||
+    event.target.closest('.popular-item') ||
+    event.target.closest('.discount-item');
+  if (!clickedProduct) return;
+  const productId = clickedProduct.id;
+  console.log(productId);
+
+  try {
+    const product = await getProductById(productId);
+
+    if (product) {
+      const cartItems = JSON.parse(localStorage.getItem('BASKET')) || [];
+
+      const isProductInCart = cartItems.some(item => item._id === product._id);
+
+      if (!isProductInCart) {
+        cartItems.push(product);
+
+        localStorage.setItem('BASKET', JSON.stringify(cartItems));
+        console.log('product added to basket', product);
+        console.log(cartItems);
+        const cartImg = clickedProduct.querySelector(
+          '.basic-btn-icon, .popular-item-btn-icon'
+        );
+
+        const checkImg = clickedProduct.querySelector('.checked-btn-icon');
+        const addButton = clickedProduct.querySelector(
+          '.basic-btn, .popular-item-btn'
+        );
+        cartImg.style.display = 'none';
+        checkImg.style.display = 'block';
+        addButton.style.backgroundColor = 'var(--primary-brand-color)';
+        addButton.disabled = true;
+        addButton.removeEventListener('click', onclickAddOne);
+      } else {
+        console.log('Product is already in the basket');
+      }
+    } else {
+      console.error('Unable to find product with ID', productId);
+    }
+  } catch (error) {
+    console.error('Error fetching product by ID', error);
+  }
+}
+
+async function getProductById(productId) {
+  try {
+    const productData = await responseById(productId);
+
+    if (productData) {
+      const product = {
+        _id: productData._id,
+        name: productData.name,
+        category: productData.category,
+        size: productData.size,
+        img: productData.img,
+        price: productData.price,
+        is10PercentOff: productData.is10PercentOff,
+      };
+
+      return product;
+    } else {
+      console.error('Unable to find product with ID', productId);
+      return null;
+    }
+  } catch (error) {
+    console.error('Error fetching product by ID', error);
+    throw error;
+  }
+}
 
 async function handleItemClick(event) {
   const clickedProduct =
@@ -35,25 +114,84 @@ async function handleItemClick(event) {
     event.target.closest('.discount-item');
   if (!clickedProduct) return;
 
-  const productId = clickedProduct.id;
-  try {
-    const selectedProduct = await responseById(productId);
-    console.log(selectedProduct);
+  const isButtonClicked = event.target.closest('button');
+  if (!isButtonClicked) {
+    const productId = clickedProduct.id;
+    try {
+      const selectedProduct = await responseById(productId);
+      // console.log(selectedProduct);
 
-    if (selectedProduct) {
-      renderModalData(selectedProduct);
+      if (selectedProduct) {
+        renderModalData(selectedProduct);
 
-      modal.style.display = 'block';
-      modal.addEventListener('click', closeOnOutsideClick);
-      document.addEventListener('keydown', closeOnEsc);
+        modal.style.display = 'block';
+        modal.addEventListener('click', closeOnOutsideClick);
+        document.addEventListener('keydown', closeOnEsc);
+        const addedButton = document.querySelector('.added_button');
+        const modalAddButton = document.querySelector('.add_button');
+
+        if (selectedProduct) {
+          const cartItems = JSON.parse(localStorage.getItem('BASKET')) || [];
+
+          const isProductInCart = cartItems.some(
+            item => item._id === selectedProduct._id
+          );
+          if (!isProductInCart) {
+            modalAddButton.style.display = 'block';
+            addedButton.style.display = 'none';
+          } else {
+            modalAddButton.style.display = 'none';
+            addedButton.style.display = 'block';
+          }
+        }
+
+        modalAddButton.addEventListener('click', () =>
+          addToBasket(selectedProduct)
+        );
+      }
+
+      async function addToBasket(product) {
+        try {
+          const modalProduct = await getProductById(productId);
+
+          if (modalProduct) {
+            const cartItems = JSON.parse(localStorage.getItem('BASKET')) || [];
+
+            const isProductInCart = cartItems.some(
+              item => item._id === modalProduct._id
+            );
+
+            if (!isProductInCart) {
+              cartItems.push(product);
+
+              localStorage.setItem('BASKET', JSON.stringify(cartItems));
+              console.log('product added to basket', product);
+              console.log(cartItems);
+              const addedButton = document.querySelector('.added_button');
+              const addButton = document.querySelector('.add_button');
+              if (addButton) {
+                addButton.style.display = 'none';
+                addedButton.style.display = 'block';
+              }
+            } else {
+              console.log('Product is already in the basket');
+            }
+          } else {
+            console.error('Unable to find product with ID', productId);
+          }
+        } catch (error) {
+          console.error('Error fetching product by ID', error);
+        }
+      }
 
       const closeModalButton = document.querySelector('.close_button');
       closeModalButton.addEventListener('click', closeModal);
+    } catch (error) {
+      console.log(error);
     }
-  } catch (error) {
-    console.log(error);
   }
 }
+
 function renderModalData(product) {
   const markup = `<button class="close_button" type="button" aria-label="Close">
       <svg class="close-btn-icon" width="24" height="24">
@@ -77,7 +215,7 @@ function renderModalData(product) {
       </ul>
       <p class="description">${product.desc}</p>
     </div>
-    <p class="item_price">${product.price}</p>
+    <p class="item_price">$${product.price}</p>
     <button class="added_button" type="submit" aria-label="Item added to cart">
       Added to
       <svg width="18" height="18" class="icon-cart">

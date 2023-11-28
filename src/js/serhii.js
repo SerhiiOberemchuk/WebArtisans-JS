@@ -125,6 +125,7 @@ function onClickNumber(event) {
 // console.log(parsedSettings);
 
 //----------------------------------------------RENDER MAIN CARDS-------------------------------------------------//
+
 // function renderMainCards(datas) {
 //   const murcap = datas
 //     .map(
@@ -166,6 +167,7 @@ function onClickNumber(event) {
 // renderMainCards(parsedSettings);
 
 //----------------------------------------------RENDER POPULAR LIST-------------------------------------------------//
+
 // const popularList = document.querySelector('.popular-list');
 // function renderPopularProducts(datas) {
 //   const murcap = datas
@@ -194,10 +196,12 @@ function onClickNumber(event) {
 //     )
 //     .join('');
 
+
 //   popularList.innerHTML = murcap;
 // }
 // renderPopularProducts(parsedSettings);
 //----------------------------------------------RENDER DISCOUNT CARDS-------------------------------------------------//
+
 // const discountListProduct = document.querySelector('.discount-list');
 // function renderDiscountProducts(datas) {
 //   const murcap = datas
@@ -223,6 +227,7 @@ function onClickNumber(event) {
 //     .join('');
 //   discountListProduct.innerHTML = murcap;
 // }
+
 // renderDiscountProducts(parsedSettings);
 
 //-----------------------------------------------------------PAGINATION----------------------------------------//

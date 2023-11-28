@@ -134,6 +134,10 @@ N O T   F O U N D
 .basic-btn-icon {
   fill: var(--background-color-grey);
 }
+.checked-btn-icon {
+  fill: var(--background-color-grey);
+  display: none;
+}
 /* 
 
 
