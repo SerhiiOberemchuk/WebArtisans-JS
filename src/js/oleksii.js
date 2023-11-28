@@ -1,8 +1,7 @@
 import { renderNumberSlider } from './serhii.js';
+import imgUrl from '../images/icons.svg';
 import axios from 'axios';
 
-let totalPages = null;
-let currentPageNumber = 1;
 axios.defaults.baseURL = 'https://food-boutique.b.goit.study/api';
 
 const endPoints = {
@@ -12,20 +11,28 @@ const endPoints = {
   categories: '/products/categories',
 };
 const storageKeys = {
-  totalPages: 'totalPages',
   basic: 'basic-wrapper',
+  basket: 'BASKET',
   popular: 'popular-wrapper',
   discount: 'discount-wrapper',
+  totalPages: 'totalPages',
   categories: 'categories',
   axiosOptions: 'axiosOptions',
 };
 const refs = {
   form: document.querySelector('.filter_form'),
+  products: document.querySelector('.products'),
+  notFound: document.querySelector('.not-found-wrapper'),
   basicList: document.querySelector('.basic-list'),
   popularList: document.querySelector('.popular-list'),
   discountList: document.querySelector('.discount-list'),
+  pagesWrapper: document.querySelector('.pages-wrapper'),
   categoriesSelector: document.querySelector('#categories'),
 };
+
+const DISCOUNT_LABEL_MARKUP = `<div class="discount-label"> 
+            <img src="./images/discount.jpg" alt="discount label" class="discount-img">             
+            </div> `;
 
 // ===============================================================================================================
 
@@ -38,17 +45,22 @@ setAxiosOptions({
   page: 1,
   limit: getLimit(),
 });
+
 getCategories();
 getBasicProducts();
 getPopularProducts();
 getDiscountProducts();
 
-// ===============================================================================================================
-
 // form.addEventListener('input', throttle(inputHandler, 500));
 refs.form.addEventListener('input', inputHandler);
 refs.form.addEventListener('submit', submitHandler);
 refs.form.addEventListener('change', selectsHandler);
+
+// ===============================================================================================================
+
+//                  F U N C T I O N S
+
+// ===============================================================================================================
 
 function inputHandler(e) {
   e.preventDefault();
@@ -60,6 +72,9 @@ function inputHandler(e) {
 
 function submitHandler(e) {
   e.preventDefault();
+  const modifOptions = getAxiosOptions();
+  modifOptions.page = 1;
+  setAxiosOptions(modifOptions);
   getBasicProducts();
 }
 
@@ -79,6 +94,7 @@ function selectsHandler(e) {
       e.target.value.length
     );
   }
+  modifOptions.page = 1;
   setAxiosOptions(modifOptions);
   getBasicProducts();
 }
@@ -132,19 +148,34 @@ async function getBasicProducts() {
       storageKeys.totalPages,
       JSON.stringify(resp.data.totalPages)
     );
-    renderBasicProducts();
-    renderNumberSlider(resp.data.totalPages, resp.data.page);
+    console.log(resp.data.results);
+    if (resp.data.results.length !== 0) {
+      if (refs.notFound.firstElementChild.classList.contains('.not-found')) {
+        refs.notFound.firstElementChild.classList.remove('.not-found');
+        refs.notFound.style.display = 'none';
+      }
+      renderBasicProducts(resp.data.totalPages, resp.data.page);
+    } else {
+      refs.basicList.innerHTML = '';
+      refs.notFound.firstElementChild.classList.add('.not-found');
+      refs.pagesWrapper.style.display = 'none';
+      refs.notFound.style.display = 'block';
+    }
   } catch (error) {
     console.log(error);
   }
 }
 
-function renderBasicProducts() {
+function renderBasicProducts(totalPages, page) {
   const objsArray = JSON.parse(localStorage.getItem(storageKeys.basic));
+  const basket = JSON.parse(localStorage.getItem(storageKeys.basket));
   refs.basicList.innerHTML = objsArray
-    .map(
-      obj => `<li class="basic-item" id="${obj._id}">
-            <div class="basic-image-wrapper">
+    .map(obj => {
+      const isLabel = obj.is10PercentOff ? DISCOUNT_LABEL_MARKUP : '';
+      const iconName =
+        !!basket && basket.some(el => el._id === obj._id) ? 'check' : 'basket';
+      return `<li class="basic-item" id="${obj._id}">${isLabel}
+      <div class="basic-image-wrapper">
               <img
                 src="${obj.img}"
                 alt="${obj.name}"
@@ -166,13 +197,16 @@ function renderBasicProducts() {
               <span class="basic-price">$${obj.price}</span>
               <button class="basic-btn" type="button" id="${obj._id}">
                 <svg class="basic-btn-icon" width="18" height="18">
-                  <use href="./images/icons.svg#icon-basket"></use>
+                  <use href="${imgUrl}#icon-${iconName}"></use>
                 </svg>
               </button>
             </div>
-          </li>`
-    )
+          </li>`;
+    })
     .join('');
+  if (refs.pagesWrapper.style.display === 'none')
+    refs.pagesWrapper.style.display = 'absolute';
+  renderNumberSlider(totalPages, page);
 }
 
 //---------------------------------------------------------------------------------------------------------------------
@@ -189,9 +223,12 @@ async function getPopularProducts() {
 
 function renderPopularProducts() {
   const objsArray = JSON.parse(localStorage.getItem(storageKeys.popular));
+  const basket = JSON.parse(localStorage.getItem(storageKeys.basket));
   refs.popularList.innerHTML = objsArray
-    .map(
-      obj => ` <li class="popular-item" id="${obj._id}">
+    .map(obj => {
+      const iconName =
+        !!basket && basket.some(el => el._id === obj._id) ? 'check' : 'basket';
+      return `<li class="popular-item" id="${obj._id}">
             <div class="popular-image-wrapper">
               <img src="${obj.img}" alt="${obj.name}" />
             </div>
@@ -200,7 +237,7 @@ function renderPopularProducts() {
                 <h3 class="popular-name">${obj.name}</h3>
                 <button class="popular-item-btn" type="button" aria-label="add to basket" id="${obj._id}">
                   <svg class="popular-item-btn-icon" width="12" height="12">
-                    <use href="./images/icons.svg#icon-basket"></use>
+                    <use href="${imgUrl}#icon-${iconName}"></use>
                   </svg>
                 </button>
               </div>
@@ -211,8 +248,8 @@ function renderPopularProducts() {
                 Size:<span class="size">${obj.size}</span>Popularity:<span class="popularity">${obj.popularity}</span>
               </p>
             </div>
-          </li>`
-    )
+          </li>`;
+    })
     .join('');
 }
 
@@ -230,10 +267,13 @@ async function getDiscountProducts() {
 
 function renderDiscountProducts() {
   const objsArray = JSON.parse(localStorage.getItem(storageKeys.discount));
+  const basket = JSON.parse(localStorage.getItem(storageKeys.basket));
   let arrTwo = objsArray.slice(0, 2);
   refs.discountList.innerHTML = arrTwo
-    .map(
-      obj => `<li class="discount-item" id="${obj._id}">
+    .map(obj => {
+      const iconName =
+        !!basket && basket.some(el => el._id === obj._id) ? 'check' : 'basket';
+      return `<li class="discount-item" id="${obj._id}">
             <div class="discount-label"> 
             <img src="./images/discount.jpg" alt="discount label" class="discount-img">             
             </div>
@@ -245,12 +285,12 @@ function renderDiscountProducts() {
               <span class="discount-item-price">$${obj.price}</span>
               <button class="basic-btn" type="button" aria-label="icon-basket" id="${obj._id}">
                 <svg class="basic-btn-icon" width="18" height="18">
-                  <use href="./images/icons.svg#icon-basket"></use>
+                  <use href="${imgUrl}#icon-${iconName}"></use>
                 </svg>
               </button>
             </div>
-          </li>`
-    )
+          </li>`;
+    })
     .join('');
 }
 
