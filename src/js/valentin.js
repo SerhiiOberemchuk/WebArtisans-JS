@@ -45,6 +45,7 @@ async function onclickAddOne(event) {
 
   try {
     const product = await getProductById(productId);
+    product.amount = 1;
 
     if (product) {
       const cartItems = JSON.parse(localStorage.getItem('BASKET')) || [];
