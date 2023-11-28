@@ -301,6 +301,11 @@
 .cart-subbmit-btn:hover {
   background-color: var(--primary-brand-color-accent);
 }
+
+.price-amount {
+  display: flex;
+  flex-direction: row;
+}
 @media screen and (min-width: 768px) {
   .cart-title {
     font-size: 32px;
