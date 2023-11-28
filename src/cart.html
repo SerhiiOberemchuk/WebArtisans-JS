@@ -1,52 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="shortcut icon" type="image/png" href="favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Welcome to the Food Boutique!" />
+    <title>Cart</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/2.0.0/modern-normalize.min.css"
+    />
+    <link rel="stylesheet" href="./css/styles.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <link rel="shortcut icon" type="image/png" href="favicon.png" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Welcome to the Food Boutique!" />
-  <title>Cart</title>
-  <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/2.0.0/modern-normalize.min.css" />
-  <link rel="stylesheet" href="./css/styles.css" />
-</head>
-
-
-
-<body class="body">
-  <load src="partials/header.html" />
-  <div class="container-wrapper">
-    <div class="cart-container container">
-      <div class="cart-box">
-        <div class="cart-ellips">
-          <svg class="cart-icon">
-            <use href="./images/icons.svg#icon-basket"></use>
-          </svg>
+  <body class="body">
+    <load src="partials/header.html" />
+    <div class="container-wrapper">
+      <div class="cart-container container">
+        <div class="cart-box">
+          <div class="cart-ellips">
+            <svg class="cart-icon">
+              <use href="./images/icons.svg#icon-basket"></use>
+            </svg>
+          </div>
+          <h2 class="title_h2 cart-title">
+            CART(<span class="quantity-in-cart">0</span>)
+          </h2>
         </div>
-        <h2 class="title_h2 cart-title">CART(<span class="quantity-in-cart">0</span>)</h2>
-      </div>
 
-      <div class="empty-yellow-cart">
-        <picture class="yellow-cart">
-          <source class="yellow-cart-img" srcset="
+        <div class="empty-yellow-cart">
+          <picture class="yellow-cart">
+            <source
+              class="yellow-cart-img"
+              srcset="
                 ./images/desktop-tablet-yellowbasket-1x-min.png,
                 ./images/desktop-tablet-yellowbasket-2x-min.png
-              " media="(min-width: 1440px)" />
-          <source class="yellow-cart-img" srcset="
+              "
+              media="(min-width: 1440px)"
+            />
+            <source
+              class="yellow-cart-img"
+              srcset="
                 ./images/desktop-tablet-yellowbasket-1x-min.png,
                 ./images/desktop-tablet-yellowbasket-2x-min.png
-              " media="(min-width: 768px)" />
-          <source class="yellow-cart-img" srcset="
+              "
+              media="(min-width: 768px)"
+            />
+            <source
+              class="yellow-cart-img"
+              srcset="
                 ./images/mobile-yellowbasket-1x-min.png,
                 ./images/mobile-yellowbasket-2x-min.png
-              " media="(max-width: 767px)" width="132" height="114" />
-          <img class="yellow-cart-img" src="./images/desktop-tablet-yellowbasket-1x-min.png" alt="yellow basket"
-            width="164" height="140" />
-        </picture>
-        <p class="cart-empty">Your basket is <span class="empty"> empty...</span></p>
-        <p class="cart-text">Go to the main page to select your favorite products and add them to the cart.</p>
-      </div>
+              "
+              media="(max-width: 767px)"
+              width="132"
+              height="114"
+            />
+            <img
+              class="yellow-cart-img"
+              src="./images/desktop-tablet-yellowbasket-1x-min.png"
+              alt="yellow basket"
+              width="164"
+              height="140"
+            />
+          </picture>
+          <p class="cart-empty">
+            Your basket is <span class="empty"> empty...</span>
+          </p>
+          <p class="cart-text">
+            Go to the main page to select your favorite products and add them to
+            the cart.
+          </p>
+        </div>
+
 
       <div class="scrollbar-container">
         <button class="cart-button" type="button">
@@ -60,6 +86,7 @@
             <!-- 
             <li class="scroll-item">
               <button class="scroll-top-button" type="button" aria-label="1" id="${}">
+
                 <svg class="scroll-top-icon" width="18" height="18">
                   <use href="./images/icons.svg#icon-close"></use>
                 </svg>
@@ -88,35 +115,46 @@
               </div>
             </li> -->
 
+            </ul>
+          </div>
 
-          </ul>
+
+
+          
+
         </div>
-      </div>
-      <div class="order-container">
-        <h2 class="title_h2 your-order">Your order</h2>
-        <div class="total-price">
-          <p class="total-cart-price">Total</p>
-          <p class="total-cart-sum">
-            Sum:<span class="cart-sum-span">$0</span>
-          </p>
-        </div>
-        <div class="cart-forx-box">
-          <form class="cart-form">
-            <label class="cart-mail-input" for="email">Mail:</label>
-            <input type="email" name="user-email" id="user-email" placeholder=" Enter your E-mail" class="sabs-input"
-              required="" pattern="([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})" />
-          </form>
-          <button class="cart-subbmit-btn" type="submit">Checkout</button>
+        <div class="order-container">
+          <h2 class="title_h2 your-order">Your order</h2>
+          <div class="total-price">
+            <p class="total-cart-price">Total</p>
+            <p class="total-cart-sum">
+              Sum:<span class="cart-sum-span">$0</span>
+            </p>
+          </div>
+          <div class="cart-forx-box">
+            <form class="cart-form">
+              <label class="cart-mail-input" for="email">Mail:</label>
+              <input
+                type="email"
+                name="user-email"
+                id="user-email"
+                placeholder=" Enter your E-mail"
+                class="sabs-input"
+                required=""
+                pattern="[A-Za-z0-9_.-]+@[A-Za-z0-9-]+\.[A-Za-z]{2,8}"
+              />
+            </form>
+            <button class="cart-subbmit-btn" type="submit" id="checkoutBtn">
+              Checkout
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <load src="partials/modal-cart.html" />
-  <load src="partials/footer.html" />
-  <script type="module" src="./js/andrii.js"></script>
-  <script type="module" src="./js/checkout.js"></script>
-  <script type="module" src="./js/subscribe.js"></script>
-</body>
-
-
+    <load src="partials/modal-cart.html" />
+    <load src="partials/footer.html" />
+    <script type="module" src="./js/andrii.js"></script>
+    <script type="module" src="./js/checkout.js"></script>
+    <script type="module" src="./js/subscribe.js"></script>
+  </body>
 </html>
