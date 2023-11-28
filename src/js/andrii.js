@@ -1,71 +1,25 @@
-const cart = [
-  {
-    _id: '640c2dd963a319ea671e3814',
-    name: 'Almonds',
-    img: 'https://ftp.goit.study/img/so-yummy/ingredients/640c2dd963a319ea671e3814.png',
-    category: 'Pantry_Items',
-    price: 8.99,
-    size: '16 oz bag',
-    is10PercentOff: false,
-    popularity: 552,
-  },
-  {
-    _id: '640c2dd963a319ea671e35e',
-    name: 'Ancho Chillies',
-    img: 'https://ftp.goit.study/img/so-yummy/ingredients/640c2dd963a319ea671e385e.png',
-    category: 'Pantry_Items',
-    price: 4.99,
-    size: '100g',
-    is10PercentOff: false,
-    popularity: 632,
-  },
-  {
-    _id: '640c2dd963a31a671e385e',
-    name: 'Ancho Chillies',
-    img: 'https://ftp.goit.study/img/so-yummy/ingredients/640c2dd963a319ea671e385e.png',
-    category: 'Pantry_Items',
-    price: 4.99,
-    size: '100g',
-    is10PercentOff: false,
-    popularity: 632,
-  },
-  {
-    _id: '640c2963a319ea671e385',
-    name: 'Ancho Chillies',
-    img: 'https://ftp.goit.study/img/so-yummy/ingredients/640c2dd963a319ea671e385e.png',
-    category: 'Pantry_Items',
-    price: 4.99,
-    size: '100g',
-    is10PercentOff: false,
-    popularity: 632,
-  },
-  {
-    _id: '640c2dd963a319ea675e',
-    name: 'Ancho Chillies',
-    img: 'https://ftp.goit.study/img/so-yummy/ingredients/640c2dd963a319ea671e385e.png',
-    category: 'Pantry_Items',
-    price: 4.99,
-    size: '100g',
-    is10PercentOff: false,
-    popularity: 632,
-  },
-];
-function writeLocalStorage() {
-  localStorage.setItem('BASKET', JSON.stringify(cart));
-}
-writeLocalStorage();
-
 const cartList = document.querySelector('.scrol-list');
 const nameBAScet = 'BASKET';
+
+const emptYellowCart = document.querySelector('.empty-yellow-cart');
+const scrollbarContainer = document.querySelector('.scrollbar-container');
+const orderContainer = document.querySelector('.order-container');
+
 //-------------------------------------------------------RENDER CART LIST------------------------------------------------------
 const cartTitleNumber = document.querySelector('.quantity-in-cart');
 const cartTitleNumberHead = document.querySelector('.quantity-in-cart-header');
 const totalAmount = document.querySelector('.cart-sum-span');
 
 let parsedCart = JSON.parse(localStorage.getItem(`${nameBAScet}`));
-// console.log(parsedCart);
+console.log(parsedCart);
 
 function renderMainCards(datas) {
+  if (!datas || datas.length === 0) {
+    emptYellowCart.style.display = 'block';
+    scrollbarContainer.style.display = 'none';
+    orderContainer.style.display = 'none';
+    return;
+  }
   const totalScore = parsedCart.reduce((total, item) => {
     return total + item.price;
   }, 0);
@@ -78,7 +32,7 @@ function renderMainCards(datas) {
         `<li class="scroll-item">
               <button class="scroll-top-button" type="button" aria-label="1" id="${item._id}">
                 <svg class="scroll-top-icon" width="18" height="18">
-                  <use href="../images/icons.svg#icon-close"></use>
+                  <use href="/images/icons.svg#icon-close"></use>
                 </svg>
               </button>
               <div class="image-container">
@@ -104,24 +58,20 @@ function renderMainCards(datas) {
   cartTitleNumberHead.textContent = datas.length;
 }
 
-renderMainCards(JSON.parse(localStorage.getItem(`${nameBAScet}`)));
+renderMainCards(parsedCart);
 
 //----------------------------------------------------- FUNCTION CLEAR ALL----------------------------------------------------
-
-const emptYellowCart = document.querySelector('.empty-yellow-cart');
-const scrollbarContainer = document.querySelector('.scrollbar-container');
-const orderContainer = document.querySelector('.order-container');
 
 const btnClearCartAll = document.querySelector('.cart-button');
 btnClearCartAll.addEventListener('click', onclickClearOll);
 function onclickClearOll(event) {
-  localStorage.clear();
-  cartList.innerHTML = '';
   emptYellowCart.style.display = 'block';
   scrollbarContainer.style.display = 'none';
   orderContainer.style.display = 'none';
   cartTitleNumber.textContent = 0;
   cartTitleNumberHead.textContent = 0;
+  localStorage.removeItem('BASKET');
+  cartList.innerHTML = '';
 }
 
 //---------------------------------------------------FUNCTION CLEAR ONE------------------------------------------------
@@ -142,6 +92,8 @@ function onclickClearOne(event) {
     localStorage.setItem(`${nameBAScet}`, JSON.stringify(parsedCart));
   }
   if (!parsedCart.length) {
+    cartTitleNumber.textContent = parsedCart.length;
+    cartTitleNumberHead.textContent = parsedCart.length;
     emptYellowCart.style.display = 'block';
     scrollbarContainer.style.display = 'none';
     orderContainer.style.display = 'none';
