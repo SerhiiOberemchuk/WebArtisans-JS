@@ -1,5 +1,6 @@
 import { renderNumberSlider } from './serhii.js';
-import imgUrl from '../images/icons.svg';
+import iconUrl from '../images/icons.svg';
+import imgUrl from '../images/discount.jpg';
 import axios from 'axios';
 
 axios.defaults.baseURL = 'https://food-boutique.b.goit.study/api';
@@ -31,7 +32,10 @@ const refs = {
 };
 
 const DISCOUNT_LABEL_MARKUP = `<div class="discount-label"> 
-            <img src="./images/discount.jpg" alt="discount label" class="discount-img">             
+            <img src="${imgUrl}" alt="discount label" class="discount-img">             
+            </div> `;
+const DISCOUNT_LABEL_MARKUP_FOR_POPULAR = `<div class="discount-label-popular"> 
+            <img src="${imgUrl}" alt="discount label" class="discount-img">             
             </div> `;
 
 // ===============================================================================================================
@@ -197,7 +201,7 @@ function renderBasicProducts(totalPages, page) {
               <span class="basic-price">$${obj.price}</span>
               <button class="basic-btn" type="button" id="${obj._id}">
                 <svg class="basic-btn-icon" width="18" height="18">
-                  <use href="${imgUrl}#icon-${iconName}"></use>
+                  <use href="${iconUrl}#icon-${iconName}"></use>
                 </svg>
               </button>
             </div>
@@ -226,9 +230,12 @@ function renderPopularProducts() {
   const basket = JSON.parse(localStorage.getItem(storageKeys.basket));
   refs.popularList.innerHTML = objsArray
     .map(obj => {
+      const isLabel = obj.is10PercentOff
+        ? DISCOUNT_LABEL_MARKUP_FOR_POPULAR
+        : '';
       const iconName =
         !!basket && basket.some(el => el._id === obj._id) ? 'check' : 'basket';
-      return `<li class="popular-item" id="${obj._id}">
+      return `<li class="popular-item" id="${obj._id}">${isLabel}
             <div class="popular-image-wrapper">
               <img src="${obj.img}" alt="${obj.name}" />
             </div>
@@ -237,7 +244,7 @@ function renderPopularProducts() {
                 <h3 class="popular-name">${obj.name}</h3>
                 <button class="popular-item-btn" type="button" aria-label="add to basket" id="${obj._id}">
                   <svg class="popular-item-btn-icon" width="12" height="12">
-                    <use href="${imgUrl}#icon-${iconName}"></use>
+                    <use href="${iconUrl}#icon-${iconName}"></use>
                   </svg>
                 </button>
               </div>
@@ -274,9 +281,7 @@ function renderDiscountProducts() {
       const iconName =
         !!basket && basket.some(el => el._id === obj._id) ? 'check' : 'basket';
       return `<li class="discount-item" id="${obj._id}">
-            <div class="discount-label"> 
-            <img src="./images/discount.jpg" alt="discount label" class="discount-img">             
-            </div>
+            ${DISCOUNT_LABEL_MARKUP}
             <div class="discount-image-wrapper">
               <img src="${obj.img}" alt="${obj.name}" />
             </div>
@@ -285,7 +290,7 @@ function renderDiscountProducts() {
               <span class="discount-item-price">$${obj.price}</span>
               <button class="basic-btn" type="button" aria-label="icon-basket" id="${obj._id}">
                 <svg class="basic-btn-icon" width="18" height="18">
-                  <use href="${imgUrl}#icon-${iconName}"></use>
+                  <use href="${iconUrl}#icon-${iconName}"></use>
                 </svg>
               </button>
             </div>
