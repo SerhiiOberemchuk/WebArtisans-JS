@@ -28,6 +28,7 @@ const refs = {
   discountList: document.querySelector('.discount-list'),
   pagesWrapper: document.querySelector('.pages-wrapper'),
   categoriesSelector: document.querySelector('#categories'),
+  loaderSymbol: document.querySelector('.loader'),
 };
 
 const DISCOUNT_LABEL_MARKUP = `<div class="discount-label"> 
@@ -139,6 +140,10 @@ function renderCategories() {
 //---------------------------------------------------------------------------------------------------------------------
 
 async function getBasicProducts() {
+  if (refs.loaderSymbol.style.display === 'none') {
+    refs.basicList.innerHTML = '';
+    refs.loaderSymbol.style.display = 'absolute';
+  }
   try {
     const resp = await axios.get(endPoints.basic, {
       params: getAxiosOptions(),
@@ -149,17 +154,16 @@ async function getBasicProducts() {
       JSON.stringify(resp.data.totalPages)
     );
     console.log(resp.data.results);
-    if (resp.data.results.length !== 0) {
+    if (resp.data.results.length === 0) {
+      refs.notFound.firstElementChild.classList.add('.not-found');
+      refs.pagesWrapper.style.display = 'none';
+      refs.notFound.style.display = 'block';
+    } else {
       if (refs.notFound.firstElementChild.classList.contains('.not-found')) {
         refs.notFound.firstElementChild.classList.remove('.not-found');
         refs.notFound.style.display = 'none';
       }
       renderBasicProducts(resp.data.totalPages, resp.data.page);
-    } else {
-      refs.basicList.innerHTML = '';
-      refs.notFound.firstElementChild.classList.add('.not-found');
-      refs.pagesWrapper.style.display = 'none';
-      refs.notFound.style.display = 'block';
     }
   } catch (error) {
     console.log(error);
@@ -204,8 +208,12 @@ function renderBasicProducts(totalPages, page) {
           </li>`;
     })
     .join('');
-  if (refs.pagesWrapper.style.display === 'none')
-    refs.pagesWrapper.style.display = 'absolute';
+  refs.loaderSymbol.style.display = 'none';
+  if (
+    !refs.pagesWrapper.style.display ||
+    refs.pagesWrapper.style.display === 'none'
+  )
+    refs.pagesWrapper.style.display = 'flex';
   renderNumberSlider(totalPages, page);
 }
 
