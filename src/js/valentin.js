@@ -1,10 +1,13 @@
+import imgUrl from '../images/icons.svg';
 import axios from 'axios';
+import Notiflix from 'notiflix';
 
 const modal = document.querySelector('.backdrop');
 const modalWindow = document.querySelector('.modal_window');
 const productList = document.querySelector('.basic-list');
 const popularList = document.querySelector('.popular-list');
 const discountList = document.querySelector('.discount-list');
+const cartCountItem = document.querySelector('.quantity-in-cart-header');
 
 async function responseById(id) {
   try {
@@ -31,6 +34,11 @@ productList.addEventListener('click', onclickAddOne);
 popularList.addEventListener('click', onclickAddOne);
 discountList.addEventListener('click', onclickAddOne);
 
+document.addEventListener('DOMContentLoaded', () => {
+  const cartItems = JSON.parse(localStorage.getItem('BASKET')) || [];
+  updateCartCount(cartItems.length);
+});
+
 async function onclickAddOne(event) {
   if (!event.target.closest('.basic-btn, .popular-item-btn')) {
     return;
@@ -41,7 +49,7 @@ async function onclickAddOne(event) {
     event.target.closest('.discount-item');
   if (!clickedProduct) return;
   const productId = clickedProduct.id;
-  console.log(productId);
+  // console.log(productId);
 
   try {
     const product = await getProductById(productId);
@@ -56,8 +64,9 @@ async function onclickAddOne(event) {
         cartItems.push(product);
 
         localStorage.setItem('BASKET', JSON.stringify(cartItems));
-        console.log('product added to basket', product);
-        console.log(cartItems);
+        updateCartCount(cartItems.length);
+
+        // console.log(cartItems);
         const cartImg = clickedProduct.querySelector(
           '.basic-btn-icon, .popular-item-btn-icon'
         );
@@ -72,13 +81,13 @@ async function onclickAddOne(event) {
         addButton.disabled = true;
         addButton.removeEventListener('click', onclickAddOne);
       } else {
-        console.log('Product is already in the basket');
+        // console.log('Product is already in the basket');
       }
     } else {
-      console.error('Unable to find product with ID', productId);
+      // console.error('Unable to find product with ID', productId);
     }
   } catch (error) {
-    console.error('Error fetching product by ID', error);
+    // console.error('Error fetching product by ID', error);
   }
 }
 
@@ -99,11 +108,11 @@ async function getProductById(productId) {
 
       return product;
     } else {
-      console.error('Unable to find product with ID', productId);
+      // console.error('Unable to find product with ID', productId);
       return null;
     }
   } catch (error) {
-    console.error('Error fetching product by ID', error);
+    // console.error('Error fetching product by ID', error);
     throw error;
   }
 }
@@ -166,37 +175,43 @@ async function handleItemClick(event) {
               cartItems.push(product);
 
               localStorage.setItem('BASKET', JSON.stringify(cartItems));
-              console.log('product added to basket', product);
-              console.log(cartItems);
+              // console.log('product added to basket', product);
+              // console.log(cartItems);
               const addedButton = document.querySelector('.added_button');
               const addButton = document.querySelector('.add_button');
               if (addButton) {
                 addButton.style.display = 'none';
                 addedButton.style.display = 'block';
               }
+
+              updateCartCount(cartItems.length);
             } else {
-              console.log('Product is already in the basket');
+              // console.log('Product is already in the basket');
             }
           } else {
-            console.error('Unable to find product with ID', productId);
+            // console.error('Unable to find product with ID', productId);
           }
         } catch (error) {
-          console.error('Error fetching product by ID', error);
+          // console.error('Error fetching product by ID', error);
         }
       }
 
       const closeModalButton = document.querySelector('.close_button');
       closeModalButton.addEventListener('click', closeModal);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }
+}
+
+function updateCartCount(count) {
+  cartCountItem.textContent = count;
 }
 
 function renderModalData(product) {
   const markup = `<button class="close_button" type="button" aria-label="Close">
       <svg class="close-btn-icon" width="24" height="24">
-        <use href="./images/icons.svg#icon-close"></use>
+        <use href="${imgUrl}#icon-close"></use>
       </svg>
     </button>
     <div class="item_image">
@@ -220,7 +235,7 @@ function renderModalData(product) {
     <button class="added_button" type="submit" aria-label="Item added to cart">
       Added to
       <svg width="18" height="18" class="icon-cart">
-        <use href="./images/icons.svg#icon-basket"></use>
+        <use href="${imgUrl}#icon-basket"></use>
       </svg>
     </button>
     <button
@@ -231,7 +246,7 @@ function renderModalData(product) {
     >
       Add to
       <svg width="18" height="18" class="icon-cart">
-        <use href="./images/icons.svg#icon-basket"></use>
+        <use href="${imgUrl}#icon-basket"></use>
       </svg>
     </button>`;
   modalWindow.innerHTML = markup;
