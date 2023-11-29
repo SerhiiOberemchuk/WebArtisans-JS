@@ -1,33 +1,33 @@
-import{i}from"./assets/alex-dc29802b.js";import{a as S}from"./assets/vendor-2bc536cc.js";const c=document.querySelector(".scrol-list"),l="BASKET",u=document.querySelector(".empty-yellow-cart"),d=document.querySelector(".scrollbar-container"),m=document.querySelector(".order-container"),p=document.querySelector(".quantity-in-cart"),g=document.querySelector(".quantity-in-cart-header"),$=document.querySelector(".cart-sum-span");let n=JSON.parse(localStorage.getItem(`${l}`));console.log(n);function y(){const s=n.reduce((t,o)=>t+o.price*o.amount,0).toFixed(2);$.textContent=`$${s}`}function b(e){if(!e||e.length===0){u.style.display="block",d.style.display="none",m.style.display="none";return}y();const s=e.map(t=>`<li class="scroll-item" id="${t._id}">
-              <button class="scroll-top-button" type="button" aria-label="1" id="${t._id}">
+import{i}from"./assets/alex-dc29802b.js";import{a as $}from"./assets/vendor-2bc536cc.js";const l=document.querySelector(".scrol-list"),a="BASKET",u=document.querySelector(".empty-yellow-cart"),d=document.querySelector(".scrollbar-container"),m=document.querySelector(".order-container"),p=document.querySelector(".quantity-in-cart"),y=document.querySelector(".quantity-in-cart-header"),v=document.querySelector(".cart-sum-span");let n=JSON.parse(localStorage.getItem(`${a}`));console.log(n);function g(){const r=n.reduce((e,o)=>e+o.price*o.amount,0).toFixed(2);v.textContent=`$${r}`}function f(t){if(!t||t.length===0){u.style.display="block",d.style.display="none",m.style.display="none";return}g();const r=t.map(e=>`<li class="scroll-item" id="${e._id}">
+              <button class="scroll-top-button" type="button" aria-label="1" id="${e._id}">
                 <svg class="scroll-top-icon" width="18" height="18">
                   <use href="${i}#icon-close"></use>
                 </svg>
               </button>
               <div class="image-container">
-                <img class="scroll-image" src="${t.img}" alt="${t.name}" width="64" height="64" />
+                <img class="scroll-image" src="${e.img}" alt="${e.name}" width="64" height="64" />
               </div>
               <div class="text-container">
-                <h3 class="scroll-item-name">${t.name}</h3>
+                <h3 class="scroll-item-name">${e.name}</h3>
                 <div class="item-charact">
                   <p class="scroll-item-category">
-                    Category:<span class="span-scroll-category">${t.category}</span>
+                    Category:<span class="span-scroll-category">${e.category}</span>
                   </p>
                   <p class="scroll-item-size">
-                    Size:<span class="span-scroll-size">${t.size}</span>
+                    Size:<span class="span-scroll-size">${e.size}</span>
                   </p>
                 </div>
                 
                 <div class="price-amount">
-                    <p class="scroll-item-price" id="${t._id}price">$${t.price}</p>
+                    <p class="scroll-item-price" id="${e._id}price">$${e.price}</p>
                     <div class="amount-item">
-                      <button type="button" class="button-item-plus" id="${t._id}">
+                      <button type="button" class="button-item-plus" id="${e._id}">
                         <svg class="plus-icon">
                           <use href="${i}#icon-plus"></use>
                         </svg>
                       </button>
-                      <span class="amount-number" id="${t._id}amount">${t.amount}</span>
-                      <button type="button" class="button-item-minus" id="${t._id}">
+                      <span class="amount-number" id="${e._id}amount">${e.amount}</span>
+                      <button type="button" class="button-item-minus" id="${e._id}">
                         <svg class="minus-icon">
                           <use href="${i}#icon-minus"></use>
                         </svg>
@@ -35,5 +35,5 @@ import{i}from"./assets/alex-dc29802b.js";import{a as S}from"./assets/vendor-2bc5
                     </div>
                   </div>
               </div>
-            </li>`).join("");c.innerHTML=s,p.textContent=e.length,g.textContent=e.length}b(n);const h=document.querySelector(".cart-button");h.addEventListener("click",v);function v(e){u.style.display="block",d.style.display="none",m.style.display="none",p.textContent=0,g.textContent=0,localStorage.removeItem("BASKET"),c.innerHTML=""}c.addEventListener("click",C);function C(e){if(!e.target.classList.contains("scroll-top-button"))return;const s=e.target.id,t=n.findIndex(o=>o._id===s);t!==-1&&(n.splice(t,1),console.log(n),b(n),localStorage.setItem(`${l}`,JSON.stringify(n))),n.length||(p.textContent=n.length,g.textContent=n.length,u.style.display="block",d.style.display="none",m.style.display="none")}document.querySelector(".amount-number");c.addEventListener("click",I);function I(e){if(!e.target.classList.contains("button-item-plus"))return;const s=e.target.id,t=n.findIndex(r=>r._id===s);let o=Number(n[t].amount);function a(){o++,n[t].amount=o,y()}a(),localStorage.setItem(`${l}`,JSON.stringify(n)),document.getElementById(`${s}amount`).textContent=o}c.addEventListener("click",x);function x(e){const s=e.target.id,t=n.findIndex(r=>r._id===s);let o=Number(n[t].amount);if(!e.target.classList.contains("button-item-minus")||o===1)return;function a(){o--,n[t].amount=o,y()}a(),localStorage.setItem(`${l}`,JSON.stringify(n)),document.getElementById(`${s}amount`).textContent=o}const f="BASKET";function E(){return JSON.parse(localStorage.getItem(`${f}`))||[]}async function k(){try{const e=document.querySelector("#user-email");if(!e||!e.value){alert("Write your Email.");return}const s=e.value,t=E();if(!t||t.length===0){alert("Your cart is empty. Add some items before checking out.");return}const o={email:s,products:t.map(r=>({productId:r._id,amount:r.amount}))},a=await S.post("https://food-boutique.b.goit.study/api/orders",o);alert("Order created successfully!"),localStorage.removeItem(`${f}`)}catch(e){console.error("Error creating order:",e),alert(e.response.data.message||"Error creating order. Please try again.")}}document.getElementById("checkoutBtn").addEventListener("click",k);
+            </li>`).join("");l.innerHTML=r,p.textContent=t.length,y.textContent=t.length}f(n);const C=document.querySelector(".cart-button");C.addEventListener("click",S);function S(t){u.style.display="block",d.style.display="none",m.style.display="none",p.textContent=0,y.textContent=0,localStorage.removeItem("BASKET"),l.innerHTML=""}l.addEventListener("click",E);function E(t){if(!t.target.classList.contains("scroll-top-button"))return;const r=t.target.id,e=n.findIndex(o=>o._id===r);e!==-1&&(n.splice(e,1),console.log(n),f(n),localStorage.setItem(`${a}`,JSON.stringify(n))),n.length||(p.textContent=n.length,y.textContent=n.length,u.style.display="block",d.style.display="none",m.style.display="none")}document.querySelector(".amount-number");l.addEventListener("click",k);function k(t){if(!t.target.classList.contains("button-item-plus"))return;const r=t.target.id,e=n.findIndex(s=>s._id===r);let o=Number(n[e].amount);function c(){o++,n[e].amount=o,g()}c(),localStorage.setItem(`${a}`,JSON.stringify(n)),document.getElementById(`${r}amount`).textContent=o}l.addEventListener("click",q);function q(t){const r=t.target.id,e=n.findIndex(s=>s._id===r);let o=Number(n[e].amount);if(!t.target.classList.contains("button-item-minus")||o===1)return;function c(){o--,n[e].amount=o,g()}c(),localStorage.setItem(`${a}`,JSON.stringify(n)),document.getElementById(`${r}amount`).textContent=o}const h="BASKET";function x(){return JSON.parse(localStorage.getItem(`${h}`))||[]}async function I(){try{const t=document.querySelector("#user-email");if(!t||!t.value){alert("Write your Email.");return}const r=t.value,e=x();if(!e||e.length===0){alert("Your cart is empty. Add some items before checking out.");return}const o={email:r,products:e.map(s=>({productId:s._id,amount:s.amount}))},c=await $.post("https://food-boutique.b.goit.study/api/orders",o);if(c.status===201){localStorage.removeItem(`${h}`);const s=document.querySelector(".backdrop");s.style.display="block";const b=document.querySelector(".close_button");b&&b.addEventListener("click",L)}else console.error("Unsuccessful order creation. Response:",c),alert("Error creating order. Please try again.")}catch(t){console.error("Error creating order:",t),alert(t.response.data.message||"Error creating order. Please try again.")}}function L(){const t=document.querySelector(".backdrop");t.style.display="none",S(),T(),B()}function T(){const t=document.querySelector(".scrollbar");t.innerHTML=""}function B(){const t=document.querySelector(".empty-yellow-cart");t&&(t.style.display="block")}document.getElementById("checkoutBtn").addEventListener("click",I);
 //# sourceMappingURL=commonHelpers.js.map
