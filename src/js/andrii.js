@@ -57,15 +57,15 @@ function renderMainCards(datas) {
                 <div class="price-amount">
                     <p class="scroll-item-price" id="${item._id}price">$${item.price}</p>
                     <div class="amount-item">
-                      <button type="button" class="button-item-plus" id="${item._id}">
-                        <svg class="plus-icon">
-                          <use href="${imgUrl}#icon-plus"></use>
-                        </svg>
-                      </button>
-                      <span class="amount-number" id="${item._id}amount">${item.amount}</span>
                       <button type="button" class="button-item-minus" id="${item._id}">
                         <svg class="minus-icon">
                           <use href="${imgUrl}#icon-minus"></use>
+                        </svg>
+                      </button>
+                      <span class="amount-number" id="${item._id}amount">${item.amount}</span>
+                      <button type="button" class="button-item-plus" id="${item._id}">
+                        <svg class="plus-icon">
+                          <use href="${imgUrl}#icon-plus"></use>
                         </svg>
                       </button>
                     </div>
