@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="shortcut icon" type="image/png" href="favicon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Welcome to the Food Boutique!" />
-    <title>Cart</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/2.0.0/modern-normalize.min.css"
-    />
-    
-    <script type="module" crossorigin src="/WebArtisans-JS/commonHelpers.js"></script>
-    <link rel="modulepreload" crossorigin href="/WebArtisans-JS/assets/vendor-2bc536cc.js">
-    <link rel="modulepreload" crossorigin href="/WebArtisans-JS/assets/alex-dc29802b.js">
-    <link rel="stylesheet" href="/WebArtisans-JS/assets/alex-6272de64.css">
-  </head>
 
-  <body class="body">
-    <header class="header">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="shortcut icon" type="image/png" href="favicon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Welcome to the Food Boutique!" />
+  <title>Cart</title>
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/2.0.0/modern-normalize.min.css" />
+  
+  <script type="module" crossorigin src="/WebArtisans-JS/commonHelpers.js"></script>
+  <link rel="modulepreload" crossorigin href="/WebArtisans-JS/assets/vendor-2bc536cc.js">
+  <link rel="modulepreload" crossorigin href="/WebArtisans-JS/assets/scrollUp-6e554bfe.js">
+  <link rel="stylesheet" href="/WebArtisans-JS/assets/scrollUp-5880d692.css">
+</head>
+
+<body class="body">
+  <header class="header">
   <div class="container header-container">
     <a href="./index.html" class="logo-title link">
       <div class="logo-ellips">
@@ -39,65 +38,46 @@
     </nav>
   </div>
 </header>
-    <div class="container-wrapper">
-      <div class="cart-container container">
-        <div class="cart-box">
-          <div class="cart-ellips">
-            <svg class="cart-icon">
-              <use href="/WebArtisans-JS/assets/icons-69d7e34a.svg#icon-basket"></use>
-            </svg>
-          </div>
-          <h2 class="title_h2 cart-title">
-            CART(<span class="quantity-in-cart">0</span>)
-          </h2>
+  <div class="container-wrapper">
+    <div class="cart-container container">
+      <div class="cart-box">
+        <div class="cart-ellips">
+          <svg class="cart-icon">
+            <use href="/WebArtisans-JS/assets/icons-69d7e34a.svg#icon-basket"></use>
+          </svg>
         </div>
+        <h2 class="title_h2 cart-title">
+          CART(<span class="quantity-in-cart">0</span>)
+        </h2>
+      </div>
 
-        <div class="empty-yellow-cart">
-          <picture class="yellow-cart">
-            <source
-              class="yellow-cart-img"
-              srcset="/WebArtisans-JS/assets/desktop-tablet-yellowbasket-1x-min-f31af28e.png , /WebArtisans-JS/assets/desktop-tablet-yellowbasket-2x-min-70e13a53.png "
-              media="(min-width: 1440px)"
-            />
-            <source
-              class="yellow-cart-img"
-              srcset="/WebArtisans-JS/assets/desktop-tablet-yellowbasket-1x-min-f31af28e.png , /WebArtisans-JS/assets/desktop-tablet-yellowbasket-2x-min-70e13a53.png "
-              media="(min-width: 768px)"
-            />
-            <source
-              class="yellow-cart-img"
-              srcset="/WebArtisans-JS/assets/mobile-yellowbasket-1x-min-9be383e6.png , /WebArtisans-JS/assets/mobile-yellowbasket-2x-min-7ae53976.png "
-              media="(max-width: 767px)"
-              width="132"
-              height="114"
-            />
-            <img
-              class="yellow-cart-img"
-              src="/WebArtisans-JS/assets/desktop-tablet-yellowbasket-1x-min-f31af28e.png"
-              alt="yellow basket"
-              width="164"
-              height="140"
-            />
-          </picture>
-          <p class="cart-empty">
-            Your basket is <span class="empty"> empty...</span>
-          </p>
-          <p class="cart-text">
-            Go to the main page to select your favorite products and add them to
-            the cart.
-          </p>
-        </div>
+      <div class="empty-yellow-cart">
+        <picture class="yellow-cart">
+          <source class="yellow-cart-img" srcset="/WebArtisans-JS/assets/desktop-tablet-yellowbasket-1x-min-f31af28e.png , /WebArtisans-JS/assets/desktop-tablet-yellowbasket-2x-min-70e13a53.png " media="(min-width: 1440px)" />
+          <source class="yellow-cart-img" srcset="/WebArtisans-JS/assets/desktop-tablet-yellowbasket-1x-min-f31af28e.png , /WebArtisans-JS/assets/desktop-tablet-yellowbasket-2x-min-70e13a53.png " media="(min-width: 768px)" />
+          <source class="yellow-cart-img" srcset="/WebArtisans-JS/assets/mobile-yellowbasket-1x-min-9be383e6.png , /WebArtisans-JS/assets/mobile-yellowbasket-2x-min-7ae53976.png " media="(max-width: 767px)" width="132" height="114" />
+          <img class="yellow-cart-img" src="/WebArtisans-JS/assets/desktop-tablet-yellowbasket-1x-min-f31af28e.png" alt="yellow basket"
+            width="164" height="140" />
+        </picture>
+        <p class="cart-empty">
+          Your basket is <span class="empty"> empty...</span>
+        </p>
+        <p class="cart-text">
+          Go to the main page to select your favorite products and add them to
+          the cart.
+        </p>
+      </div>
 
-        <div class="scrollbar-container">
-          <button class="cart-button" aria-label="Delete All" type="button">
-            Delete All
-            <svg class="close-icon-cart" width="24" height="24">
-              <use href="/WebArtisans-JS/assets/icons-69d7e34a.svg#icon-close"></use>
-            </svg>
-          </button>
-          <div class="scrollbar">
-            <ul class="scrol-list">
-              <!-- 
+      <div class="scrollbar-container">
+        <button class="cart-button" aria-label="Delete All" type="button">
+          Delete All
+          <svg class="close-icon-cart" width="24" height="24">
+            <use href="/WebArtisans-JS/assets/icons-69d7e34a.svg#icon-close"></use>
+          </svg>
+        </button>
+        <div class="scrollbar">
+          <ul class="scrol-list">
+            <!-- 
             <li class="scroll-item">
               <button class="scroll-top-button" type="button" aria-label="1" id="${}">
 
@@ -151,42 +131,31 @@
 
               </div>
             </li> -->
-            </ul>
-          </div>
+          </ul>
         </div>
-        <div class="order-container">
-          <h2 class="title_h2 your-order">Your order</h2>
-          <div class="total-price">
-            <p class="total-cart-price">Total</p>
-            <p class="total-cart-sum">
-              Sum:<span class="cart-sum-span">$0</span>
-            </p>
-          </div>
-          <div class="cart-forx-box">
-            <form class="cart-form">
-              <label class="cart-mail-input" for="email">Mail:</label>
-              <input
-                type="email"
-                name="user-email"
-                id="user-email"
-                placeholder=" Enter your E-mail"
-                class="sabs-input"
-                required=""
-              />
-            </form>
-            <button
-              class="cart-subbmit-btn"
-              aria-label="Submit-button"
-              type="submit"
-              id="checkoutBtn"
-            >
-              Checkout
-            </button>
-          </div>
+      </div>
+      <div class="order-container">
+        <h2 class="title_h2 your-order">Your order</h2>
+        <div class="total-price">
+          <p class="total-cart-price">Total</p>
+          <p class="total-cart-sum">
+            Sum:<span class="cart-sum-span">$0</span>
+          </p>
+        </div>
+        <div class="cart-forx-box">
+          <form class="cart-form">
+            <label class="cart-mail-input" for="email">Mail:</label>
+            <input type="email" name="user-email" id="user-email" placeholder=" Enter your E-mail" class="sabs-input"
+              required="" />
+          </form>
+          <button class="cart-subbmit-btn" aria-label="Submit-button" type="submit" id="checkoutBtn">
+            Checkout
+          </button>
         </div>
       </div>
     </div>
-    <div class="backdrop">
+  </div>
+  <div class="backdrop">
   <div class="container checkout-modal_window">
     <button class="close_button" type="button" aria-label="Close">
       <svg class="close-btn-icon" width="24" height="24">
@@ -210,7 +179,7 @@
   </div>
 </div>
 
-    <footer>
+  <footer>
   <div class="container">
     <div class="footer-flex-container0">
       <div class="brand-and-socials">
@@ -281,9 +250,15 @@
     </div>
   </div>
 </footer>
-    
-    
-    
-    
-  </body>
+  <button type="button" id="scrollToTopBtn" class="scroll-to-top-btn" aria-label="scrollToTopBtn"><span
+        class="arrow-up"></span></button>
+
+
+  
+  
+  
+  
+  
+</body>
+
 </html>
