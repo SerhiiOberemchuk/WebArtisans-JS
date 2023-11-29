@@ -66,18 +66,14 @@ async function onclickAddOne(event) {
         localStorage.setItem('BASKET', JSON.stringify(cartItems));
         updateCartCount(cartItems.length);
 
-        // console.log(cartItems);
-        const cartImg = clickedProduct.querySelector(
-          '.basic-btn-icon, .popular-item-btn-icon'
-        );
-
-        const checkImg = clickedProduct.querySelector('.checked-btn-icon');
         const addButton = clickedProduct.querySelector(
           '.basic-btn, .popular-item-btn'
         );
-        cartImg.style.display = 'none';
-        checkImg.style.display = 'block';
-        addButton.style.backgroundColor = 'var(--primary-brand-color)';
+        const mainAddButton = clickedProduct.querySelector(
+          '.basic-btn-icon, .popular-item-btn-icon'
+        );
+        mainAddButton.innerHTML = `<use href="${imgUrl}#icon-check"></use>`;
+
         addButton.disabled = true;
         addButton.removeEventListener('click', onclickAddOne);
       } else {
@@ -179,9 +175,16 @@ async function handleItemClick(event) {
               // console.log(cartItems);
               const addedButton = document.querySelector('.added_button');
               const addButton = document.querySelector('.add_button');
+              const mainAddButton = clickedProduct.querySelector(
+                '.basic-btn-icon, .popular-item-btn-icon'
+              );
               if (addButton) {
                 addButton.style.display = 'none';
                 addedButton.style.display = 'block';
+                // `<svg width="18" height="18" class="basic-btn-icon">
+                //                   <use href="${imgUrl}#icon-check"></use>
+                //                 </svg>`;
+                mainAddButton.innerHTML = `<use href="${imgUrl}#icon-check"></use>`;
               }
 
               updateCartCount(cartItems.length);
