@@ -218,6 +218,7 @@
   width: 14px;
   height: 14px;
   fill: var(--black-color);
+  pointer-events: none;
 }
 
 .amount-number {
@@ -229,6 +230,7 @@
   width: 14px;
   height: 14px;
   fill: var(--black-color);
+  pointer-events: none;
 }
 
 .your-order {
