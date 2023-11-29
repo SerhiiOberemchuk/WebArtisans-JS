@@ -15,7 +15,7 @@ function onFooterFormSubmit(event) {
       const message = response.data.message;
       Swal.fire({
         color: '#586f1f',
-        position: 'top-end',
+        // position: 'top-end',
         icon: 'success',
         title: message,
         showConfirmButton: false,
@@ -26,7 +26,7 @@ function onFooterFormSubmit(event) {
       if (error.request.status === 400) {
         Swal.fire({
           color: '#586f1f',
-          position: 'top-end',
+          // position: 'top-end',
           icon: 'error',
           title: error.response.data.message,
           showConfirmButton: false,
@@ -36,7 +36,7 @@ function onFooterFormSubmit(event) {
       } else if (error.request.status === 409) {
         Swal.fire({
           color: '#586f1f',
-          position: 'top-end',
+          // position: 'top-end',
           icon: 'info',
           title: error.response.data.message,
           showConfirmButton: false,
