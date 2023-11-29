@@ -13,7 +13,7 @@ const cartTitleNumberHead = document.querySelector('.quantity-in-cart-header');
 const totalAmount = document.querySelector('.cart-sum-span');
 
 let parsedCart = JSON.parse(localStorage.getItem(`${nameBAScet}`));
-console.log(parsedCart);
+// console.log(parsedCart);
 
 function culTotalSum() {
   const totalScore = parsedCart.reduce((total, item) => {
