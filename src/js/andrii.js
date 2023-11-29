@@ -170,3 +170,5 @@ function minusAmount(event) {
   localStorage.setItem(`${nameBAScet}`, JSON.stringify(parsedCart));
   document.getElementById(`${buttonId}amount`).textContent = number;
 }
+
+export { onclickClearOll };
