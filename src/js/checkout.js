@@ -115,7 +115,7 @@ async function handleCheckout() {
       email: userEmail,
       products: cartItems.map(item => ({
         productId: item._id,
-        amount: item.quantity,
+        amount: item.amount,
       })),
     };
 
