@@ -1,6 +1,15 @@
+/* .page-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+main {
+  flex-grow: 1;
+} */
 .products {
   padding: 40px 0 80px;
   margin: 0 auto;
+  position: relative;
 }
 
 /*
@@ -153,7 +162,8 @@ N O T   F O U N D
  */
 .pages-wrapper {
   padding: 40px 0 0;
-  display: flex;
+  /* display: flex; */
+  display: none;
   justify-content: space-between;
 }
 .pages-btn-left,
@@ -171,12 +181,12 @@ N O T   F O U N D
   fill: var(--chevron-color-grey);
   transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
-.pages-btn-left:hover,
-.pages-btn-right:hover {
+.pages-btn-left.is-hover:hover,
+.pages-btn-right.is-hover:hover {
   background-color: var(--primary-brand-color);
 }
-.pages-btn-left:hover .pages-btn-icon,
-.pages-btn-right:hover .pages-btn-icon {
+.pages-btn-left.is-hover:hover .pages-btn-icon,
+.pages-btn-right.is-hover:hover .pages-btn-icon {
   fill: var(--background-color-white);
 }
 
@@ -200,7 +210,7 @@ N O T   F O U N D
   cursor: pointer;
 }
 
-.pages-item:hover {
+.pages-item.is-hover:hover {
   color: var(--background-color-grey);
   background-color: var(--primary-brand-color);
 }
@@ -547,5 +557,64 @@ N O T   F O U N D
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+}
+
+.loader {
+  top: 50%;
+  left: 50%;
+  position: absolute;
+}
+.loader::before,
+.loader::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 48em;
+  height: 48em;
+  background-image: radial-gradient(circle 10px, #fafafa 100%, transparent 0),
+    radial-gradient(circle 10px, #fafafa 100%, transparent 0),
+    radial-gradient(circle 10px, #fafafa 100%, transparent 0),
+    radial-gradient(circle 10px, #fafafa 100%, transparent 0),
+    radial-gradient(circle 10px, #fafafa 100%, transparent 0),
+    radial-gradient(circle 10px, #fafafa 100%, transparent 0),
+    radial-gradient(circle 10px, #fafafa 100%, transparent 0),
+    radial-gradient(circle 10px, #fafafa 100%, transparent 0);
+  background-position: 0em -18em, 0em 18em, 18em 0em, -18em 0em, 13em -13em,
+    -13em -13em, 13em 13em, -13em 13em;
+  background-repeat: no-repeat;
+  font-size: 0.5px;
+  border-radius: 50%;
+  animation: blast 1s ease-in infinite;
+}
+.loader::after {
+  font-size: 1px;
+  background: #fafafa;
+  animation: bounce 1s ease-in infinite;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    font-size: 0.75px;
+  }
+  50% {
+    font-size: 1.5px;
+  }
+}
+@keyframes blast {
+  0%,
+  40% {
+    font-size: 0.5px;
+  }
+  70% {
+    opacity: 1;
+    font-size: 4px;
+  }
+  100% {
+    font-size: 6px;
+    opacity: 0;
   }
 }
