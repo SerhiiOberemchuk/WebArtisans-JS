@@ -1,6 +1,8 @@
 import { renderNumberSlider } from './serhii.js';
 import iconUrl from '../images/icons.svg';
 import imgUrl from '../images/discount.jpg';
+import throttle from 'lodash.throttle';
+import debounce from 'lodash.debounce';
 import axios from 'axios';
 
 axios.defaults.baseURL = 'https://food-boutique.b.goit.study/api';
@@ -38,7 +40,11 @@ const refs = {
   discountList: document.querySelector('.discount-list'),
   pagesWrapper: document.querySelector('.pages-wrapper'),
   categoriesSelector: document.querySelector('#categories'),
+  sortSelector: document.querySelector('#sort'),
   loaderSymbol: document.querySelector('.loader'),
+  pagesBtnLeft: document.querySelector('.pages-btn-left'),
+  pagesBtnRight: document.querySelector('.pages-btn-right'),
+  pagesList: document.querySelector('.pages-list'),
 };
 
 const DISCOUNT_LABEL_MARKUP = `<div class="discount-label"> 
@@ -56,8 +62,7 @@ getBasicProducts();
 getPopularProducts();
 getDiscountProducts();
 
-// form.addEventListener('input', throttle(inputHandler, 500));
-refs.form.addEventListener('input', inputHandler);
+refs.form.addEventListener('input', throttle(inputHandler, 250));
 refs.form.addEventListener('submit', submitHandler);
 refs.form.addEventListener('change', selectsHandler);
 
@@ -81,6 +86,8 @@ function submitHandler(e) {
   if (!modifOptions.keyword) {
     setAxiosOptions(defaultsOptions);
     getBasicProducts();
+    refs.sortSelector[0].selected = 'true';
+    refs.categoriesSelector[0].selected = 'true';
     return;
   }
   modifOptions.page = 1;
@@ -153,12 +160,12 @@ async function getBasicProducts() {
     const resp = await axios.get(endPoints.basic, {
       params: getAxiosOptions(),
     });
+
     localStorage.setItem(storageKeys.basic, JSON.stringify(resp.data.results));
     localStorage.setItem(
       storageKeys.totalPages,
       JSON.stringify(resp.data.totalPages)
     );
-    console.log(resp.data.results);
     if (resp.data.results.length === 0) {
       refs.notFound.firstElementChild.classList.add('.not-found');
       refs.pagesWrapper.style.display = 'none';
@@ -167,6 +174,9 @@ async function getBasicProducts() {
       if (refs.notFound.firstElementChild.classList.contains('.not-found')) {
         refs.notFound.firstElementChild.classList.remove('.not-found');
         refs.notFound.style.display = 'none';
+      }
+      if (resp.data.totalPage === 1) {
+        refs.pagesWrapper.style.display = 'none';
       }
       refs.loaderSymbol.style.display = 'none';
       renderBasicProducts(resp.data.totalPages, resp.data.page);
@@ -217,8 +227,10 @@ function renderBasicProducts(totalPages, page) {
   if (
     !refs.pagesWrapper.style.display ||
     refs.pagesWrapper.style.display === 'none'
-  )
+  ) {
     refs.pagesWrapper.style.display = 'flex';
+  }
+  if (totalPages === 1) refs.pagesWrapper.style.display = 'none';
   renderNumberSlider(totalPages, page);
 }
 
