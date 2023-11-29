@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { onclickClearOll } from './andrii.js';
+import Swal from 'sweetalert2'
 const nameBasket = 'BASKET';
 
 // get element
@@ -12,17 +13,19 @@ async function handleCheckout() {
     const userEmailElement = document.querySelector('#user-email');
 
     if (!userEmailElement || !userEmailElement.value) {
-      alert('Write your Email.');
+      Swal.fire({
+  title: 'Write your Email!',
+        icon: 'warning',
+        iconColor: `#6D8434`,
+        showConfirmButton: false,
+        timer: 2000,
+  
+})
       return;
     }
 
     const userEmail = userEmailElement.value;
     const cartItems = getCartItems();
-
-    if (!cartItems || cartItems.length === 0) {
-      alert('Your cart is empty. Add some items before checking out.');
-      return;
-    }
 
     const orderData = {
       email: userEmail,
@@ -46,11 +49,23 @@ async function handleCheckout() {
       }
     } else {
       console.error('Unsuccessful order creation. Response:', response);
-      alert('Error creating order. Please try again.');
+      Swal.fire({
+  title: 'Error creating order. Please try again.',
+        icon: 'warning',
+        iconColor: `#6D8434`,
+        showConfirmButton: false,
+        timer: 2000,
+})
     }
   } catch (error) {
     console.error('Error creating order:', error);
-    alert(error.response.data.message || 'Error creating order. Please try again.');
+    alert(error.response.data.message || Swal.fire({
+  title: 'Error creating order. Please try again.',
+        icon: 'warning',
+        iconColor: `#6D8434`,
+        showConfirmButton: false,
+        timer: 2000,
+}));
   }
 }
 // update cart
