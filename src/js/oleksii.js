@@ -5,6 +5,15 @@ import axios from 'axios';
 
 axios.defaults.baseURL = 'https://food-boutique.b.goit.study/api';
 
+const defaultsOptions = {
+  keyword: null,
+  category: null,
+  byABC: true,
+  byPrice: null,
+  byPopularity: null,
+  page: 1,
+  limit: getLimit(),
+};
 const endPoints = {
   basic: '/products',
   popular: '/products/popular',
@@ -29,6 +38,7 @@ const refs = {
   discountList: document.querySelector('.discount-list'),
   pagesWrapper: document.querySelector('.pages-wrapper'),
   categoriesSelector: document.querySelector('#categories'),
+  loaderSymbol: document.querySelector('.loader'),
 };
 
 const DISCOUNT_LABEL_MARKUP = `<div class="discount-label"> 
@@ -40,16 +50,7 @@ const DISCOUNT_LABEL_MARKUP_FOR_POPULAR = `<div class="discount-label-popular">
 
 // ===============================================================================================================
 
-setAxiosOptions({
-  keyword: null,
-  category: null,
-  byABC: true,
-  byPrice: null,
-  byPopularity: null,
-  page: 1,
-  limit: getLimit(),
-});
-
+setAxiosOptions(defaultsOptions);
 getCategories();
 getBasicProducts();
 getPopularProducts();
@@ -77,6 +78,11 @@ function inputHandler(e) {
 function submitHandler(e) {
   e.preventDefault();
   const modifOptions = getAxiosOptions();
+  if (!modifOptions.keyword) {
+    setAxiosOptions(defaultsOptions);
+    getBasicProducts();
+    return;
+  }
   modifOptions.page = 1;
   setAxiosOptions(modifOptions);
   getBasicProducts();
@@ -153,17 +159,17 @@ async function getBasicProducts() {
       JSON.stringify(resp.data.totalPages)
     );
     console.log(resp.data.results);
-    if (resp.data.results.length !== 0) {
+    if (resp.data.results.length === 0) {
+      refs.notFound.firstElementChild.classList.add('.not-found');
+      refs.pagesWrapper.style.display = 'none';
+      refs.notFound.style.display = 'block';
+    } else {
       if (refs.notFound.firstElementChild.classList.contains('.not-found')) {
         refs.notFound.firstElementChild.classList.remove('.not-found');
         refs.notFound.style.display = 'none';
       }
+      refs.loaderSymbol.style.display = 'none';
       renderBasicProducts(resp.data.totalPages, resp.data.page);
-    } else {
-      refs.basicList.innerHTML = '';
-      refs.notFound.firstElementChild.classList.add('.not-found');
-      refs.pagesWrapper.style.display = 'none';
-      refs.notFound.style.display = 'block';
     }
   } catch (error) {
     console.log(error);
@@ -208,8 +214,11 @@ function renderBasicProducts(totalPages, page) {
           </li>`;
     })
     .join('');
-  if (refs.pagesWrapper.style.display === 'none')
-    refs.pagesWrapper.style.display = 'absolute';
+  if (
+    !refs.pagesWrapper.style.display ||
+    refs.pagesWrapper.style.display === 'none'
+  )
+    refs.pagesWrapper.style.display = 'flex';
   renderNumberSlider(totalPages, page);
 }
 
@@ -316,4 +325,5 @@ export {
   getAxiosOptions,
   setAxiosOptions,
   storageKeys,
+  refs,
 };
