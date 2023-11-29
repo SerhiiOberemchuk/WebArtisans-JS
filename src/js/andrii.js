@@ -155,12 +155,14 @@ cartList.addEventListener('click', minusAmount);
 function minusAmount(event) {
   const buttonId = event.target.id;
   const indexObject = parsedCart.findIndex(item => item._id === buttonId);
-  let number = Number(parsedCart[indexObject].amount);
 
-  if (!event.target.classList.contains('button-item-minus') || number === 1) {
+  if (!event.target.classList.contains('button-item-minus')) {
     return;
   }
-
+  let number = Number(parsedCart[indexObject].amount);
+  if (number === 1) {
+    return;
+  }
   function minusNumber() {
     number--;
     parsedCart[indexObject].amount = number;
