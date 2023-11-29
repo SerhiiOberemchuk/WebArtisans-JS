@@ -1,4 +1,4 @@
-import{i}from"./assets/scrollUp-8a07be84.js";import{S as u,a as $}from"./assets/vendor-2bc536cc.js";const l=document.querySelector(".scrol-list"),a="BASKET",d=document.querySelector(".empty-yellow-cart"),m=document.querySelector(".scrollbar-container"),p=document.querySelector(".order-container"),y=document.querySelector(".quantity-in-cart"),g=document.querySelector(".quantity-in-cart-header"),v=document.querySelector(".cart-sum-span");let n=JSON.parse(localStorage.getItem(`${a}`));function f(){const r=n.reduce((e,o)=>e+o.price*o.amount,0).toFixed(2);v.textContent=`$${r}`}function S(t){if(!t||t.length===0){d.style.display="block",m.style.display="none",p.style.display="none";return}f();const r=t.map(e=>`<li class="scroll-item" id="${e._id}">
+import{i}from"./assets/scrollUp-fbfd4479.js";import{S as u,a as $}from"./assets/vendor-2bc536cc.js";const l=document.querySelector(".scrol-list"),a="BASKET",d=document.querySelector(".empty-yellow-cart"),m=document.querySelector(".scrollbar-container"),p=document.querySelector(".order-container"),y=document.querySelector(".quantity-in-cart"),g=document.querySelector(".quantity-in-cart-header"),v=document.querySelector(".cart-sum-span");let n=JSON.parse(localStorage.getItem(`${a}`));function f(){const r=n.reduce((e,o)=>e+o.price*o.amount,0).toFixed(2);v.textContent=`$${r}`}function S(t){if(!t||t.length===0){d.style.display="block",m.style.display="none",p.style.display="none";return}f();const r=t.map(e=>`<li class="scroll-item" id="${e._id}">
               <button class="scroll-top-button" type="button" aria-label="1" id="${e._id}">
                 <svg class="scroll-top-icon" width="18" height="18">
                   <use href="${i}#icon-close"></use>
@@ -21,15 +21,15 @@ import{i}from"./assets/scrollUp-8a07be84.js";import{S as u,a as $}from"./assets/
                 <div class="price-amount">
                     <p class="scroll-item-price" id="${e._id}price">$${e.price}</p>
                     <div class="amount-item">
-                      <button type="button" class="button-item-plus" id="${e._id}">
-                        <svg class="plus-icon">
-                          <use href="${i}#icon-plus"></use>
-                        </svg>
-                      </button>
-                      <span class="amount-number" id="${e._id}amount">${e.amount}</span>
                       <button type="button" class="button-item-minus" id="${e._id}">
                         <svg class="minus-icon">
                           <use href="${i}#icon-minus"></use>
+                        </svg>
+                      </button>
+                      <span class="amount-number" id="${e._id}amount">${e.amount}</span>
+                      <button type="button" class="button-item-plus" id="${e._id}">
+                        <svg class="plus-icon">
+                          <use href="${i}#icon-plus"></use>
                         </svg>
                       </button>
                     </div>
