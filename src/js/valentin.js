@@ -168,6 +168,7 @@ async function handleItemClick(event) {
             );
 
             if (!isProductInCart) {
+              product.amount = 1;
               cartItems.push(product);
 
               localStorage.setItem('BASKET', JSON.stringify(cartItems));
