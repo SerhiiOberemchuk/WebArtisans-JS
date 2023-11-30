@@ -158,7 +158,7 @@ async function getBasicProducts() {
       storageKeys.totalPages,
       JSON.stringify(resp.data.totalPages)
     );
-    console.log(resp.data.results);
+    // console.log(resp.data.results);
     if (resp.data.results.length === 0) {
       refs.notFound.firstElementChild.classList.add('.not-found');
       refs.pagesWrapper.style.display = 'none';
