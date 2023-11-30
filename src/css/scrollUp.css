@@ -5,7 +5,9 @@
   display: none;
   background-color: #6d8434;
   color: #fff;
-  border: none;
+  /* border: none; */
+  border: 1px solid #586f1f;
+  /* border-color: red; */
   border-radius: 5px;
   padding: 10px 15px;
   cursor: pointer;

@@ -22,7 +22,7 @@ function onClickLeft() {
   const modifOptions = getAxiosOptions();
   if (modifOptions.page === 1) return;
   modifOptions.page--;
-  console.log(modifOptions.page);
+  // console.log(modifOptions.page);
   setAxiosOptions(modifOptions);
   getBasicProducts();
 }
@@ -31,10 +31,10 @@ function onClickRight() {
   refs.basicList.innerHTML = '';
   refs.loaderSymbol.style.display = 'absolute';
   const modifOptions = getAxiosOptions();
-  console.dir(modifOptions);
+  // console.dir(modifOptions);
   if (modifOptions.page >= localStorage.getItem(storageKeys.totalPages)) return;
   modifOptions.page++;
-  console.dir(modifOptions);
+  // console.dir(modifOptions);
   setAxiosOptions(modifOptions);
   getBasicProducts();
 }
