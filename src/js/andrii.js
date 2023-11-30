@@ -13,7 +13,6 @@ const cartTitleNumberHead = document.querySelector('.quantity-in-cart-header');
 const totalAmount = document.querySelector('.cart-sum-span');
 
 let parsedCart = JSON.parse(localStorage.getItem(`${nameBAScet}`));
-// console.log(parsedCart);
 
 function culTotalSum() {
   const totalScore = parsedCart.reduce((total, item) => {
@@ -108,7 +107,7 @@ function onclickClearOne(event) {
   const indexToRemove = parsedCart.findIndex(item => item._id === idButton);
   if (indexToRemove !== -1) {
     parsedCart.splice(indexToRemove, 1);
-    console.log(parsedCart);
+
     renderMainCards(parsedCart);
     localStorage.setItem(`${nameBAScet}`, JSON.stringify(parsedCart));
   }
@@ -123,9 +122,7 @@ function onclickClearOne(event) {
 
 //----------------------------------------------------AMOUNT------------------------------------------
 
-// const buttonPusAmount = document.querySelector('button-item-plus');
-// const buttonMinusAmount = document.querySelector('button-item-minus');
-const numberAmount = document.querySelector('.amount-number');
+// const numberAmount = document.querySelector('.amount-number');
 
 //-----------------------------------------------AMOUNT PLUS--------------------------
 
