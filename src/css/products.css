@@ -9,7 +9,7 @@ main {
 .products {
   padding: 40px 0 80px;
   margin: 0 auto;
-  position: relative;
+  /* position: relative; */
 }
 
 /*
@@ -52,6 +52,10 @@ N O T   F O U N D
 */
 .basic-wrapper {
   width: 100%;
+}
+.for-span-loader {
+  display: none;
+  height: 268px;
 }
 .basic-list {
   width: 100%;
@@ -429,6 +433,11 @@ N O T   F O U N D
     line-height: 1.33; /* 133.333% */
   }
 
+  .basic-wrapper {
+    /* min-height: 560px; */
+  }
+  .loader {
+  }
   .basic-list {
     gap: 32px;
   }
@@ -560,8 +569,9 @@ N O T   F O U N D
   }
 }
 
-.loader {
-  top: 50%;
+/* .loader {
+  display: none;
+  top: 194px;
   left: 50%;
   position: absolute;
 }
@@ -617,4 +627,4 @@ N O T   F O U N D
     font-size: 6px;
     opacity: 0;
   }
-}
+} */

@@ -38,7 +38,12 @@ const refs = {
   discountList: document.querySelector('.discount-list'),
   pagesWrapper: document.querySelector('.pages-wrapper'),
   categoriesSelector: document.querySelector('#categories'),
+  sortSelector: document.querySelector('#sort'),
   loaderSymbol: document.querySelector('.loader'),
+  pagesList: document.querySelector('.pages-list'),
+  pagesBtnLeft: document.querySelector('.pages-btn-left'),
+  pagesBtnRight: document.querySelector('.pages-btn-right'),
+  divForLoader: document.querySelector('.div-for-span'),
 };
 
 const DISCOUNT_LABEL_MARKUP = `<div class="discount-label"> 
@@ -81,6 +86,8 @@ function submitHandler(e) {
   if (!modifOptions.keyword) {
     setAxiosOptions(defaultsOptions);
     getBasicProducts();
+    refs.sortSelector[0].selected = 'true';
+    refs.categoriesSelector[0].selected = 'true';
     return;
   }
   modifOptions.page = 1;
@@ -150,6 +157,12 @@ function renderCategories() {
 
 async function getBasicProducts() {
   try {
+    // if (refs.loaderSymbol.style.display === 'none') {
+    //   refs.basicList.innerHTML = '';
+    //   refs.notFound.style.display = 'none';
+    //   refs.loaderSymbol.style.display = 'block';
+    //   refs.divForLoader.style.display = 'block';
+    // }
     const resp = await axios.get(endPoints.basic, {
       params: getAxiosOptions(),
     });
@@ -158,17 +171,23 @@ async function getBasicProducts() {
       storageKeys.totalPages,
       JSON.stringify(resp.data.totalPages)
     );
-    // console.log(resp.data.results);
     if (resp.data.results.length === 0) {
       refs.notFound.firstElementChild.classList.add('.not-found');
       refs.pagesWrapper.style.display = 'none';
       refs.notFound.style.display = 'block';
+      refs.basicList.innerHTML = '';
+      // refs.loaderSymbol.style.display = 'none';
+      // refs.divForLoader.style.display = 'none';
     } else {
       if (refs.notFound.firstElementChild.classList.contains('.not-found')) {
         refs.notFound.firstElementChild.classList.remove('.not-found');
         refs.notFound.style.display = 'none';
       }
-      refs.loaderSymbol.style.display = 'none';
+      if (resp.data.totalPage === 1) {
+        refs.pagesWrapper.style.display = 'none';
+      }
+      // refs.loaderSymbol.style.display = 'none';
+      // refs.divForLoader.style.display = 'none';
       renderBasicProducts(resp.data.totalPages, resp.data.page);
     }
   } catch (error) {
@@ -217,8 +236,10 @@ function renderBasicProducts(totalPages, page) {
   if (
     !refs.pagesWrapper.style.display ||
     refs.pagesWrapper.style.display === 'none'
-  )
+  ) {
     refs.pagesWrapper.style.display = 'flex';
+  }
+  if (totalPages === 1) refs.pagesWrapper.style.display = 'none';
   renderNumberSlider(totalPages, page);
 }
 
