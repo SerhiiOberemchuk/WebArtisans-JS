@@ -101,6 +101,7 @@ function selectsHandler(e) {
   const modifOptions = getAxiosOptions();
   if (e.target.name === 'categories') {
     modifOptions.category = e.target.value === 'null' ? null : e.target.value;
+    modifOptions.page = 1;
   }
   if (e.target.name === 'sort') {
     resetFilter(modifOptions);
@@ -111,7 +112,6 @@ function selectsHandler(e) {
       e.target.value.length
     );
   }
-  modifOptions.page = 1;
   setAxiosOptions(modifOptions);
   getBasicProducts();
 }
