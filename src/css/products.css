@@ -562,7 +562,7 @@ N O T   F O U N D
     width: 275px;
   }
   .discount-item-name {
-    max-width: 124px;
+    max-width: 100%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
