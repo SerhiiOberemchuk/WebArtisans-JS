@@ -6,46 +6,42 @@ import {
   refs,
 } from './oleksii.js';
 
-const pagesBtnLeft = document.querySelector('.pages-btn-left');
-const pagesBtnRight = document.querySelector('.pages-btn-right');
-const pagesList = document.querySelector('.pages-list');
-
-pagesBtnLeft.addEventListener('click', onClickLeft);
-pagesBtnRight.addEventListener('click', onClickRight);
-pagesList.addEventListener('click', onClickNumber);
+refs.pagesBtnLeft.addEventListener('click', onClickLeft);
+refs.pagesBtnRight.addEventListener('click', onClickRight);
+refs.pagesList.addEventListener('click', onClickNumber);
 
 function onClickLeft() {
-  if (refs.loaderSymbol.style.display === 'none') {
-    refs.basicList.innerHTML = '';
-    refs.loaderSymbol.style.display = 'absolute';
-  }
+  // if (refs.loaderSymbol.style.display === 'none') {
+  //   refs.basicList.innerHTML = '';
+  //   refs.loaderSymbol.style.display = 'block';
+  //   refs.divForLoader.style.display = 'block';
+  // }
   const modifOptions = getAxiosOptions();
   if (modifOptions.page === 1) return;
   modifOptions.page--;
-  // console.log(modifOptions.page);
   setAxiosOptions(modifOptions);
   getBasicProducts();
 }
 
 function onClickRight() {
-  refs.basicList.innerHTML = '';
-  refs.loaderSymbol.style.display = 'absolute';
+  // refs.basicList.innerHTML = '';
+  // refs.loaderSymbol.style.display = 'block';
+  // refs.divForLoader.style.display = 'block';
   const modifOptions = getAxiosOptions();
-  // console.dir(modifOptions);
   if (modifOptions.page >= localStorage.getItem(storageKeys.totalPages)) return;
   modifOptions.page++;
-  // console.dir(modifOptions);
   setAxiosOptions(modifOptions);
   getBasicProducts();
 }
 
 function onClickNumber(e) {
-  if (refs.loaderSymbol.style.display === 'none') {
-    refs.basicList.innerHTML = '';
-    refs.loaderSymbol.style.display = 'absolute';
-  }
-  const number = Number(e.target.textContent);
-  if (!number) return;
+  const number = +e.target.textContent;
+  if (Number.isNaN(number)) return;
+  // if (refs.loaderSymbol.style.display === 'none') {
+  //   refs.basicList.innerHTML = '';
+  //   refs.loaderSymbol.style.display = 'block';
+  //   refs.divForLoader.style.display = 'block';
+  // }
   const modifOptions = getAxiosOptions();
   modifOptions.page = number;
   setAxiosOptions(modifOptions);
@@ -64,7 +60,7 @@ function renderNumberSlider(totalPages, currentPage) {
     const markup = pagesNumbersArray
       .map(item => `<li class="pages-item is-hover">${item}</li>`)
       .join('');
-    pagesList.innerHTML = markup;
+    refs.pagesList.innerHTML = markup;
   } else if (totalPages > 5) {
     if (currentPage <= 2 || currentPage > totalPages - 2) {
       const numToDel = totalPages - 4;
@@ -75,7 +71,7 @@ function renderNumberSlider(totalPages, currentPage) {
           return `<li class="pages-item is-hover">${item}</li>`;
         })
         .join('');
-      pagesList.innerHTML = markup;
+      refs.pagesList.innerHTML = markup;
     } else if (currentPage > 2) {
       const numToDel = totalPages - 2;
       pagesNumbersArray.splice(1, numToDel, '...', currentPage, '...');
@@ -85,32 +81,38 @@ function renderNumberSlider(totalPages, currentPage) {
           return `<li class="pages-item is-hover">${item}</li>`;
         })
         .join('');
-      pagesList.innerHTML = markup;
+      refs.pagesList.innerHTML = markup;
     }
   }
 
-  if (currentPage !== 1 && pagesBtnLeft.hasAttribute('disabled')) {
-    pagesBtnLeft.disabled = false;
-    pagesBtnLeft.classList.add('is-hover');
+  if (currentPage !== 1 && refs.pagesBtnLeft.hasAttribute('disabled')) {
+    refs.pagesBtnLeft.disabled = false;
+    refs.pagesBtnLeft.classList.add('is-hover');
   }
-  if (currentPage !== totalPages && pagesBtnRight.hasAttribute('disabled')) {
-    pagesBtnRight.disabled = false;
-    pagesBtnRight.classList.add('is-hover');
+  if (
+    currentPage !== totalPages &&
+    refs.pagesBtnRight.hasAttribute('disabled')
+  ) {
+    refs.pagesBtnRight.disabled = false;
+    refs.pagesBtnRight.classList.add('is-hover');
   }
-  if (currentPage === 1 && !pagesBtnLeft.hasAttribute('disabled')) {
-    pagesBtnLeft.disabled = true;
-    pagesBtnLeft.classList.remove('is-hover');
+  if (currentPage === 1 && !refs.pagesBtnLeft.hasAttribute('disabled')) {
+    refs.pagesBtnLeft.disabled = true;
+    refs.pagesBtnLeft.classList.remove('is-hover');
   }
-  if (currentPage === totalPages && !pagesBtnRight.hasAttribute('disabled')) {
-    pagesBtnRight.disabled = true;
-    pagesBtnRight.classList.remove('is-hover');
+  if (
+    currentPage === totalPages &&
+    !refs.pagesBtnRight.hasAttribute('disabled')
+  ) {
+    refs.pagesBtnRight.disabled = true;
+    refs.pagesBtnRight.classList.remove('is-hover');
   }
 
-  for (let i = 0; i < pagesList.children.length; i++) {
-    if (pagesList.children[i].textContent == currentPage) {
-      pagesList.children[i].classList.add('current-pages-item');
+  for (let i = 0; i < refs.pagesList.children.length; i++) {
+    if (refs.pagesList.children[i].textContent == currentPage) {
+      refs.pagesList.children[i].classList.add('current-pages-item');
     } else {
-      pagesList.children[i].classList.remove('current-pages-item');
+      refs.pagesList.children[i].classList.remove('current-pages-item');
     }
   }
 }
