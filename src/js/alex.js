@@ -23,6 +23,7 @@ function onFooterFormSubmit(event) {
       });
     })
     .catch(error => {
+      console.clear();
       if (error.request.status === 400) {
         Swal.fire({
           color: '#586f1f',
