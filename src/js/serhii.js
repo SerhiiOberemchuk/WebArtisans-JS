@@ -3,12 +3,15 @@ import {
   getAxiosOptions,
   setAxiosOptions,
   storageKeys,
-  refs,
 } from './oleksii.js';
 
-refs.pagesBtnLeft.addEventListener('click', onClickLeft);
-refs.pagesBtnRight.addEventListener('click', onClickRight);
-refs.pagesList.addEventListener('click', onClickNumber);
+const pagesList = document.querySelector('.pages-list');
+const pagesBtnLeft = document.querySelector('.pages-btn-left');
+const pagesBtnRight = document.querySelector('.pages-btn-right');
+
+pagesList.addEventListener('click', onClickNumber);
+pagesBtnLeft.addEventListener('click', onClickLeft);
+pagesBtnRight.addEventListener('click', onClickRight);
 
 function onClickLeft() {
   // if (refs.loaderSymbol.style.display === 'none') {
@@ -60,7 +63,7 @@ function renderNumberSlider(totalPages, currentPage) {
     const markup = pagesNumbersArray
       .map(item => `<li class="pages-item is-hover">${item}</li>`)
       .join('');
-    refs.pagesList.innerHTML = markup;
+    pagesList.innerHTML = markup;
   } else if (totalPages > 5) {
     if (currentPage <= 2 || currentPage > totalPages - 2) {
       const numToDel = totalPages - 4;
@@ -71,7 +74,7 @@ function renderNumberSlider(totalPages, currentPage) {
           return `<li class="pages-item is-hover">${item}</li>`;
         })
         .join('');
-      refs.pagesList.innerHTML = markup;
+      pagesList.innerHTML = markup;
     } else if (currentPage > 2) {
       const numToDel = totalPages - 2;
       pagesNumbersArray.splice(1, numToDel, '...', currentPage, '...');
@@ -81,38 +84,32 @@ function renderNumberSlider(totalPages, currentPage) {
           return `<li class="pages-item is-hover">${item}</li>`;
         })
         .join('');
-      refs.pagesList.innerHTML = markup;
+      pagesList.innerHTML = markup;
     }
   }
 
-  if (currentPage !== 1 && refs.pagesBtnLeft.hasAttribute('disabled')) {
-    refs.pagesBtnLeft.disabled = false;
-    refs.pagesBtnLeft.classList.add('is-hover');
+  if (currentPage !== 1 && pagesBtnLeft.hasAttribute('disabled')) {
+    pagesBtnLeft.disabled = false;
+    pagesBtnLeft.classList.add('is-hover');
   }
-  if (
-    currentPage !== totalPages &&
-    refs.pagesBtnRight.hasAttribute('disabled')
-  ) {
-    refs.pagesBtnRight.disabled = false;
-    refs.pagesBtnRight.classList.add('is-hover');
+  if (currentPage !== totalPages && pagesBtnRight.hasAttribute('disabled')) {
+    pagesBtnRight.disabled = false;
+    pagesBtnRight.classList.add('is-hover');
   }
-  if (currentPage === 1 && !refs.pagesBtnLeft.hasAttribute('disabled')) {
-    refs.pagesBtnLeft.disabled = true;
-    refs.pagesBtnLeft.classList.remove('is-hover');
+  if (currentPage === 1 && !pagesBtnLeft.hasAttribute('disabled')) {
+    pagesBtnLeft.disabled = true;
+    pagesBtnLeft.classList.remove('is-hover');
   }
-  if (
-    currentPage === totalPages &&
-    !refs.pagesBtnRight.hasAttribute('disabled')
-  ) {
-    refs.pagesBtnRight.disabled = true;
-    refs.pagesBtnRight.classList.remove('is-hover');
+  if (currentPage === totalPages && !pagesBtnRight.hasAttribute('disabled')) {
+    pagesBtnRight.disabled = true;
+    pagesBtnRight.classList.remove('is-hover');
   }
 
-  for (let i = 0; i < refs.pagesList.children.length; i++) {
-    if (refs.pagesList.children[i].textContent == currentPage) {
-      refs.pagesList.children[i].classList.add('current-pages-item');
+  for (let i = 0; i < pagesList.children.length; i++) {
+    if (pagesList.children[i].textContent == currentPage) {
+      pagesList.children[i].classList.add('current-pages-item');
     } else {
-      refs.pagesList.children[i].classList.remove('current-pages-item');
+      pagesList.children[i].classList.remove('current-pages-item');
     }
   }
 }
