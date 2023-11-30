@@ -93,7 +93,7 @@ N O T   F O U N D
   background-color: var(--background-color-grey);
 }
 .basic-image-wrapper img {
-  transform: scale (0.8);
+  transform: scale(0.8);
 }
 .basic-name {
   font-size: 18px;
@@ -270,7 +270,7 @@ N O T   F O U N D
   background-color: var(--background-color-grey);
 }
 .popular-image-wrapper img {
-  transform: scale (0.7);
+  transform: scale(0.7);
 }
 .popular-info-wrapper {
   flex-grow: 1;
@@ -384,7 +384,7 @@ N O T   F O U N D
   background-color: var(--background-color-grey);
 }
 .discount-image-wrapper img {
- transform:  scale (0.7);
+  transform: scale(0.7);
 }
 .discount-info-wrapper {
   display: flex;
