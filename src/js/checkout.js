@@ -47,26 +47,8 @@ async function handleCheckout() {
       if (closeModalBtn) {
         closeModalBtn.addEventListener('click', handleCloseModal);
       }
-    } else {
-      console.error('Unsuccessful order creation. Response:', response);
-      Swal.fire({
-  title: 'Error creating order. Please try again.',
-        icon: 'warning',
-        iconColor: `#6D8434`,
-        showConfirmButton: false,
-        timer: 2000,
-})
-    }
-  } catch (error) {
-    console.error('Error creating order:', error);
-    alert(error.response.data.message || Swal.fire({
-  title: 'Error creating order. Please try again.',
-        icon: 'warning',
-        iconColor: `#6D8434`,
-        showConfirmButton: false,
-        timer: 2000,
-}));
-  }
+    } 
+  } catch (error) {}
 }
 // update cart
 
