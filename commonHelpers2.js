@@ -1,71 +1,71 @@
-import{i as d}from"./assets/scrollUp-feb4a7f7.js";import{a as S}from"./assets/vendor-2bc536cc.js";const g=document.querySelector(".pages-btn-left"),y=document.querySelector(".pages-btn-right"),l=document.querySelector(".pages-list");g.addEventListener("click",D);y.addEventListener("click",z);l.addEventListener("click",K);function D(){o.loaderSymbol.style.display==="none"&&(o.basicList.innerHTML="",o.loaderSymbol.style.display="absolute");const t=b();t.page!==1&&(t.page--,u(t),f())}function z(){o.basicList.innerHTML="",o.loaderSymbol.style.display="absolute";const t=b();t.page>=localStorage.getItem(c.totalPages)||(t.page++,u(t),f())}function K(t){o.loaderSymbol.style.display==="none"&&(o.basicList.innerHTML="",o.loaderSymbol.style.display="absolute");const e=Number(t.target.textContent);if(!e)return;const i=b();i.page=e,u(i),f()}function F(t,e){let i=[];for(let s=1;s<=t;s++)i.push(s);if(t<=5){const s=i.map(a=>`<li class="pages-item is-hover">${a}</li>`).join("");l.innerHTML=s}else if(t>5){if(e<=2||e>t-2){const s=t-4;i.splice(2,s,"...");const a=i.map(n=>+n?`<li class="pages-item is-hover">${n}</li>`:`<li class="pages-item" disabled>${n}</li>`).join("");l.innerHTML=a}else if(e>2){const s=t-2;i.splice(1,s,"...",e,"...");const a=i.map(n=>+n?`<li class="pages-item is-hover">${n}</li>`:`<li class="pages-item" disabled>${n}</li>`).join("");l.innerHTML=a}}e!==1&&g.hasAttribute("disabled")&&(g.disabled=!1,g.classList.add("is-hover")),e!==t&&y.hasAttribute("disabled")&&(y.disabled=!1,y.classList.add("is-hover")),e===1&&!g.hasAttribute("disabled")&&(g.disabled=!0,g.classList.remove("is-hover")),e===t&&!y.hasAttribute("disabled")&&(y.disabled=!0,y.classList.remove("is-hover"));for(let s=0;s<l.children.length;s++)l.children[s].textContent==e?l.children[s].classList.add("current-pages-item"):l.children[s].classList.remove("current-pages-item")}const A="/WebArtisans-JS/assets/discount-ed7c6afc.jpg";S.defaults.baseURL="https://food-boutique.b.goit.study/api";const C={keyword:null,category:null,byABC:!0,byPrice:null,byPopularity:null,page:1,limit:V()},k={basic:"/products",popular:"/products/popular",discount:"/products/discount",categories:"/products/categories"},c={basic:"basic-wrapper",basket:"BASKET",popular:"popular-wrapper",discount:"discount-wrapper",totalPages:"totalPages",categories:"categories",axiosOptions:"axiosOptions"},o={form:document.querySelector(".filter_form"),products:document.querySelector(".products"),notFound:document.querySelector(".not-found-wrapper"),basicList:document.querySelector(".basic-list"),popularList:document.querySelector(".popular-list"),discountList:document.querySelector(".discount-list"),pagesWrapper:document.querySelector(".pages-wrapper"),categoriesSelector:document.querySelector("#categories"),loaderSymbol:document.querySelector(".loader")},E=`<div class="discount-label"> 
-            <img src="${A}" alt="discount label" class="discount-img">             
-            </div> `,U=`<div class="discount-label-popular"> 
-            <img src="${A}" alt="discount label" class="discount-img">             
-            </div> `;u(C);X();f();j();et();o.form.addEventListener("input",W);o.form.addEventListener("submit",R);o.form.addEventListener("change",G);function W(t){if(t.preventDefault(),t.target.name!=="text")return;const e=b();e.keyword=t.target.value,u(e)}function R(t){t.preventDefault();const e=b();if(!e.keyword){u(C),f();return}e.page=1,u(e),f()}function G(t){if(t.preventDefault(),t.target.name==="text")return;const e=b();if(t.target.name==="categories"&&(e.category=t.target.value==="null"?null:t.target.value),t.target.name==="sort"){Q(e);const i=t.target.value.indexOf("="),s=t.target.value.slice(0,i);e[s]=t.target.value.slice(i+1,t.target.value.length)}e.page=1,u(e),f()}function Q(t){t.byABC=null,t.byPrice=null,t.byPopularity=null}function V(){const t=window.innerWidth;return t<768?6:t>=768&&t<1440?8:9}async function X(){try{const t=await S.get(k.categories);localStorage.setItem(c.categories,JSON.stringify(t.data)),Y()}catch(t){console.log(t)}}function Y(){const t=JSON.parse(localStorage.getItem(c.categories));o.categoriesSelector.innerHTML="<option disabled selected hidden>Categories</option>"+t.map(e=>`<option value="${e}">${e.replaceAll("_"," ")}</option>`).join("")+'<option value="null">Show all</option>'}async function f(){try{const t=await S.get(k.basic,{params:b()});localStorage.setItem(c.basic,JSON.stringify(t.data.results)),localStorage.setItem(c.totalPages,JSON.stringify(t.data.totalPages)),t.data.results.length===0?(o.notFound.firstElementChild.classList.add(".not-found"),o.pagesWrapper.style.display="none",o.notFound.style.display="block"):(o.notFound.firstElementChild.classList.contains(".not-found")&&(o.notFound.firstElementChild.classList.remove(".not-found"),o.notFound.style.display="none"),o.loaderSymbol.style.display="none",Z(t.data.totalPages,t.data.page))}catch(t){console.log(t)}}function Z(t,e){const i=JSON.parse(localStorage.getItem(c.basic)),s=JSON.parse(localStorage.getItem(c.basket));o.basicList.innerHTML=i.map(a=>{const n=a.is10PercentOff?E:"",p=s&&s.some(r=>r._id===a._id)?"check":"basket";return`<li class="basic-item" id="${a._id}">${n}
+import{i as l}from"./assets/scrollUp-fb15703a.js";import{a as f}from"./assets/vendor-2bc536cc.js";s.pagesBtnLeft.addEventListener("click",M);s.pagesBtnRight.addEventListener("click",x);s.pagesList.addEventListener("click",H);function M(){const t=m();t.page!==1&&(t.page--,d(t),g())}function x(){const t=m();t.page>=localStorage.getItem(r.totalPages)||(t.page++,d(t),g())}function H(t){const e=+t.target.textContent;if(Number.isNaN(e))return;const o=m();o.page=e,d(o),g()}function R(t,e){let o=[];for(let a=1;a<=t;a++)o.push(a);if(t<=5){const a=o.map(i=>`<li class="pages-item is-hover">${i}</li>`).join("");s.pagesList.innerHTML=a}else if(t>5){if(e<=2||e>t-2){const a=t-4;o.splice(2,a,"...");const i=o.map(n=>+n?`<li class="pages-item is-hover">${n}</li>`:`<li class="pages-item" disabled>${n}</li>`).join("");s.pagesList.innerHTML=i}else if(e>2){const a=t-2;o.splice(1,a,"...",e,"...");const i=o.map(n=>+n?`<li class="pages-item is-hover">${n}</li>`:`<li class="pages-item" disabled>${n}</li>`).join("");s.pagesList.innerHTML=i}}e!==1&&s.pagesBtnLeft.hasAttribute("disabled")&&(s.pagesBtnLeft.disabled=!1,s.pagesBtnLeft.classList.add("is-hover")),e!==t&&s.pagesBtnRight.hasAttribute("disabled")&&(s.pagesBtnRight.disabled=!1,s.pagesBtnRight.classList.add("is-hover")),e===1&&!s.pagesBtnLeft.hasAttribute("disabled")&&(s.pagesBtnLeft.disabled=!0,s.pagesBtnLeft.classList.remove("is-hover")),e===t&&!s.pagesBtnRight.hasAttribute("disabled")&&(s.pagesBtnRight.disabled=!0,s.pagesBtnRight.classList.remove("is-hover"));for(let a=0;a<s.pagesList.children.length;a++)s.pagesList.children[a].textContent==e?s.pagesList.children[a].classList.add("current-pages-item"):s.pagesList.children[a].classList.remove("current-pages-item")}const O="/WebArtisans-JS/assets/discount-ed7c6afc.jpg";f.defaults.baseURL="https://food-boutique.b.goit.study/api";const w={keyword:null,category:null,byABC:!0,byPrice:null,byPopularity:null,page:1,limit:U()},S={basic:"/products",popular:"/products/popular",discount:"/products/discount",categories:"/products/categories"},r={basic:"basic-wrapper",basket:"BASKET",popular:"popular-wrapper",discount:"discount-wrapper",totalPages:"totalPages",categories:"categories",axiosOptions:"axiosOptions"},s={form:document.querySelector(".filter_form"),products:document.querySelector(".products"),notFound:document.querySelector(".not-found-wrapper"),basicList:document.querySelector(".basic-list"),popularList:document.querySelector(".popular-list"),discountList:document.querySelector(".discount-list"),pagesWrapper:document.querySelector(".pages-wrapper"),categoriesSelector:document.querySelector("#categories"),sortSelector:document.querySelector("#sort"),loaderSymbol:document.querySelector(".loader"),pagesList:document.querySelector(".pages-list"),pagesBtnLeft:document.querySelector(".pages-btn-left"),pagesBtnRight:document.querySelector(".pages-btn-right"),divForLoader:document.querySelector(".div-for-span")},B=`<div class="discount-label"> 
+            <img src="${O}" alt="discount label" class="discount-img">             
+            </div> `,D=`<div class="discount-label-popular"> 
+            <img src="${O}" alt="discount label" class="discount-img">             
+            </div> `;d(w);G();g();X();Z();s.form.addEventListener("input",z);s.form.addEventListener("submit",K);s.form.addEventListener("change",W);function z(t){if(t.preventDefault(),t.target.name!=="text")return;const e=m();e.keyword=t.target.value,d(e)}function K(t){t.preventDefault();const e=m();if(!e.keyword){d(w),g(),s.sortSelector[0].selected="true",s.categoriesSelector[0].selected="true";return}e.page=1,d(e),g()}function W(t){if(t.preventDefault(),t.target.name==="text")return;const e=m();if(t.target.name==="categories"&&(e.category=t.target.value==="null"?null:t.target.value,e.page=1),t.target.name==="sort"){F(e);const o=t.target.value.indexOf("="),a=t.target.value.slice(0,o);e[a]=t.target.value.slice(o+1,t.target.value.length)}d(e),g()}function F(t){t.byABC=null,t.byPrice=null,t.byPopularity=null}function U(){const t=window.innerWidth;return t<768?6:t>=768&&t<1440?8:9}async function G(){try{const t=await f.get(S.categories);localStorage.setItem(r.categories,JSON.stringify(t.data)),Q()}catch(t){console.log(t)}}function Q(){const t=JSON.parse(localStorage.getItem(r.categories));s.categoriesSelector.innerHTML="<option disabled selected hidden>Categories</option>"+t.map(e=>`<option value="${e}">${e.replaceAll("_"," ")}</option>`).join("")+'<option value="null">Show all</option>'}async function g(){try{const t=await f.get(S.basic,{params:m()});localStorage.setItem(r.basic,JSON.stringify(t.data.results)),localStorage.setItem(r.totalPages,JSON.stringify(t.data.totalPages)),t.data.results.length===0?(s.notFound.firstElementChild.classList.add(".not-found"),s.pagesWrapper.style.display="none",s.notFound.style.display="block",s.basicList.innerHTML=""):(s.notFound.firstElementChild.classList.contains(".not-found")&&(s.notFound.firstElementChild.classList.remove(".not-found"),s.notFound.style.display="none"),t.data.totalPage===1&&(s.pagesWrapper.style.display="none"),V(t.data.totalPages,t.data.page))}catch(t){console.log(t)}}function V(t,e){const o=JSON.parse(localStorage.getItem(r.basic)),a=JSON.parse(localStorage.getItem(r.basket));s.basicList.innerHTML=o.map(i=>{const n=i.is10PercentOff?B:"",u=a&&a.some(c=>c._id===i._id)?"check":"basket";return`<li class="basic-item" id="${i._id}">${n}
       <div class="basic-image-wrapper">
               <img
-                src="${a.img}"
-                alt="${a.name}"
+                src="${i.img}"
+                alt="${i.name}"
               />
             </div>
-            <h3 class="basic-name">${a.name}</h3>
+            <h3 class="basic-name">${i.name}</h3>
             <div class="basic-info-wrapper">
               <p class="basic-info">
-                Category:<span class="category">${a.category}</span>Size:<span
+                Category:<span class="category">${i.category}</span>Size:<span
                   class="size"
-                  >${a.size}</span
+                  >${i.size}</span
                 >
               </p>
               <p class="basic-info">
-                Popularity:<span class="popularity">${a.popularity}</span>
+                Popularity:<span class="popularity">${i.popularity}</span>
               </p>
             </div>
             <div class="basic-last-info">
-              <span class="basic-price">$${a.price}</span>
-              <button class="basic-btn" type="button" id="${a._id}">
+              <span class="basic-price">$${i.price}</span>
+              <button class="basic-btn" type="button" id="${i._id}">
                 <svg class="basic-btn-icon" width="18" height="18">
-                  <use href="${d}#icon-${p}"></use>
+                  <use href="${l}#icon-${u}"></use>
                 </svg>
               </button>
             </div>
-          </li>`}).join(""),(!o.pagesWrapper.style.display||o.pagesWrapper.style.display==="none")&&(o.pagesWrapper.style.display="flex"),F(t,e)}async function j(){try{const t=await S.get(k.popular);localStorage.setItem(c.popular,JSON.stringify(t.data)),tt()}catch(t){console.log(t)}}function tt(){const t=JSON.parse(localStorage.getItem(c.popular)),e=JSON.parse(localStorage.getItem(c.basket));o.popularList.innerHTML=t.map(i=>{const s=i.is10PercentOff?U:"",a=e&&e.some(n=>n._id===i._id)?"check":"basket";return`<li class="popular-item" id="${i._id}">${s}
+          </li>`}).join(""),(!s.pagesWrapper.style.display||s.pagesWrapper.style.display==="none")&&(s.pagesWrapper.style.display="flex"),t===1&&(s.pagesWrapper.style.display="none"),R(t,e)}async function X(){try{const t=await f.get(S.popular);localStorage.setItem(r.popular,JSON.stringify(t.data)),Y()}catch(t){console.log(t)}}function Y(){const t=JSON.parse(localStorage.getItem(r.popular)),e=JSON.parse(localStorage.getItem(r.basket));s.popularList.innerHTML=t.map(o=>{const a=o.is10PercentOff?D:"",i=e&&e.some(n=>n._id===o._id)?"check":"basket";return`<li class="popular-item" id="${o._id}">${a}
             <div class="popular-image-wrapper">
-              <img src="${i.img}" alt="${i.name}" />
+              <img src="${o.img}" alt="${o.name}" />
             </div>
             <div class="popular-info-wrapper">
               <div class="popular-name-wrapper">
-                <h3 class="popular-name">${i.name}</h3>
-                <button class="popular-item-btn" type="button" aria-label="add to basket" id="${i._id}">
+                <h3 class="popular-name">${o.name}</h3>
+                <button class="popular-item-btn" type="button" aria-label="add to basket" id="${o._id}">
                   <svg class="popular-item-btn-icon" width="12" height="12">
-                    <use href="${d}#icon-${a}"></use>
+                    <use href="${l}#icon-${i}"></use>
                   </svg>
                 </button>
               </div>
               <p class="popular-info">
-                Category:<span class="category">${i.category}</span>
+                Category:<span class="category">${o.category}</span>
               </p>
               <p class="popular-info">
-                Size:<span class="size">${i.size}</span>Popularity:<span class="popularity">${i.popularity}</span>
+                Size:<span class="size">${o.size}</span>Popularity:<span class="popularity">${o.popularity}</span>
               </p>
             </div>
-          </li>`}).join("")}async function et(){try{const t=await S.get(k.discount);localStorage.setItem(c.discount,JSON.stringify(t.data)),st()}catch(t){console.log(t)}}function st(){const t=JSON.parse(localStorage.getItem(c.discount)),e=JSON.parse(localStorage.getItem(c.basket));let i=t.slice(0,2);o.discountList.innerHTML=i.map(s=>{const a=e&&e.some(n=>n._id===s._id)?"check":"basket";return`<li class="discount-item" id="${s._id}">
-            ${E}
+          </li>`}).join("")}async function Z(){try{const t=await f.get(S.discount);localStorage.setItem(r.discount,JSON.stringify(t.data)),j()}catch(t){console.log(t)}}function j(){const t=JSON.parse(localStorage.getItem(r.discount)),e=JSON.parse(localStorage.getItem(r.basket));let o=t.slice(0,2);s.discountList.innerHTML=o.map(a=>{const i=e&&e.some(n=>n._id===a._id)?"check":"basket";return`<li class="discount-item" id="${a._id}">
+            ${B}
             <div class="discount-image-wrapper">
-              <img src="${s.img}" alt="${s.name}" />
+              <img src="${a.img}" alt="${a.name}" />
             </div>
             <div class="discount-info-wrapper">
-              <h3 class="discount-item-name">${s.name}</h3>
-              <span class="discount-item-price">$${s.price}</span>
-              <button class="basic-btn" type="button" aria-label="icon-basket" id="${s._id}">
+              <h3 class="discount-item-name">${a.name}</h3>
+              <span class="discount-item-price">$${a.price}</span>
+              <button class="basic-btn" type="button" aria-label="icon-basket" id="${a._id}">
                 <svg class="basic-btn-icon" width="18" height="18">
-                  <use href="${d}#icon-${a}"></use>
+                  <use href="${l}#icon-${i}"></use>
                 </svg>
               </button>
             </div>
-          </li>`}).join("")}function b(){return JSON.parse(localStorage.getItem(c.axiosOptions))}function u(t){localStorage.setItem(c.axiosOptions,JSON.stringify(t))}const L=document.querySelector(".backdrop"),at=document.querySelector(".modal_window"),q=document.querySelector(".basic-list"),B=document.querySelector(".popular-list"),N=document.querySelector(".discount-list"),it=document.querySelector(".quantity-in-cart-header");async function P(t){try{return(await S.get(`https://food-boutique.b.goit.study/api/products/${t}`)).data}catch(e){throw console.error(e),e}}q.addEventListener("click",_);B.addEventListener("click",_);N.addEventListener("click",_);q.addEventListener("click",$);B.addEventListener("click",$);N.addEventListener("click",$);document.addEventListener("DOMContentLoaded",()=>{const t=JSON.parse(localStorage.getItem("BASKET"))||[];O(t.length)});async function $(t){if(!t.target.closest(".basic-btn, .popular-item-btn"))return;const e=t.target.closest(".basic-item")||t.target.closest(".popular-item")||t.target.closest(".discount-item");if(!e)return;const i=e.id;try{const s=await T(i);if(s.amount=1,s){const a=JSON.parse(localStorage.getItem("BASKET"))||[];if(!a.some(p=>p._id===s._id)){a.push(s),localStorage.setItem("BASKET",JSON.stringify(a)),O(a.length);const p=e.querySelector(".basic-btn, .popular-item-btn"),r=e.querySelector(".basic-btn-icon, .popular-item-btn-icon");r.innerHTML=`<use href="${d}#icon-check"></use>`,p.disabled=!0,p.removeEventListener("click",$)}}}catch{}}async function T(t){try{const e=await P(t);return e?{_id:e._id,name:e.name,category:e.category,size:e.size,img:e.img,price:e.price,is10PercentOff:e.is10PercentOff}:null}catch(e){throw e}}async function _(t){const e=t.target.closest(".basic-item")||t.target.closest(".popular-item")||t.target.closest(".discount-item");if(!e)return;if(!t.target.closest("button")){const s=e.id;try{const a=await P(s);if(a){ot(a),L.style.display="block",L.addEventListener("click",J),document.addEventListener("keydown",M);const r=document.querySelector(".added_button"),m=document.querySelector(".add_button");a&&((JSON.parse(localStorage.getItem("BASKET"))||[]).some(v=>v._id===a._id)?(m.style.display="none",r.style.display="block"):(m.style.display="block",r.style.display="none")),m.addEventListener("click",()=>n(a))}async function n(r){try{const m=await T(s);if(m){const h=JSON.parse(localStorage.getItem("BASKET"))||[];if(!h.some(v=>v._id===m._id)){r.amount=1,h.push(r),localStorage.setItem("BASKET",JSON.stringify(h));const v=document.querySelector(".added_button"),I=document.querySelector(".add_button"),x=e.querySelector(".basic-btn-icon, .popular-item-btn-icon");I&&(I.style.display="none",v.style.display="block",x.innerHTML=`<use href="${d}#icon-check"></use>`),O(h.length)}}}catch{}}document.querySelector(".close_button").addEventListener("click",w)}catch{}}}function O(t){it.textContent=t}function ot(t){const e=`<button class="close_button" type="button" aria-label="Close">
+          </li>`}).join("")}function m(){return JSON.parse(localStorage.getItem(r.axiosOptions))}function d(t){localStorage.setItem(r.axiosOptions,JSON.stringify(t))}const h=document.querySelector(".backdrop"),tt=document.querySelector(".modal_window"),I=document.querySelector(".basic-list"),A=document.querySelector(".popular-list"),C=document.querySelector(".discount-list"),et=document.querySelector(".quantity-in-cart-header");async function E(t){try{return(await f.get(`https://food-boutique.b.goit.study/api/products/${t}`)).data}catch(e){throw console.error(e),e}}I.addEventListener("click",v);A.addEventListener("click",v);C.addEventListener("click",v);I.addEventListener("click",L);A.addEventListener("click",L);C.addEventListener("click",L);document.addEventListener("DOMContentLoaded",()=>{const t=JSON.parse(localStorage.getItem("BASKET"))||[];k(t.length)});async function L(t){if(!t.target.closest(".basic-btn, .popular-item-btn"))return;const e=t.target.closest(".basic-item")||t.target.closest(".popular-item")||t.target.closest(".discount-item");if(!e)return;const o=e.id;try{const a=await q(o);if(a.amount=1,a){const i=JSON.parse(localStorage.getItem("BASKET"))||[];if(!i.some(u=>u._id===a._id)){i.push(a),localStorage.setItem("BASKET",JSON.stringify(i)),k(i.length);const u=e.querySelector(".basic-btn, .popular-item-btn"),c=e.querySelector(".basic-btn-icon, .popular-item-btn-icon");c.innerHTML=`<use href="${l}#icon-check"></use>`,u.disabled=!0,u.removeEventListener("click",L)}}}catch{}}async function q(t){try{const e=await E(t);return e?{_id:e._id,name:e.name,category:e.category,size:e.size,img:e.img,price:e.price,is10PercentOff:e.is10PercentOff}:null}catch(e){throw e}}async function v(t){const e=t.target.closest(".basic-item")||t.target.closest(".popular-item")||t.target.closest(".discount-item");if(!e)return;if(!t.target.closest("button")){const a=e.id;try{const i=await E(a);if(i){st(i),h.style.display="block",h.addEventListener("click",N),document.addEventListener("keydown",P);const c=document.querySelector(".added_button"),p=document.querySelector(".add_button");i&&((JSON.parse(localStorage.getItem("BASKET"))||[]).some(b=>b._id===i._id)?(p.style.display="none",c.style.display="block"):(p.style.display="block",c.style.display="none")),p.addEventListener("click",()=>n(i))}async function n(c){try{const p=await q(a);if(p){const y=JSON.parse(localStorage.getItem("BASKET"))||[];if(!y.some(b=>b._id===p._id)){c.amount=1,y.push(c),localStorage.setItem("BASKET",JSON.stringify(y));const b=document.querySelector(".added_button"),_=document.querySelector(".add_button"),J=e.querySelector(".basic-btn-icon, .popular-item-btn-icon");_&&(_.style.display="none",b.style.display="block",J.innerHTML=`<use href="${l}#icon-check"></use>`),k(y.length)}}}catch{}}document.querySelector(".close_button").addEventListener("click",$)}catch{}}}function k(t){et.textContent=t}function st(t){const e=`<button class="close_button" type="button" aria-label="Close">
       <svg class="close-btn-icon" width="24" height="24">
-        <use href="${d}#icon-close"></use>
+        <use href="${l}#icon-close"></use>
       </svg>
     </button>
     <div class="item_image">
@@ -89,7 +89,7 @@ import{i as d}from"./assets/scrollUp-feb4a7f7.js";import{a as S}from"./assets/ve
     <button class="added_button" type="submit" aria-label="Item added to cart">
       Added to
       <svg width="18" height="18" class="icon-cart">
-        <use href="${d}#icon-basket"></use>
+        <use href="${l}#icon-basket"></use>
       </svg>
     </button>
     <button
@@ -100,7 +100,7 @@ import{i as d}from"./assets/scrollUp-feb4a7f7.js";import{a as S}from"./assets/ve
     >
       Add to
       <svg width="18" height="18" class="icon-cart">
-        <use href="${d}#icon-basket"></use>
+        <use href="${l}#icon-basket"></use>
       </svg>
-    </button>`;at.innerHTML=e}function J(t){t.target===L&&w()}function M(t){t.key==="Escape"&&w()}function w(){L.style.display="none",L.removeEventListener("click",J),document.removeEventListener("keydown",M)}
+    </button>`;tt.innerHTML=e}function N(t){t.target===h&&$()}function P(t){t.key==="Escape"&&$()}function $(){h.style.display="none",h.removeEventListener("click",N),document.removeEventListener("keydown",P)}
 //# sourceMappingURL=commonHelpers2.js.map
