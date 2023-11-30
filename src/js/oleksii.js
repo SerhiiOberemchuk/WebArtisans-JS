@@ -59,6 +59,23 @@ getBasicProducts();
 getPopularProducts();
 getDiscountProducts();
 
+let index = 0;
+let x = 0;
+const objsArray = JSON.parse(localStorage.getItem(storageKeys.discount));
+const timerId = setInterval(() => {
+  intervalRenderDiscount(index, objsArray);
+  index += 2;
+  if (index === 10) {
+    index = 0;
+    x += 1;
+  }
+  if (x === 10) {
+    x = 0;
+    getDiscountProducts();
+    objsArray = JSON.parse(localStorage.getItem(storageKeys.discount));
+  }
+}, 3000);
+
 // form.addEventListener('input', throttle(inputHandler, 500));
 refs.form.addEventListener('input', inputHandler);
 refs.form.addEventListener('submit', submitHandler);
@@ -304,6 +321,32 @@ function renderDiscountProducts() {
   const objsArray = JSON.parse(localStorage.getItem(storageKeys.discount));
   const basket = JSON.parse(localStorage.getItem(storageKeys.basket));
   let arrTwo = objsArray.slice(0, 2);
+  refs.discountList.innerHTML = arrTwo
+    .map(obj => {
+      const iconName =
+        !!basket && basket.some(el => el._id === obj._id) ? 'check' : 'basket';
+      return `<li class="discount-item" id="${obj._id}">
+            ${DISCOUNT_LABEL_MARKUP}
+            <div class="discount-image-wrapper">
+              <img src="${obj.img}" alt="${obj.name}" />
+            </div>
+            <div class="discount-info-wrapper">
+              <h3 class="discount-item-name">${obj.name}</h3>
+              <span class="discount-item-price">$${obj.price}</span>
+              <button class="basic-btn" type="button" aria-label="icon-basket" id="${obj._id}">
+                <svg class="basic-btn-icon" width="18" height="18">
+                  <use href="${iconUrl}#icon-${iconName}"></use>
+                </svg>
+              </button>
+            </div>
+          </li>`;
+    })
+    .join('');
+}
+
+function intervalRenderDiscount(index, objsArray) {
+  const basket = JSON.parse(localStorage.getItem(storageKeys.basket));
+  let arrTwo = objsArray.slice(index, 2 + index);
   refs.discountList.innerHTML = arrTwo
     .map(obj => {
       const iconName =
