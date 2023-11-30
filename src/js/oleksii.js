@@ -39,11 +39,9 @@ const refs = {
   pagesWrapper: document.querySelector('.pages-wrapper'),
   categoriesSelector: document.querySelector('#categories'),
   sortSelector: document.querySelector('#sort'),
-  loaderSymbol: document.querySelector('.loader'),
   pagesList: document.querySelector('.pages-list'),
   pagesBtnLeft: document.querySelector('.pages-btn-left'),
   pagesBtnRight: document.querySelector('.pages-btn-right'),
-  divForLoader: document.querySelector('.div-for-span'),
 };
 
 const DISCOUNT_LABEL_MARKUP = `<div class="discount-label"> 
