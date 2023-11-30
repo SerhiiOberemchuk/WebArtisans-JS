@@ -61,7 +61,7 @@ getDiscountProducts();
 
 let index = 0;
 let x = 0;
-const objsArray = JSON.parse(localStorage.getItem(storageKeys.discount));
+let objsArray = JSON.parse(localStorage.getItem(storageKeys.discount));
 const timerId = setInterval(() => {
   intervalRenderDiscount(index, objsArray);
   index += 2;
@@ -69,7 +69,7 @@ const timerId = setInterval(() => {
     index = 0;
     x += 1;
   }
-  if (x === 10) {
+  if (x === 5) {
     x = 0;
     getDiscountProducts();
     objsArray = JSON.parse(localStorage.getItem(storageKeys.discount));
