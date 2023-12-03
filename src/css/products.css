@@ -151,6 +151,7 @@ N O T   F O U N D
   background-color: var(--primary-brand-color-accent);
 }
 .basic-btn-icon {
+  pointer-events: none;
   fill: var(--background-color-grey);
 }
 .checked-btn-icon {
@@ -307,6 +308,7 @@ N O T   F O U N D
 }
 
 .popular-item-btn-icon {
+  pointer-events: none;
   fill: var(--primary-brand-color);
 }
 .popular-item-btn:hover .popular-item-btn-icon,
@@ -433,11 +435,11 @@ N O T   F O U N D
     line-height: 1.33; /* 133.333% */
   }
 
-  .basic-wrapper {
-    /* min-height: 560px; */
-  }
-  .loader {
-  }
+  /* .basic-wrapper {
+    min-height: 560px;
+  } */
+  /* .loader {
+  } */
   .basic-list {
     gap: 32px;
   }

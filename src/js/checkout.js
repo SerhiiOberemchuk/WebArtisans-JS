@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { onclickClearOll } from './andrii.js';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 const nameBasket = 'BASKET';
 
 // get element
@@ -9,46 +9,55 @@ function getCartItems() {
 }
 // make order
 async function handleCheckout() {
-  try {
-    const userEmailElement = document.querySelector('#user-email');
+  const userEmailElement = document.querySelector('#user-email');
 
-    if (!userEmailElement || !userEmailElement.value) {
+  if (!userEmailElement || !userEmailElement.value) {
+    Swal.fire({
+      title: 'Write your Email!',
+      icon: 'warning',
+      iconColor: `#6D8434`,
+      showConfirmButton: false,
+      timer: 2000,
+    });
+    return;
+  }
+
+  const userEmail = userEmailElement.value;
+  const cartItems = getCartItems();
+
+  const orderData = {
+    email: userEmail,
+    products: cartItems.map(item => ({
+      productId: item._id,
+      amount: item.amount,
+    })),
+  };
+
+  const response = await axios
+    .post('https://food-boutique.b.goit.study/api/orders', orderData)
+    .then(response => {
+      if (response.status === 201) {
+        localStorage.removeItem(`${nameBasket}`);
+
+        const modal = document.querySelector('.backdrop');
+        modal.style.display = 'block';
+
+        const closeModalBtn = document.querySelector('.close_button');
+        if (closeModalBtn) {
+          closeModalBtn.addEventListener('click', handleCloseModal);
+        }
+      }
+    })
+    .catch(error => {
       Swal.fire({
-  title: 'Write your Email!',
-        icon: 'warning',
-        iconColor: `#6D8434`,
+        color: `#6d8434`,
+        // position: 'top-end',
+        icon: 'info',
+        title: error.response.data.message,
         showConfirmButton: false,
         timer: 2000,
-  
-})
-      return;
-    }
-
-    const userEmail = userEmailElement.value;
-    const cartItems = getCartItems();
-
-    const orderData = {
-      email: userEmail,
-      products: cartItems.map(item => ({
-        productId: item._id,
-        amount: item.amount,
-      })),
-    };
-
-    const response = await axios.post('https://food-boutique.b.goit.study/api/orders', orderData);
-
-    if (response.status === 201) {
-      localStorage.removeItem(`${nameBasket}`);
-
-      const modal = document.querySelector('.backdrop');
-      modal.style.display = 'block';
-
-      const closeModalBtn = document.querySelector('.close_button');
-      if (closeModalBtn) {
-        closeModalBtn.addEventListener('click', handleCloseModal);
-      }
-    } 
-  } catch (error) {}
+      });
+    });
 }
 // update cart
 
@@ -73,4 +82,6 @@ function showEmptyCart() {
   }
 }
 
-document.getElementById('checkoutBtn').addEventListener('click', handleCheckout);
+document
+  .getElementById('checkoutBtn')
+  .addEventListener('click', handleCheckout);

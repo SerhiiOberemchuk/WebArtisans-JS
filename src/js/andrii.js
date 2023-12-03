@@ -68,7 +68,7 @@ function renderMainCards(datas) {
                         </svg>
                       </button>
                     </div>
-                  </div>
+                 </div>
               </div>
             </li>`
     )

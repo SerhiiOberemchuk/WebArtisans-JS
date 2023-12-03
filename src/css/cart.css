@@ -212,7 +212,7 @@
   height: 26px;
 }
 
-.button-item-plus{
+.button-item-plus {
   padding: 0;
 }
 
@@ -228,8 +228,8 @@
   line-height: 1.12; /* 112.5% */
 }
 
-.button-item-minus{
-   padding: 0;
+.button-item-minus {
+  padding: 0;
 }
 
 .minus-icon {
@@ -545,3 +545,15 @@
     max-height: 500px;
   }
 }
+
+.price-amount-modal {
+  display: flex;
+  gap: 40px;
+  position: absolute;
+  bottom: 40px;
+  left: 40px;
+}
+
+/* .modal_window {
+ 
+} */
